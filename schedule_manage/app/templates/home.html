@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'app:home' %}">ホーム</a>
+            <a href="{% url 'app:memos' %}">メモ一覧</a>
+            <a href="{% url 'app:favorites' %}">★</a>
+            <a href="{% url 'app:settings' %}">設定</a>
+            <a href="{% url 'app:logout' %}">ログアウト</a>
+        </nav>
+    </header>
+    
+</body>
+</html>
