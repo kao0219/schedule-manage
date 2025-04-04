@@ -2,19 +2,51 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <style>
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            backgroud-color: #f0f0f0;
+        }
+
+        .app-title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
 </head>
 <body>
     <header>
-        <nav>
-            <a href="{% url 'app:home' %}">ホーム</a>
-            <a href="{% url 'app:memos' %}">メモ一覧</a>
-            <a href="{% url 'app:favorites' %}">★</a>
-            <a href="{% url 'app:settings' %}">設定</a>
-            <a href="{% url 'app:logout' %}">ログアウト</a>
+        <h1 class="app-title">schedule★Manage</h1>
+        <nav>  
+            <ul class="nav-Links">
+              <a href="{% url 'app:home' %}">ホーム</a></li>
+              <a href="{% url 'app:memos' %}">メモ一覧</a></li>
+              <li><a href="{% url 'app:favorites' %}">★</a></li>
+              <li><a href="{% url 'app:settings' %}">設定</a></li>
+              <li><a href="{% url 'app:logout' %}">ログアウト</a></li>
+            </ul>
         </nav>
     </header>
+
+    <h2>ホームに中身はここ</h2>
     
 </body>
 </html>
