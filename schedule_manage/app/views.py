@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib import messages 
 from django.shortcuts import redirect
+from django.contrib.auth.hashers import make_password
 
 User = get_user_model()
 
@@ -32,6 +33,19 @@ def login_view(request):
     return render(request, 'login.html')
 
 def signup_view(request):
+    if request.method == "POST":
+        email = request.POST["email"]
+        username = request.POST["username"]
+        password = request.POST["password"]
+
+        #ユーザー作成　パスは暗号化して保存
+        CustomUser.objects.create(
+            email=email,
+            username=username,
+            password=make_password(password)
+        )
+        return redirect("app:home") #登録完了ならホーム画面へ
+
     return render(request, 'signup.html')
 
 def home_view(request):
