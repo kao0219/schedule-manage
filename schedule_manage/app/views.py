@@ -50,3 +50,6 @@ def signup_view(request):
 
 def home_view(request):
     return render(request, 'home.html')
+
+def memos_view(request):
+    return HttpResponse("<h1>メモ新規作成</h1>")
