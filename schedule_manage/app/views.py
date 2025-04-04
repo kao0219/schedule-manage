@@ -53,13 +53,13 @@ def home_view(request):
     return render(request, 'home.html')
 
 def memos_view(request):
-    return HttpResponse("<h1>メモ新規作成</h1>")
+    return render(request, 'memos.html')
 
 def favorites_view(request):
-    return HttpResponse("<h1>お気に入り★</h1>")
+    return render(request, 'favorites.html')
 
 def settings_view(request):
-    return HttpResponse("<h1>設定</h1>")
+    return render(request, 'settings.html')
 
 def logout_view(request):
     logout(request)

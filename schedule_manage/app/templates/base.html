@@ -30,15 +30,14 @@
             font-weight: bold;
         }
     </style>
-
 </head>
 <body>
     <header>
         <h1 class="app-title">schedule★Manage</h1>
         <nav>  
-            <ul class="nav-Links">
-              <a href="{% url 'app:home' %}">ホーム</a></li>
-              <a href="{% url 'app:memos' %}">メモ一覧</a></li>
+            <ul class="nav-links">
+              <li><a href="{% url 'app:home' %}">ホーム</a></li>
+              <li><a href="{% url 'app:memos' %}">メモ一覧</a></li>
               <li><a href="{% url 'app:favorites' %}">★</a></li>
               <li><a href="{% url 'app:settings' %}">設定</a></li>
               <li><a href="{% url 'app:logout' %}">ログアウト</a></li>
@@ -47,9 +46,6 @@
     </header>
 
     {% block content %}
-
-    {% endblock %}
-    
-    
+    {% endblock %}   
 </body>
 </html>
