@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib import messages 
+from django.shortcuts import redirect
 
 User = get_user_model()
 
@@ -23,7 +24,8 @@ def login_view(request):
                 login(request, user)
                 return redirect('/home/') #ホーム画面へ
         except User.DoesNotExist:
-            pass #とくにエラーメッセージなし  
+            pass #とくにエラーメッセージなし
+
         #失敗した場合はログイン画面に戻る
         return redirect('/login/') 
  

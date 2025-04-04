@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 
 #ユーザーの管理用のマネージャー
 class CustomUserManager(BaseUserManager):
-    def create_user(self, emali, password=None, username=None):
+    def create_user(self, email, password=None, username=None):
         user = self.model(
             email=self.normalize_email(email),
             username=username
@@ -13,7 +13,7 @@ class CustomUserManager(BaseUserManager):
         return user
     
     def create_superuser(self, email, password=None, username=None):
-        user = self.create_user(email=email, passord=password, username=username)
+        user = self.create_user(email=email, password=password, username=username)
         user.is_staff = True
         user.is_superuser = True
         user.save(using=self._db)
