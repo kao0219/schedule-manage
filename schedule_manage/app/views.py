@@ -23,7 +23,10 @@ def login_view(request):
                 login(request, user)
                 return redirect('/home/') #ホーム画面へ
         except User.DoesNotExist:
-            pass #とくにエラーメッセージなし    
+            pass #とくにエラーメッセージなし  
+        #失敗した場合はログイン画面に戻る
+        return redirect('/login/') 
+ 
     return render(request, 'login.html')
 
 def signup_view(request):
