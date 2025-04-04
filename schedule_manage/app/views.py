@@ -22,7 +22,7 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('/home/') #ホーム画面へ
+                return redirect('/app/home/') #ホーム画面へ
         except User.DoesNotExist:
             pass #とくにエラーメッセージなし
 
