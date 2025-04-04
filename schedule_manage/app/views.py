@@ -33,3 +33,6 @@ def login_view(request):
 
 def signup_view(request):
     return render(request, 'signup.html')
+
+def home_view(request):
+    return HttpResponse("<h1>ホーム画面</h1>")
