@@ -11,4 +11,5 @@ urlpatterns = [
     path('memos/', views.memos_view, name='memos'),
     path('favorites/', views.favorites_view, name='favorites'),
     path('settings/', views.settings_view, name='settings'),
+    path('logout/', views.logout_view, name='logout'),
 ]

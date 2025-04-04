@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.shortcuts import redirect
 from django.contrib.auth.hashers import make_password
 from .models import CustomUser
+from django.contrib.auth import logout
 
 User = get_user_model()
 
@@ -59,3 +60,7 @@ def favorites_view(request):
 
 def settings_view(request):
     return HttpResponse("<h1>設定</h1>")
+
+def logout_view(request):
+    logout(request)
+    return redirect('app:login') # ログアウト画面に戻る
