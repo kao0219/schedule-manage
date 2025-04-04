@@ -14,7 +14,16 @@ def login_view(request):
         email = request.POST['email']
         password = request.POST['password']
 
+        try:
+            #カスタムユーザーからメールで探す
+            user_obj = User.objects.get(email=email)
+            user = authenticate(request, username=user_obj.email, password=password) #username→emailで認証
 
+            if user is not None:
+                login(request, user)
+                return redirect('/home/') #ホーム画面へ
+        except User.DoesNotExist:
+            pass #とくにエラーメッセージなし    
     return render(request, 'login.html')
 
 def signup_view(request):
