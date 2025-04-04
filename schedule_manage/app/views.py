@@ -10,6 +10,11 @@ def index(request):
 
 
 def login_view(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+
+
     return render(request, 'login.html')
 
 def signup_view(request):
