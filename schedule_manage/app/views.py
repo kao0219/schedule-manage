@@ -4,6 +4,7 @@ from django.contrib.auth import authenticate, login, get_user_model
 from django.contrib import messages 
 from django.shortcuts import redirect
 from django.contrib.auth.hashers import make_password
+from .models import CustomUser
 
 User = get_user_model()
 
@@ -45,7 +46,6 @@ def signup_view(request):
             password=make_password(password)
         )
         return redirect("app:home") #登録完了ならホーム画面へ
-
     return render(request, 'signup.html')
 
 def home_view(request):
