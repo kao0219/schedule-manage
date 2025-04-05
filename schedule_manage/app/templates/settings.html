@@ -2,10 +2,18 @@
 {% block content %}
 
 
-<h1>設定</h1>
-<p>カレンダー表示</p>
-<label><input type="radio" name="calendar_mode" value="month">月間表示</label>
-<label><input type="radio" name="calendar_mode" value="week">週間表示</label>
+<form method="POST" action="{% url 'app:calendar_mode %}">
+   {% csrf_token %}
+   <p>カレンダー表示</p>
+   <label>
+      <input type="radio" name="calendar_mode" value="monthly" checked>
+      月間表示
+   </label>
+   <label>
+      <input type="radio" name="calendar_mode" value="weekly">
+      週間表示
+   </label>
+</form>
 
 <p>メンバーリスト</p>
 <ul>
