@@ -13,4 +13,7 @@ urlpatterns = [
     path('favorites/memos/', views.favorites_memos_view, name='favorites_memos'),
     path('settings/', views.settings_view, name='settings'),
     path('logout/', views.logout_view, name='logout'),
+    path('invite_member/', views.invite_member_view, name='invite_member'),
+    path(':change_password/', views.change_password_view, name='change_password'),
+    path('logout/', views.change_email_view, name='change_email'),
 ]
