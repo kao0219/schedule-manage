@@ -58,8 +58,8 @@ def memos_view(request):
 def favorites_schedule_view(request):
     return render(request, 'favorites_schedule.html')
 
-def favorites_view(request):
-    return render(request, 'favorites.html')
+def favorites_memos_view(request):
+    return render(request, 'favorites_memos.html')
 
 def settings_view(request):
     return render(request, 'settings.html')
