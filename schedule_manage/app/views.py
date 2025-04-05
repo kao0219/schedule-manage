@@ -68,11 +68,11 @@ def logout_view(request):
     logout(request)
     return redirect('app:login') # ログアウト画面に戻る
 
-def settings_view(request):
+def invite_member_view(request):
     return render(request, 'invite_member.html')
 
-def settings_view(request):
+def change_password_view(request):
     return render(request, 'change_password.html')
 
-def settings_view(request):
+def change_email_view(request):
     return render(request, 'change_email.html')

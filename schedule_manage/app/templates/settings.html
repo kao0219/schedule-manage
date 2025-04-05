@@ -1,11 +1,22 @@
 {% extends 'base.html' %}
-
-
-
 {% block content %}
 
 
 <h1>設定</h1>
+<p>カレンダー表示</p>
+<label><input type="radio" name="calendar_mode" value="month">月間表示</label>
+<label><input type="radio" name="calendar_mode" value="week">週間表示</label>
+
+<p>メンバーリスト</p>
+<ul>
+    {% for member in members %}
+      <li>{{ member.username }}({{ member.email }})</li>
+    {% empty %}
+    {% endfor %}
+
+</ul>
+
+
 <ul>
   <li><a href="{% url 'app:invite_member' %}">メンバーを招待する</a></li>
   <li><a href="{% url 'app:change_password' %}">パスワード変更</a></li>
