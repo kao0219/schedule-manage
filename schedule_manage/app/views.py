@@ -95,10 +95,12 @@ def change_password_view(request):
     if request.method == 'POST':
         form = CustomPasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
+            print("パスワード変更成功")
             form.save()
             update_session_auth_hash(request, request.user)
             return redirect('app:home')
     else:
+        print("バリデーションエラー：" ,form.errors)
         form = CustomPasswordChangeForm(user=request.user)
 
     return render(request, 'change_password.html', {'form': form})
