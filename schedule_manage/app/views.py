@@ -12,7 +12,7 @@ from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms import CustomPasswordChangeForm
 from .forms import CustomEmailChangeForm
-from secrets
+import uuid
 from django.utils import timezone
 from .models import Invite
 
@@ -80,7 +80,19 @@ def logout_view(request):
     return redirect('app:login') # ログアウト画面に戻る
 
 def invite_member_view(request):
-    return render(request, 'invite_member.html')
+    invite_url = None
+
+    if request.method == 'POST':
+        token = str(uuid.uuid4())
+        invite = Invite.objects.create(
+            invite_token=token,
+            status=1, #　未使用
+            expires_at = timezone.now() + timezone.timedelta(days=1) # 有効期限1日後に
+        )
+        invite_url = request.build_absolute_uri(f'/invite/{token}/')
+
+    return render(request, 'invite_member.html', {'invite_url': invite_url})
+
 
 def change_password_view(request):
     return render(request, 'change_password.html')
