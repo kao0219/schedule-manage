@@ -70,6 +70,8 @@ TEMPLATES = [
     },
 ]
 
+LOGIN_URL = '/login/'
+
 WSGI_APPLICATION = 'schedule_manage.wsgi.application'
 
 
