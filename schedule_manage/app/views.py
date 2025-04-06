@@ -77,6 +77,7 @@ def invite_member_view(request):
 def change_password_view(request):
     return render(request, 'change_password.html')
 
+@login_required
 def change_email_view(request):
     return render(request, 'change_email.html')
 
