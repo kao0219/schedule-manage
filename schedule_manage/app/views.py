@@ -99,8 +99,10 @@ def change_password_view(request):
             form.save()
             update_session_auth_hash(request, request.user)
             return redirect('app:home')
+        else:
+            print("バリデーションエラー：" ,form.errors)
+
     else:
-        print("バリデーションエラー：" ,form.errors)
         form = CustomPasswordChangeForm(user=request.user)
 
     return render(request, 'change_password.html', {'form': form})

@@ -3,7 +3,12 @@
 
 {% block content %}
 
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
 
-<h1>アド変更</h1>
+    <a href="{% url 'app:settings' %}">キャンセル</a>
+    <button type="submit">変更</button>
+  </form>
     
 {% endblock %}
