@@ -11,6 +11,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 
+
 User = get_user_model()
 
 def index(request):
@@ -28,6 +29,7 @@ def login_view(request):
             user = authenticate(request, username=user_obj.email, password=password) #username→emailで認証
 
             if user is not None:
+                print("ログイン成功")
                 login(request, user)
                 return redirect('/home/') #ホーム画面へ
         except User.DoesNotExist:
