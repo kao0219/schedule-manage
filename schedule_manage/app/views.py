@@ -11,6 +11,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.decorators import login_required
 from .forms import CustomPasswordChangeForm
+from .forms import CustomEmailChangeForm
+
 
 
 User = get_user_model()
@@ -83,7 +85,21 @@ def change_password_view(request):
 
 @login_required
 def change_email_view(request):
-    return render(request, 'change_email.html')
+    if request.method == 'POST':
+        form = CustomEmailChangeForm(request.POST, user=request.user)
+        if form.is_valid():
+            new_email = form.cleaned_data['new_email']
+            request.user.email = new_email
+            request.user.save()
+            return redirect('app:home')
+        else:
+            form = CustomEmailChangeForm(user=request.user, initial={'currnet_email': request.user.email})
+
+    return render(request, 'change_email.html', {'form': form})
+
+
+
+
 
 def calender_mode_view(request):
     if request.method =='POST':
