@@ -1,16 +1,48 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<style>
+    .invite-wrapper {
+        max-width: 600px;
+        margin: 100px auto;
+        padding: 30px;
+        text-align: center;
+        font-family: sans-serif;
+    }
+
+    .info-box {
+        border: 1px solid #aaa;
+        padding: 15px;
+        margin-bottom: 20px;
+        text-align: left;
+    }
+
+    .invite-url {
+        width: 200%
+        padding: 8px;
+        margin-top: 10px;
+    }
+
+    .button {
+        padding: 40px 40px;
+        font-weight: bold;
+        margin: 10px 10;
+    }
+
+    .link {
+        margin-top: 25px;
+        display: block;
+    }
+</style>
+
 <div class="invite-wrapper">
   <h2>家族招待URL画面</h2>
 
   <div class="info-box">
     <p>利用方法：</p>
-    <ul>
-      <li>作成をクリックし、リンク先URLを表示</li>
-      <li>招待したい家族にリンク先を共有しアカウントを登録してもらう。</li>
-      <li>※発行されたURLは一度利用すると失効します。</li>
-    </ul>
+      作成をクリックし、リンク先URLを表示<br>
+      招待したい家族にリンク先を共有しアカウントを登録してもらう。<br>
+      ※発行されたURLは一度利用すると失効します。<br>
   </div>
 
   <form method="POST">
@@ -21,7 +53,6 @@
   {% if invite_url %}
      <input type="text" value="{{ invite_url }}" readonly style="width: 40%;">
   {% endif %}
-<br>
 <br>
   <a class="link" href="{% url 'app:settings' %}">キャンセル</a>   
 </div> 
