@@ -6,6 +6,8 @@ from django.shortcuts import redirect
 from django.contrib.auth.hashers import make_password
 from .models import CustomUser
 from django.contrib.auth import logout
+from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth import update_session_auth_hash
 
 User = get_user_model()
 
@@ -82,3 +84,15 @@ def calender_mode_view(request):
         selected_mode = request.POST.get('calender_mode')
         request.session['calender_mode'] = selected_mode
     return redirect('app:settings')
+
+def change_password_view(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(user=request.user, date=request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+            return redirect('app:settings')
+        else:
+            form = PasswordChangeForm(user=request.user)
+
+        return render(request, 'change_password.html', {'form': form})
