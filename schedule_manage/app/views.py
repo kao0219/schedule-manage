@@ -27,7 +27,7 @@ def login_view(request):
         try:
             #カスタムユーザーからメールで探す
             user_obj = User.objects.get(email=email)
-            user = authenticate(request, username=user_obj.email, password=password) #username→emailで認証
+            user = authenticate(request, username=user_obj.username, password=password) #username→ユーザー名で認証
 
             if user is not None:
                 print("ログイン成功")
@@ -97,7 +97,7 @@ def change_password_view(request):
         if form.is_valid():
             form.save()
             update_session_auth_hash(request, request.user)
-            return redirect('app:settings')
+            return redirect('app:home')
     else:
         form = CustomPasswordChangeForm(user=request.user)
 
