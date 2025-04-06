@@ -8,6 +8,7 @@ from .models import CustomUser
 from django.contrib.auth import logout
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 
 User = get_user_model()
 
@@ -87,12 +88,12 @@ def calender_mode_view(request):
 
 def change_password_view(request):
     if request.method == 'POST':
-        form = PasswordChangeForm(user=request.user, date=request.POST)
+        form = PasswordChangeForm(user=request.user, data=request.POST)
         if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
+            form.save()
+            update_session_auth_hash(request, request.user)
             return redirect('app:settings')
-        else:
-            form = PasswordChangeForm(user=request.user)
+    else:
+        form = PasswordChangeForm(user=request.user)
 
-        return render(request, 'change_password.html', {'form': form})
+    return render(request, 'change_password.html', {'form': form})
