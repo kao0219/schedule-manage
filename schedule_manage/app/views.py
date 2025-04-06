@@ -89,7 +89,7 @@ def invite_member_view(request):
             status=1, #　未使用
             expires_at = timezone.now() + timezone.timedelta(days=1) # 有効期限1日後に
         )
-        invite_url = request.build_absolute_uri(f'/invite/{token}/')
+        invite_url = request.build_absolute_uri(f'/invite/{token}/') # URL作成
 
     return render(request, 'invite_member.html', {'invite_url': invite_url})
 

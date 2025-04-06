@@ -3,7 +3,7 @@
 
 
 <h2>家族招待URL画面</h2>
-<p>利用方法：
+<p>利用方法：<br>
     作成をクリックし、リンク先URLを表示<br>
     招待したい家族にリンク先を共有しアカウントを登録してもらう。<br>
     ※発行されたURLは一度利用すると失効します。<br>
@@ -15,8 +15,9 @@
 </form>
 
 {% if invite_url %}
-   <input type="text value="{{ invite_url }} readonly>
+   <p>
+   <input type="text" value="{{ invite_url }}" readonly style="width: 40%;">
 {% endif %}
-
+<br>
 <a href="{% url 'app:settings' %}">キャンセル</a>    
 {% endblock %}
