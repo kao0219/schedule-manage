@@ -16,5 +16,5 @@ urlpatterns = [
     path('invite_member/', views.invite_member_view, name='invite_member'),
     path(':change_password/', views.change_password_view, name='change_password'),
     path('logout/', views.change_email_view, name='change_email'),
-    path('calendar_mode/', views.calendar_mode_view, name='calendar_mode'),
+    path('calender_mode/', views.calender_mode_view, name='calender_mode'),
 ]

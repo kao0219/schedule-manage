@@ -2,21 +2,21 @@
 {% block content %}
 
 
-<form method="POST" action="{% url 'app:calendar_mode %}">
+<form method="POST" action="{% url 'app:calender_mode' %}">
    {% csrf_token %}
    <p>カレンダー表示</p>
    <label>
-      <input type="radio" name="calendar_mode" value="monthly" checked>
+      <input type="radio" name="calender_mode" value="monthly" checked>
       月間表示
    </label>
    <label>
-      <input type="radio" name="calendar_mode" value="weekly">
+      <input type="radio" name="calender_mode" value="weekly">
       週間表示
    </label>
 </form>
 
 <script>
-  document.querySelectorAll('input[name="calendar_mode"]')forEach(el =>
+  document.querySelectorAll('input[name="calender_mode"]')forEach(el =>
     el.onchange = () => document.getElementById('calender-form').subimit()
   );
 </script>
