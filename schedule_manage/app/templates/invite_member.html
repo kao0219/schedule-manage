@@ -1,23 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="invite-wrapper">
+  <h2>家族招待URL画面</h2>
 
-<h2>家族招待URL画面</h2>
-<p>利用方法：<br>
-    作成をクリックし、リンク先URLを表示<br>
-    招待したい家族にリンク先を共有しアカウントを登録してもらう。<br>
-    ※発行されたURLは一度利用すると失効します。<br>
-</p>
+  <div class="info-box">
+    <p>利用方法：</p>
+    <ul>
+      <li>作成をクリックし、リンク先URLを表示</li>
+      <li>招待したい家族にリンク先を共有しアカウントを登録してもらう。</li>
+      <li>※発行されたURLは一度利用すると失効します。</li>
+    </ul>
+  </div>
 
-<form method="POST">
+  <form method="POST">
     {% csrf_token %}
     <button type="submit">家族招待URLを作成する</button>
-</form>
+  </form>
 
-{% if invite_url %}
-   <p>
-   <input type="text" value="{{ invite_url }}" readonly style="width: 40%;">
-{% endif %}
+  {% if invite_url %}
+     <input type="text" value="{{ invite_url }}" readonly style="width: 40%;">
+  {% endif %}
 <br>
-<a href="{% url 'app:settings' %}">キャンセル</a>    
+<br>
+  <a class="link" href="{% url 'app:settings' %}">キャンセル</a>   
+</div> 
 {% endblock %}
