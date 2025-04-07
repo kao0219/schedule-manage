@@ -26,6 +26,7 @@ class CustomUser(AbstractBaseUser):
     username = models.CharField(max_length=50)
     is_active = models.BooleanField(default=True)
     is_superuser = models.BooleanField(default=False)
+    is_staff =models.BooleanField(default=False)
 
     last_login = models.DateTimeField(null=True, blank=True)
     create_at = models.DateTimeField(auto_now_add=True)
