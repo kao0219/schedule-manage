@@ -17,4 +17,6 @@ urlpatterns = [
     path('change_password/', views.change_password_view, name='change_password'),
     path('change_email/', views.change_email_view, name='change_email'),
     path('calender_mode/', views.calender_mode_view, name='calender_mode'),
+    path('invite/<str:token>/', views.invite_register_view, name='invite_register'),
+
 ]
