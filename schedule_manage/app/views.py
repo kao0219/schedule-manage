@@ -93,6 +93,14 @@ def invite_member_view(request):
 
     return render(request, 'invite_member.html', {'invite_url': invite_url})
 
+def invite_register_view(request, token):
+    invite = get_object_or_404(Invite, invite_token=token)
+    
+    # 有効期限　or　使用済みのチェック
+    if invite.status != 1 or invite.expires_at < timezone.now():
+        return render(request, 'invite_invalid.html', {'token': token}) # 無効なURL画面
+
+    return render(request, 'invite_register.html', {'token': token}) #　有効な場合は登録画面
 
 def change_password_view(request):
     return render(request, 'change_password.html')
