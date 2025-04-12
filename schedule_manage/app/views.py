@@ -114,16 +114,6 @@ def change_email_view(request):
 
     return render(request, 'change_email.html', {'form': form})
 
-
-
-
-
-def calender_mode_view(request):
-    if request.method =='POST':
-        selected_mode = request.POST.get('calender_mode')
-        request.session['calender_mode'] = selected_mode
-    return redirect('app:settings')
-
 def change_password_view(request):
     if request.method == 'POST':
         form = CustomPasswordChangeForm(user=request.user, data=request.POST)
