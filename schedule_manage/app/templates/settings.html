@@ -2,12 +2,6 @@
 {% block content %}
 
 
-<script>
-  document.querySelectorAll('input[name="calender_mode"]')forEach(el =>
-    el.onchange = () => document.getElementById('calender-form').subimit()
-  );
-</script>
-
 <p>メンバーリスト</p>
 <ul>
     {% for member in members %}
