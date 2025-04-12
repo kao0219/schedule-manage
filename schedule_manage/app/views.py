@@ -100,13 +100,13 @@ def invite_register_view(request, token):
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            invite.status = 2
+            invite.status = 2 
             invite.save()
-            return redirect('signup') #　アカウント登録画面へ
-        else:
-            form = CustomUserCreationForm()
+            return redirect('home') #　アカウント登録画面へ
+    else:
+        form = CustomUserCreationForm()
 
-        return render(request, 'invite_register.html', {'form': form }) #　有効な場合は登録画面
+    return render(request, 'invite_register.html', {'form': form, 'token': token}) #　有効な場合は登録画面
 
 def change_password_view(request):
     return render(request, 'change_password.html')
