@@ -38,13 +38,6 @@
             <ul class="nav-links">
               <li><a href="{% url 'app:home' %}">ホーム</a></li>
               <li><a href="{% url 'app:memos' %}">メモ一覧</a></li>
-              <li class="dropdown">
-                <a href="#">★</a>
-                <ul class="dropdown-menu">
-                  <li><a href="{% url 'app:favorites_schedule' %}">予定</a></li>
-                  <li><a href="{% url 'app:favorites_memos' %}">メモ</a></li>
-                </ul>
-              </li>
               <li><a href="{% url 'app:settings' %}">設定</a></li>
               <li><a href="{% url 'app:logout' %}">ログアウト</a></li>
             </ul>
