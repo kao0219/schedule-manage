@@ -1,5 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm
+from .models import CustomUser
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
@@ -27,3 +29,8 @@ class CustomEmailChangeForm(forms.Form):
         if self.user and current_email !=self.user.email:
             raise forms.ValidationError('')
         return current_email
+    
+class CustomUserCreationForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ('email', 'username', 'password1', 'password2')

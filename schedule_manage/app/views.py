@@ -15,6 +15,7 @@ from .forms import CustomEmailChangeForm
 import uuid
 from django.utils import timezone
 from .models import Invite
+from .forms import CustomUserCreationForm
 
 
 User = get_user_model()
@@ -95,7 +96,17 @@ def invite_register_view(request, token):
     if invite.status != 1 or invite.expires_at < timezone.now():
         return render(request, 'invite_invalid.html', {'token': token}) # 無効なURL画面
 
-    return render(request, 'invite_register.html', {'token': token}) #　有効な場合は登録画面
+    if request.method == 'POST':
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            invite.status = 2
+            invite.save()
+            return redirect('signup') #　アカウント登録画面へ
+        else:
+            form = CustomUserCreationForm()
+
+        return render(request, 'invite_register.html', {'token': token}) #　有効な場合は登録画面
 
 def change_password_view(request):
     return render(request, 'change_password.html')
