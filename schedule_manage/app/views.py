@@ -106,7 +106,7 @@ def invite_register_view(request, token):
         else:
             form = CustomUserCreationForm()
 
-        return render(request, 'invite_register.html', {'token': token}) #　有効な場合は登録画面
+        return render(request, 'invite_register.html', {'form': form }) #　有効な場合は登録画面
 
 def change_password_view(request):
     return render(request, 'change_password.html')
