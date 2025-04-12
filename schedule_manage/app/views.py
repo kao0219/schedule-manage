@@ -102,7 +102,7 @@ def invite_register_view(request, token):
             user = form.save()
             invite.status = 2 
             invite.save()
-            return redirect('home') #　アカウント登録画面へ
+            return redirect('home') #　ホームへ遷移
     else:
         form = CustomUserCreationForm()
 
