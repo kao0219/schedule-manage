@@ -50,7 +50,7 @@ class CustomUser(AbstractBaseUser):
         return self.is_superuser
 
 class Invite(models.Model):
-    family = models.ForeignKey('Family', on_delete=models.CASCADE)
+    family = models.ForeignKey('Family', on_delete=models.CASCADE, null=True, blank=True)
     invite_token = models.CharField(max_length=255, unique=True, editable=False)
     status = models.IntegerField(default=1) # 1:使用済み 2:未使用
     expires_at = models.DateTimeField()
