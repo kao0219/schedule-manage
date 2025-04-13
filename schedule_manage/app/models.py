@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import PermissionsMixin
+from django.conf import settings
 
 #ユーザーの管理用のマネージャー
 class CustomUserManager(BaseUserManager):
