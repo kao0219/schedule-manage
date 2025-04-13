@@ -1,5 +1,7 @@
 from django.contrib import admin
 from .models import Invite
+from .models import Family
+admin.site.register(Family)
 
 @admin.register(Invite)
 class InviteAdmin(admin.ModelAdmin):
