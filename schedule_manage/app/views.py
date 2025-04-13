@@ -99,8 +99,10 @@ def invite_register_view(request, token):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            invite.status = 2 
+            user = form.save(commit=False) # 一時保存
+            user.family = invite.family # 招待に紐づいたファミリーをセット
+            user.save()                 # 保存
+            invite.status = 2           # 使用済みへ
             invite.save()
             return redirect('home') #　ホームへ遷移
     else:

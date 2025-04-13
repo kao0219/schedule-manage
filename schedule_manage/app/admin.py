@@ -14,5 +14,3 @@ class InviteAdmin(admin.ModelAdmin):
 class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('email', 'username', 'family')
     fields = ('email', 'username', 'family', 'is_active', 'is_staff', 'is_superuser')
-
-admin.site.register(Family)
