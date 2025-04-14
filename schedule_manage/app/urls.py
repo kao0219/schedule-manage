@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from .import views
 
 app_name = 'app'
 
@@ -8,6 +8,7 @@ urlpatterns = [
     path('login/', views.login_view, name='login'),
     path('signup/', views.signup_view, name='signup'),
     path('home/', views.home_view, name='home'),
+    path('search/', views.search_view, name='search'),
     path('memos/', views.memos_view, name='memos'),
     path('settings/', views.settings_view, name='settings'),
     path('logout/', views.logout_view, name='logout'),
