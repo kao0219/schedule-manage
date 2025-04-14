@@ -35,9 +35,11 @@
     <header style="display: flex; align-items: center; justify-content: space-between;">
         <div style="display: flex; align-items: center;">
           <h1 class="app-title" style="margin-right: 20px;">schedule★Manage</h1>
-          <form action="{% url 'app:searh' %}" method="get">
-            <input type="text" name="q" placeholder="検索する" style="padding: 5px;">
-            <button type="submit">検索</button>
+          <form action="{% url 'app:search' %}" method="get">
+            <input type="text" name="q" placeholder="検索する" style="padding: 5px; border-radius: 5px 0 0 5px; border: 1px solid #ccc;">
+            <button type="submit" style="padding: 5px 10px; border-radius: 0 5px 5px 0; border: 1px solid #ccc; background-color: #eee;">
+                🔍
+            </button>
           </form>
         </div>
 

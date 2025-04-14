@@ -65,9 +65,9 @@ def home_view(request):
     return render(request, 'home.html')
 
 def search_view(request):
-    query = request.GET.get('q')
+    query = request.GET.get('q', '')
     context = {'query': query}
-    return render(request, 'search_results.html', context)
+    return render(request, 'search_results.html', {'query': query})
 
 def memos_view(request):
     return render(request, 'memos.html')
