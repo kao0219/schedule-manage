@@ -66,3 +66,18 @@ class Family(models.Model):
 
     def __str__(self):
         return F"Family {self.id}"
+    
+class Schedule(models.Model):
+    title = models.CharField(max_length=100)
+    start_time = models.DateTimeField()
+    end_time = models.DateTimeField(null=True, blank=True)
+
+    def __str__(self):
+        return self.title
+    
+class Memo(models.Model):
+    title = models.CharField(max_length=100)
+    content = models.TextField(blank=True)
+
+    def __str__(self):
+        return self.title

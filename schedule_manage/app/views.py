@@ -78,6 +78,7 @@ def search_view(request):
     }
     return render(request, 'search_results.html',context)
 
+
 def schedule_create_view(request):
     date = request.GET.get('date')
     return render(request, 'schedule_create.html', {'date': date})
