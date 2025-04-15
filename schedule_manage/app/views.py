@@ -70,6 +70,11 @@ def search_view(request):
     context = {'query': query}
     return render(request, 'search_results.html', {'query': query})
 
+def schedule_create_view(request):
+    date = request.GET.get('date')
+    return render(request, 'schedule_create.html', {'date': date})
+
+
 def memos_view(request):
     return render(request, 'memos.html')
 
