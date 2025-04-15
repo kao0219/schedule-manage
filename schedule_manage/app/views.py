@@ -87,6 +87,14 @@ def schedule_create_view(request):
 def memos_view(request):
     return render(request, 'memos.html')
 
+def create_memo_view(request):
+    if request.method == 'POST':
+        title = request.POST.get('memo_title')
+        content = request.POST.get('content')
+        Memo.objects.create(memo_title=title, content=content)
+    return redirect('memos')  # メモ一覧へ戻る
+
+
 
 def settings_view(request):
     return render(request, 'settings.html')
