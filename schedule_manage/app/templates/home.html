@@ -2,8 +2,21 @@
 
 
 {% block content %}
+   <div id="calendar"></div>
 
-
-<h1>ホーム</h1>
-    
+   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.minjs"></script>
+   <script>
+     document.addEventListener('DOMContentLoaded', function () {
+        const calendarEl = document.getElementById('calendar');
+        const calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            locale: 'ja',
+            dateClick: function(info) {
+                const clickedDate = info.dateStr;
+                window.location.href = `/schedule/create?date=${clickedDate}`;
+            }
+        });
+        calendar.render();
+     });
+    </script>    
 {% endblock %}
