@@ -1,1 +1,22 @@
 <h2>{{ query }}検索結果</h2>
+
+{% if schedules %}
+   <ul>
+    {% for schedule in schedules %}
+       <li>{{ schedule.schedule_title }}({{ schedule.start_time }})</li>
+    {% endfor %}
+   </ul>
+{% else %}
+   <p>該当する予定はありません</p>
+{% endif %}
+
+{% if memos %}
+   <ul>
+    {% for memo in memos %}
+       <li>{{ memo.memo_title }}</li>
+    {% endfor %}
+   </ul>
+
+{% else %}
+   <p>該当するメモはありません</p>
+{% endif %}

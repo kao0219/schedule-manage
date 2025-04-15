@@ -68,8 +68,8 @@ def home_view(request):
 
 def search_view(request):
     query = request.GET.get('q', '')
-    schedules = Schedule.objects.filter(title__icontains=query) if query else []
-    memos = Memo.objects.filter(title__icontains=query) if query else []
+    schedules = Schedule.objects.filter(schedule_title__icontains=query) if query else []
+    memos = Memo.objects.filter(memo_title__icontains=query) if query else []
 
     context = {
         'query': query,
