@@ -17,6 +17,7 @@ from django.utils import timezone
 from .models import Invite
 from .forms import CustomUserCreationForm
 from django.utils.dateparse import parse_date
+from .models import Schedule, Memo
 
 
 User = get_user_model()
@@ -67,8 +68,15 @@ def home_view(request):
 
 def search_view(request):
     query = request.GET.get('q', '')
-    context = {'query': query}
-    return render(request, 'search_results.html', {'query': query})
+    schedules = Schedule.objects.filter(title__icontains=query) if query else []
+    memos = Memo.objects.filter(title__icontains=query) if query else []
+
+    context = {
+        'query': query,
+        'schedules': schedules,
+        'memos': memos,
+    }
+    return render(request, 'search_results.html',context)
 
 def schedule_create_view(request):
     date = request.GET.get('date')
