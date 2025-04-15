@@ -33,6 +33,14 @@
             },
             dayCellContent: function(arg) {
                 return arg.date.getDate();
+            },
+            dayCellDidMount: function(arg) {
+                const day = arg.date.getDay();
+                if (day === 0) {
+                    arg.el.style.color = 'red';
+                } else if (day === 6) {
+                    arg.el.style.color = 'blue';
+                }
             }
         });
         calendar.render();
