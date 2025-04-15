@@ -30,13 +30,31 @@
             font-weight: bold;
         }
 
+        .search-form {
+            position: relative;
+            width: 200px;
+        }
+
         .search-form input[type="text"] {
-            padding: 5px 10px;
+            width: 80%;
+            padding: 5px 35px 5px 10px;
             border-radius: 5px;
             border: 1px solid #ccc;
             font-size: 14px;
-            width: 150px;
         }
+
+        .search-button {
+            position: absolute;
+            top: 15%; 
+            right: 1px;
+            transform: translateY(-50);
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            padding: 0;
+        }
+
     </style>
 </head>
 <body>
@@ -44,7 +62,8 @@
         <div style="display: flex; align-items: center;">
           <h1 class="app-title" style="margin-right: 20px;">schedule★Manage</h1>
           <form action="{% url 'app:search' %}" method="GET" class="search-form">
-            <input type="text" name="q" placeholder="🔍 検索する">
+            <input type="text" name="q" placeholder="検索する">
+            <button type="submit" class="search-button">🔍</button>
           </form>
         </div>
 
