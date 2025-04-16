@@ -74,6 +74,16 @@
         <nav>  
             <ul class="nav-links" style="display: flex; gap: 10px; list-style: none;">
               <li><a href="{% url 'app:home' %}">ホーム</a></li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="scheduleDropdown" role="button" data-bs-toggle='false'>
+                  予定
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="scheduleDropdown">
+                    <li><a class="dropdown-item" href="{% url 'app:schedule_create' %}">新規登録</a></li>
+                    <li><a class="dropdown-item" href="{% url 'app:comment_list' %}">コメント一覧</a></li>
+                </ul>
+              <li>
+              
               <li><a href="{% url 'app:memos' %}">メモ</a></li>
               <li><a href="{% url 'app:settings' %}">設定</a></li>
               <li><a href="{% url 'app:logout' %}">ログアウト</a></li>
