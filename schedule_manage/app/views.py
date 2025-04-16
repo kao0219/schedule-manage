@@ -83,6 +83,9 @@ def schedule_create_view(request):
     date = request.GET.get('date')
     return render(request, 'schedule_create.html', {'date': date})
 
+def comment_list_view(request):
+    return render(request, 'comment_list.html')
+
 
 def memos_view(request):
     return render(request, 'memos.html')
