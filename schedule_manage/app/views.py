@@ -18,6 +18,7 @@ from .models import Invite
 from .forms import CustomUserCreationForm
 from django.utils.dateparse import parse_date
 from .models import Schedule, Memo
+from datetime import date
 
 
 User = get_user_model()
@@ -80,8 +81,8 @@ def search_view(request):
 
 
 def schedule_create_view(request):
-    date = request.GET.get('date')
-    return render(request, 'schedule_create.html', {'date': date})
+    selected_date = request.GET.get('date') or date.today().isoformat()
+    return render(request, 'schedule_create.html', {'date': selected_date })
 
 def comment_list_view(request):
     return render(request, 'comment_list.html')
