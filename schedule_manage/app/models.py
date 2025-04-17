@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import PermissionsMixin
 from django.conf import settings
+from django.contrib.auth.models import User
 
 #ユーザーの管理用のマネージャー
 class CustomUserManager(BaseUserManager):
@@ -68,12 +69,39 @@ class Family(models.Model):
         return F"Family {self.id}"
     
 class Schedule(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     schedule_title = models.CharField(max_length=100)
+    schedule_memo = models.CharField(max_length=255, blank=True)
+    image_url = models.ImageField(upload_to='schedule_images/', blank=True, null=True)
+    
+    COLOR_CHOICES = [
+        (1, '#FF0000'),  # 赤
+        (2, '#0000FF'),  # 青
+        (3, '#FFFF00'),  # 黄色
+        (4, '#00FF00'),  # 緑
+        (5, '#F08080'),  # ピンク
+        (6, '#800080'),  # 紫
+        (7, '#F57F33'),  # オレンジ
+    ]
+    color = models.IntegerField(choices=COLOR_CHOICES, default=1)
+    
+    REPEAT_CHOICES = [
+        (0, 'なし'),
+        (1, '毎日'),
+        (2, '毎週'),
+        (3, '毎月'),
+    ]
+    repeat_type = models.IntegerField(choices=REPEAT_CHOICES, default=0)
+    
     start_time = models.DateTimeField()
-    end_time = models.DateTimeField(null=True, blank=True)
+    end_time = models.DateTimeField()
+    
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return self.schedule_title
+
     
 class Memo(models.Model):
     memo_title = models.CharField(max_length=100)
