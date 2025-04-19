@@ -98,7 +98,7 @@ def schedule_create_view(request):
                 'username_initial': username_initial,
             })
     else:
-        form = ScheduleForm(initial={'repeat_type': 0})
+        form = ScheduleForm()
 
     return render(request, 'schedule_create.html', {
     'form': form,

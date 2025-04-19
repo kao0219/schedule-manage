@@ -57,3 +57,8 @@ class ScheduleForm(forms.ModelForm):
         label='繰り返し設定'
     )
         
+def __init__(self, *args, **kwargs):
+        super(ScheduleForm, self).__init__(*args, **kwargs)
+        # repeat_type の初期値を 0 に設定（デフォルト「なし」にチェック）
+        if not self.initial.get('repeat_type'):
+            self.initial['repeat_type'] = 0
