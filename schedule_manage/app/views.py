@@ -90,10 +90,11 @@ def schedule_create_view(request):
             schedule = form.save(commit=False)
             schedule.user = request.user
             schedule.save()
-            # 登録後も同じページを表示（空フォームに戻す）
+            # 登録後も同じページを表示
             return render(request, 'schedule_create.html', {
                 'form': ScheduleForm(),
                 'date': selected_date,
+                'username': request.user.username, 
             })
     else:
         form = ScheduleForm()
