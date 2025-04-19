@@ -19,6 +19,7 @@ from .forms import CustomUserCreationForm
 from django.utils.dateparse import parse_date
 from .models import Schedule, Memo
 from datetime import date
+from .forms import MemoForm
 
 
 User = get_user_model()
