@@ -35,3 +35,11 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = CustomUser
         fields = ('email', 'username', 'password1', 'password2')
+
+class ScheduleForm(forms.ModelForm):
+    class Meta:
+        model = Schedule
+        fields = [
+            'schedule_title', 'schedule_memo', 'start_time', 'end_time',
+            'is_all_day', 'repeat', 'image_url', 'color'
+        ]
