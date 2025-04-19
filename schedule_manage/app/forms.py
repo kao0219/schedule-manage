@@ -39,14 +39,21 @@ class CustomUserCreationForm(UserCreationForm):
 class ScheduleForm(forms.ModelForm):
     class Meta:
         model = Schedule
-        fields = (
+        fields = [
             'schedule_title',
             'schedule_memo',
-            'image_url',
-            'color',
+            'is_all_day',
             'start_time',
             'end_time',
-            'is_all_day',
             'repeat_type',
-        )
+            'color',
+            'image_url',
+        ]
+
+    repeat_type = forms.TypedChoiceField(
+        choices=Schedule.REPEAT_CHOICES,
+        coerce=int,  # 選択値を int に変換
+        widget=forms.RadioSelect,
+        label='繰り返し設定'
+    )
         
