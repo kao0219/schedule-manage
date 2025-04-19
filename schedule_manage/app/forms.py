@@ -2,6 +2,7 @@ from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
+from .models import Schedule
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
