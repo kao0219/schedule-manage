@@ -93,8 +93,10 @@ class Schedule(models.Model):
     ]
     repeat_type = models.IntegerField(choices=REPEAT_CHOICES, default=0)
     
+    is_all_day = models.BooleanField(default=False)
     start_time = models.DateTimeField()
     end_time = models.DateTimeField()
+
     
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
