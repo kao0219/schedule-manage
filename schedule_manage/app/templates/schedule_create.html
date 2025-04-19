@@ -11,7 +11,52 @@
 
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %} 
-  {{ form.as_p }}
+  <div class="mb-3">
+    <label for="id_schedule_title" class="form-label">タイトル</label>
+    {{ form.schedule_title }}
+  </div>
+  
+  <!-- メモ -->
+  <div class="mb-3">
+    <label for="id_schedule_memo" class="form-label">メモ</label>
+    {{ form.schedule_memo }}
+  </div>
+  
+  <!-- 終日チェック -->
+  <div class="form-check mb-3">
+    {{ form.is_all_day }}
+    <label class="form-check-label" for="id_is_all_day">終日</label>
+  </div>
+  
+  <!-- 開始日時 -->
+  <div class="mb-3">
+    <label for="id_start_time" class="form-label">開始日時</label>
+    {{ form.start_time }}
+  </div>
+  
+  <!-- 終了日時 -->
+  <div class="mb-3">
+    <label for="id_end_time" class="form-label">終了日時</label>
+    {{ form.end_time }}
+  </div>
+  
+  <!-- 繰り返し -->
+  <div class="mb-3">
+    <label class="form-label">繰り返し</label><br>
+    {{ form.repeat_type }}
+  </div>
+  
+  <!-- 色選択 -->
+  <div class="mb-3">
+    <label class="form-label">色の設定</label><br>
+    {{ form.color }}
+  </div>
+  
+  <!-- 画像添付 -->
+  <div class="mb-3">
+    <label class="form-label">画像</label><br>
+    {{ form.image_url }}
+  </div>
   <button type="submit" class="btn btn-primary">登録</button>
 </form>
 {% endblock %}
