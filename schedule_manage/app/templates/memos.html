@@ -10,7 +10,7 @@
 <div class="modal fade" id="memoModal" tabindex="-1" aria-labelledby="memoModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
-        <form method="post" action="{% url 'create_memo' %}">
+        <form method="post" action="{% url 'app:create_memo' %}">
           {% csrf_token %}
           <div class="modal-header">
             <h5 class="modal-title" id="memoModalLabel">メモを作成</h5>
