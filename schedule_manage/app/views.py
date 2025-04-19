@@ -82,22 +82,27 @@ def search_view(request):
 
 @login_required
 def schedule_create_view(request):
+    selected_date = request.GET.get('date') or date.today().isoformat()
+
     if request.method == 'POST':
         form = ScheduleForm(request.POST, request.FILES)
         if form.is_valid():
             schedule = form.save(commit=False)
             schedule.user = request.user
             schedule.save()
-            return redirect('home')  # 保存後にホームへ
+            # 登録後も同じページを表示（空フォームに戻す）
+            return render(request, 'schedule_create.html', {
+                'form': ScheduleForm(),
+                'date': selected_date,
+            })
     else:
         form = ScheduleForm()
 
-    selected_date = request.GET.get('date') or date.today().isoformat()
-    context = {
+    return render(request, 'schedule_create.html', {
         'form': form,
         'date': selected_date,
-    }
-    return render(request, 'schedule_create.html', context)
+    })
+
 
 def comment_list_view(request):
     return render(request, 'comment_list.html')
