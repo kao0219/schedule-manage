@@ -80,10 +80,24 @@ def search_view(request):
     }
     return render(request, 'search_results.html',context)
 
-
+@login_required
 def schedule_create_view(request):
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST, request.FILES)
+        if form.is_valid():
+            schedule = form.save(commit=False)
+            schedule.user = request.user
+            schedule.save()
+            return redirect('home')  # 保存後にホームへ
+    else:
+        form = ScheduleForm()
+
     selected_date = request.GET.get('date') or date.today().isoformat()
-    return render(request, 'schedule_create.html', {'date': selected_date })
+    context = {
+        'form': form,
+        'date': selected_date,
+    }
+    return render(request, 'schedule_create.html', context)
 
 def comment_list_view(request):
     return render(request, 'comment_list.html')
