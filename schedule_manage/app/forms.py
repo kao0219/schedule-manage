@@ -54,7 +54,8 @@ class ScheduleForm(forms.ModelForm):
         choices=Schedule.REPEAT_CHOICES,
         coerce=int,  # 選択値を int に変換
         widget=forms.RadioSelect,
-        label='繰り返し設定'
+        label='繰り返し設定',
+        initial='0'
     )
         
 def __init__(self, *args, **kwargs):

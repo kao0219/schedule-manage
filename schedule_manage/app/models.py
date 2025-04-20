@@ -33,8 +33,8 @@ class CustomUser(AbstractBaseUser):
     is_staff = models.BooleanField(default=False)
 
     last_login = models.DateTimeField(null=True, blank=True)
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     objects = CustomUserManager()
 
@@ -55,8 +55,8 @@ class Invite(models.Model):
     invite_token = models.CharField(max_length=255, unique=True, editable=False)
     status = models.IntegerField(default=1) # 1:使用済み 2:未使用
     expires_at = models.DateTimeField()
-    create_at = models.DateTimeField(auto_now_add=True)
-    update_at =models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at =models.DateTimeField(auto_now=True)
 
     def is_expired(self):
         return timezone.now() > self.expires_at
