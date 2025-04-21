@@ -106,6 +106,11 @@ def schedule_create_view(request):
     'username_initial': username_initial,
     })
 
+@login_required
+def schedule_detail_view(request, pk):
+    schedule = get_object_or_404(Schedule, pk=pk)
+    return render(request, 'schedule_detail.html', {'schedule': schedule})
+
 
 def comment_list_view(request):
     return render(request, 'comment_list.html')
