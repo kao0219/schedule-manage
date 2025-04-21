@@ -24,20 +24,20 @@
   
   <!-- 終日チェック -->
   <div class="form-check mb-3">
-    {{ form.is_all_day }}
+    <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input">
     <label class="form-check-label" for="id_is_all_day">終日</label>
   </div>
   
   <!-- 開始日時 -->
   <div class="mb-3">
     <label for="id_start_time" class="form-label">開始日時</label>
-    <input type="datetime-local" id="start_time" name="start_time" class="form-control">
+    <input type="datetime-local" id="id_start_time" name="start_time" class="form-control">
   </div>
   
   <!-- 終了日時 -->
   <div class="mb-3">
     <label for="id_end_time" class="form-label">終了日時</label>
-    <input type="datetime-local" id="end_time" name="end_time" class="form-control">
+    <input type="datetime-local" id="id_end_time" name="end_time" class="form-control">
   </div>
   
   <!-- 繰り返し -->
@@ -68,21 +68,23 @@
 
 
 <script>
-  document.addEventListener('DOMContentLoaded', function () {
-    const isAllDayCheckbox = document.getElementById('id_is_all_day');
-    const startTimeInput = document.getElementById('id_start_time');
-    const endTimeInput = document.getElementById('id_end_time');
-    console.log("isAllDay:", isChecked); 
-    function toggleTimeInputs() {
-    const isChecked = isAllDayCheckbox.checked;
-
-    startTimeInput.disabled = isChecked;
-    endTimeInput.disabled = isChecked;
-    }
+    document.addEventListener('DOMContentLoaded', function () {
+      const isAllDayCheckbox = document.getElementById('id_is_all_day');
+      const startTimeInput = document.getElementById('id_start_time');
+      const endTimeInput = document.getElementById('id_end_time');
   
-    toggleTimeInputs();
-    isAllDayCheckbox.addEventListener('change', toggleTimeInputs);
-});
+      function toggleTimeInputs() {
+        const isChecked = isAllDayCheckbox.checked;
+        startTimeInput.disabled = isChecked;
+        endTimeInput.disabled = isChecked;
+      }
+  
+      // 初期状態もチェックして制御
+      toggleTimeInputs();
+  
+      // チェック切り替え時に制御
+      isAllDayCheckbox.addEventListener('change', toggleTimeInputs);
+    });
 </script>
 
 {% endblock %}
