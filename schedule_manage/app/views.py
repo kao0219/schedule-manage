@@ -122,9 +122,10 @@ def create_memo_view(request):
     return redirect('memos')  # メモ一覧へ戻る
 
 
-
+@login_required
 def settings_view(request):
-    return render(request, 'settings.html')
+    family_members = User.objects.filter(family=request.user.family)
+    return render(request, 'settings.html', {'members': family_members})
 
 def logout_view(request):
     logout(request)
