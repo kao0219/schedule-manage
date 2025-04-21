@@ -1,8 +1,90 @@
-<h2>{{ schedule.schedule_title }}</h2>
-<p>{{ schedule.schedule_memo }}</p>
-<p>終日: {{ schedule.is_all_day }}</p>
-<p>開始: {{ schedule.start_time }}</p>
-<p>終了: {{ schedule.end_time }}</p>
-<p>繰り返し: {{ schedule.get_repeat_type_display }}</p>
-<!-- 編集ボタン -->
-<a href="{% url 'schedule_edit' schedule.pk %}">編集</a>
+{% extends 'base.html' %}
+{% block content %}
+<div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px;">
+    <p>{{ date }}</p>
+    <div style="width: 36px; height: 36px; background-color: #007bff; color: white;
+                display: flex; align-items: center; justify-content: center;
+                border-radius: 50%; font-weight: bold;">
+      {{ username_initial }} <!-- 予定登録者のアカウント頭文字マーク　-->
+    </div>
+</div>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %} 
+  <div class="mb-3">
+    <label for="id_schedule_title" class="form-label">タイトル</label>
+    {{ form.schedule_title }}
+  </div>
+  
+  <!-- メモ -->
+  <div class="mb-3">
+    <label for="id_schedule_memo" class="form-label">メモ</label>
+    {{ form.schedule_memo }}
+  </div>
+  
+  <!-- 終日チェック -->
+  <div class="form-check mb-3">
+    <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input">
+    <label class="form-check-label" for="id_is_all_day">終日</label>
+  </div>
+  
+  <!-- 開始日時 -->
+  <div class="mb-3">
+    <label for="id_start_time" class="form-label">開始</label>
+    <input type="datetime-local" id="id_start_time" name="start_time" class="form-control"  style="width: 200px;">
+  </div>
+  
+  <!-- 終了日時 -->
+  <div class="mb-3">
+    <label for="id_end_time" class="form-label">終了</label>
+    <input type="datetime-local" id="id_end_time" name="end_time" class="form-control" style="width: 200px;">
+  </div>
+  
+  <!-- 繰り返し -->
+  <div class="mb-3">
+    <label>繰り返し設定</label><br>
+    {% for value, label in form.repeat_type.field.choices %}
+      <label>
+        <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
+               {% if form.repeat_type.value == value|stringformat:"s" %}checked{% endif %}>
+        {{ label }}
+      </label>
+    {% endfor %}
+  </div>
+  
+  <!-- 色選択 -->
+  <div class="mb-3">
+    <label class="form-label">見出しの色設定</label><br>
+    {{ form.color }}
+  </div>
+  
+  <!-- 画像添付 -->
+  <div class="mb-3">
+    <label class="form-label">画像</label><br>
+    {{ form.image_url }}
+  </div>
+<button type="submit" class="btn btn-primary">登録</button>
+</form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const isAllDayCheckbox = document.getElementById('id_is_all_day');
+      const startTimeInput = document.getElementById('id_start_time');
+      const endTimeInput = document.getElementById('id_end_time');
+  
+      function toggleTimeInputs() {
+        const isChecked = isAllDayCheckbox.checked;
+        startTimeInput.disabled = isChecked;
+        endTimeInput.disabled = isChecked;
+      }
+  
+      // 初期状態もチェックして制御
+      toggleTimeInputs();
+  
+      // チェック切り替え時に制御
+      isAllDayCheckbox.addEventListener('change', toggleTimeInputs);
+    });
+</script>
+
+{% endblock %}

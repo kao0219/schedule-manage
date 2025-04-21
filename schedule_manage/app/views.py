@@ -20,6 +20,9 @@ from django.utils.dateparse import parse_date
 from .models import Schedule, Memo
 from datetime import date
 from .forms import ScheduleForm
+from .models import ScheduleComment
+from .forms import CommentForm
+
 
 
 User = get_user_model()
@@ -107,7 +110,7 @@ def schedule_create_view(request):
     })
 
 @login_required
-def schedule_detail(request, schedule_id):
+def schedule_detail_view(request, schedule_id):
     schedule = get_object_or_404(Schedule, id=schedule_id)
 
     if request.method == 'POST':
