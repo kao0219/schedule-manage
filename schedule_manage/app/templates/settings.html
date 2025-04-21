@@ -4,10 +4,13 @@
 
 <p>メンバーリスト</p>
 <ul>
+  <div class="member-icons">
     {% for member in members %}
-      <li>{{ member.username }}({{ member.email }})</li>
-    {% empty %}
+      <div class="member-icon" title="{{ member.username }}">
+        {{ member.username|slice:":1"|upper }}
+      </div>
     {% endfor %}
+  </div>
 
 </ul>
 
