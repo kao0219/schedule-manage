@@ -3,6 +3,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 from .models import Schedule
+from .models import ScheduleComment 
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
@@ -58,6 +59,11 @@ class ScheduleForm(forms.ModelForm):
         initial='0'
     )
         
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = ScheduleComment
+        fields = ['content']
+
 def __init__(self, *args, **kwargs):
         super(ScheduleForm, self).__init__(*args, **kwargs)
         # repeat_type の初期値を 0 に設定（デフォルト「なし」にチェック）
