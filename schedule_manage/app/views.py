@@ -121,7 +121,7 @@ def schedule_detail_view(request, schedule_id):
     else:
         form = ScheduleForm(instance=schedule)
 
-    comments = Comment.objects.filter(schedule=schedule).order_by('-created_at')
+    comments = ScheduleComment.objects.filter(schedule=schedule).order_by('-created_at')
     comment_form = CommentForm()
 
     return render(request, 'detail.html', {
