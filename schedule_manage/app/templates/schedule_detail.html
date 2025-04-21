@@ -1,8 +1,8 @@
 <h2>{{ schedule.schedule_title }}</h2>
 <p>{{ schedule.schedule_memo }}</p>
+<p>終日: {{ schedule.is_all_day }}</p>
 <p>開始: {{ schedule.start_time }}</p>
 <p>終了: {{ schedule.end_time }}</p>
-<p>終日: {{ schedule.is_all_day }}</p>
 <p>繰り返し: {{ schedule.get_repeat_type_display }}</p>
 <!-- 編集ボタン -->
 <a href="{% url 'schedule_edit' schedule.pk %}">編集</a>

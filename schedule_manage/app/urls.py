@@ -20,5 +20,6 @@ urlpatterns = [
     path('schedule/create/', views.schedule_create_view, name='schedule_create'),
     path('comments/', views.comment_list_view, name='comment_list_view'),
     path('schedule/<int:pk>/', views.schedule_detail_view, name='schedule_detail'),
+    path('schedule/<int:schedule_id>/comment/', views.comment_add, name='comment_add'),
 
 ]

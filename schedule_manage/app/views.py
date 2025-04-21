@@ -107,9 +107,26 @@ def schedule_create_view(request):
     })
 
 @login_required
-def schedule_detail_view(request, pk):
-    schedule = get_object_or_404(Schedule, pk=pk)
-    return render(request, 'schedule_detail.html', {'schedule': schedule})
+def schedule_detail(request, schedule_id):
+    schedule = get_object_or_404(Schedule, id=schedule_id)
+
+    if request.method == 'POST':
+        form = ScheduleForm(request.POST, request.FILES, instance=schedule)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # 必要に応じて変更
+    else:
+        form = ScheduleForm(instance=schedule)
+
+    comments = Comment.objects.filter(schedule=schedule).order_by('-created_at')
+    comment_form = CommentForm()
+
+    return render(request, 'detail.html', {
+        'form': form,
+        'schedule': schedule,
+        'comments': comments,
+        'comment_form': comment_form
+    })
 
 
 def comment_list_view(request):
