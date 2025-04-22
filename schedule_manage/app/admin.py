@@ -18,7 +18,7 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('schedule_title', 'start_time', 'end_time', 'created_at')
+    list_display = ('id','schedule_title', 'start_time', 'end_time', 'created_at')
     search_fields = ('schedule_title',)
 
 @admin.register(ScheduleComment)
