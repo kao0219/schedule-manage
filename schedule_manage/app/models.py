@@ -103,7 +103,7 @@ class Schedule(models.Model):
         return self.schedule_title
     
 class ScheduleComment(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
     content = models.CharField(max_length=255, verbose_name='コメントの内容')  
     comment_status = models.IntegerField(default=1)  # 1:未読、2:既読
