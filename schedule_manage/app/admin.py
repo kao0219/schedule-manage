@@ -3,6 +3,7 @@ from .models import Invite
 from .models import Family
 admin.site.register(Family)
 from .models import CustomUser, Family, Schedule, ScheduleComment, Invite
+from .models import Memo
 
 
 @admin.register(Invite)
@@ -25,3 +26,10 @@ class ScheduleAdmin(admin.ModelAdmin):
 class ScheduleCommentAdmin(admin.ModelAdmin):
     list_display = ('user', 'schedule', 'content', 'comment_status', 'created_at')
     search_fields = ('content',)
+
+@admin.register(Memo)
+class MemoAdmin(admin.ModelAdmin):
+    list_display = ('memo_title', 'content', 'created_at') 
+    search_fields = ('memo_title', 'content')             
+    list_filter = ('created_at',)                           
+    ordering = ('-created_at',)                             
