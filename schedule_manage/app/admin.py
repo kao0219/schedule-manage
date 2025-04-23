@@ -29,7 +29,7 @@ class ScheduleCommentAdmin(admin.ModelAdmin):
 
 @admin.register(Memo)
 class MemoAdmin(admin.ModelAdmin):
-    list_display = ('memo_title', 'content', 'created_at') 
-    search_fields = ('memo_title', 'content')             
-    list_filter = ('created_at',)                           
-    ordering = ('-created_at',)                             
+    list_display = ('memo_title', 'content', 'image_url', 'created_at', 'updated_at')
+    search_fields = ('memo_title', 'content', 'image_url')
+    list_filter = ('created_at', 'updated_at')
+    ordering = ('-created_at',)                   
