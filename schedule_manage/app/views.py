@@ -154,9 +154,14 @@ def create_memo_view(request):
     if request.method == 'POST':
         title = request.POST.get('memo_title')
         content = request.POST.get('content')
-        Memo.objects.create(memo_title=title, content=content)
-    return redirect('memos') 
- # メモ一覧へ戻る
+        image = request.FILES.get('image')  # 画像を取得！
+
+        Memo.objects.create(
+            memo_title=title,
+            content=content,
+            image=image
+        )
+        return redirect('app:memos')  # 名前空間ありならこちらに修正
 
 
 @login_required
