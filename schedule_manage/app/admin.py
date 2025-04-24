@@ -4,6 +4,7 @@ from .models import Family
 admin.site.register(Family)
 from .models import CustomUser, Family, Schedule, ScheduleComment, Invite
 from .models import Memo
+from django.utils.html import format_html
 
 
 @admin.register(Invite)
@@ -29,7 +30,10 @@ class ScheduleCommentAdmin(admin.ModelAdmin):
 
 @admin.register(Memo)
 class MemoAdmin(admin.ModelAdmin):
-    list_display = ('memo_title', 'content', 'image_url', 'created_at', 'updated_at')
-    search_fields = ('memo_title', 'content', 'image_url')
-    list_filter = ('created_at', 'updated_at')
-    ordering = ('-created_at',)                   
+    list_display = ('memo_title', 'content', 'image_tag', 'created_at')
+
+    def image_tag(self, obj):
+        if obj.image:
+            return format_html('<img src="{}" style="max-height:50px;">', obj.image.url)
+        return '-'
+    image_tag.short_description = '画像'
