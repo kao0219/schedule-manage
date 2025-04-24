@@ -118,7 +118,7 @@ class ScheduleComment(models.Model):
 class Memo(models.Model):
     memo_title = models.CharField(max_length=200)
     content = models.TextField()
-    image_url = models.CharField(max_length=500, blank=True, null=True)  # 画像のURLを保存
+    image = models.ImageField(upload_to='memo_images/', blank=True, null=True)  # 画像添付
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
