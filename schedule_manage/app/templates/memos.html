@@ -12,23 +12,17 @@
     <div class="modal-content">
       <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
         {% csrf_token %}
-        <div class="modal-header">
-          <h5 class="modal-title" id="memoCreateModalLabel">メモを作成</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        <div class="mb-3">
+          <label>タイトル</label>
+          <input type="text" name="memo_title" class="form-control" required>
         </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label>タイトル</label>
-            <input type="text" name="memo_title" class="form-control" required>
-          </div>
-          <div class="mb-3">
-            <label>本文</label>
-            <textarea name="content" class="form-control" rows="3"></textarea>
-          </div>
-          <div class="mb-3">
-            <label>画像選択</label>
-            <input type="file" name="image" accept="image/*" class="form-control">
-          </div>
+        <div class="mb-3">
+          <label>本文</label>
+          <textarea name="content" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="mb-3">
+          <label for="image">画像選択</label>
+          <input type="file" name="image" class="form-control" accept="image/*">
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">登録</button>
