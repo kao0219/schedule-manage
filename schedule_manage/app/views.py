@@ -133,15 +133,15 @@ def schedule_detail_view(request, schedule_id):
 
 @login_required
 def comment_add_view(request, schedule_id):
+    schedule = get_object_or_404(Schedule, id=schedule_id)
     if request.method == 'POST':
-        schedule = get_object_or_404(Schedule, id=schedule_id)
         form = CommentForm(request.POST)
         if form.is_valid():
             comment = form.save(commit=False)
             comment.user = request.user
             comment.schedule = schedule
             comment.save()
-            return redirect('schedule_detail', pk=schedule_id)
+            return redirect('schedule_detail', schedule_id)
 
 def comment_list_view(request):
     return render(request, 'comment_list.html')
