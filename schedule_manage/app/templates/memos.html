@@ -4,35 +4,39 @@
 
 {% block content %}
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#memoModal">
-    メモ新規作成
+    メモ新規作成＋
 </button>
 
-<div class="modal fade" id="memoModal" tabindex="-1" aria-labelledby="memoModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <form method="post" action="{% url 'app:create_memo' %}">
-          {% csrf_token %}
-          <div class="modal-header">
-            <h5 class="modal-title" id="memoModalLabel">メモを作成</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+<div class="modal fade" id="memoCreateModal" tabindex="-1" aria-labelledby="memoCreateModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
+        {% csrf_token %}
+        <div class="modal-header">
+          <h5 class="modal-title" id="memoCreateModalLabel">メモを作成</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>タイトル</label>
+            <input type="text" name="memo_title" class="form-control" required>
           </div>
-          <div class="modal-body">
-            <div class="mb-3">
-              <label for="memoTitle" class="form-label">タイトル</label>
-              <input type="text" class="form-control" id="memoTitle" name="memo_title" required>
-            </div>
-            <div class="mb-3">
-              <label for="memoContent" class="form-label">本文</label>
-              <textarea class="form-control" id="memoContent" name="content" rows="3"></textarea>
-            </div>
+          <div class="mb-3">
+            <label>本文</label>
+            <textarea name="content" class="form-control" rows="3"></textarea>
           </div>
-          <div class="modal-footer">
-            <button type="submit" class="btn btn-primary">登録</button>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <div class="mb-3">
+            <label>画像選択</label>
+            <input type="file" name="image" accept="image/*" class="form-control">
           </div>
-        </form>
-      </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">登録</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
   
     

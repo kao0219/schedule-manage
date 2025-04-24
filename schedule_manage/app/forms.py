@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
 from .models import Schedule
 from .models import ScheduleComment 
+from .models import Memo
 
 
 class CustomPasswordChangeForm(PasswordChangeForm):
@@ -69,3 +70,8 @@ def __init__(self, *args, **kwargs):
         # repeat_type の初期値を 0 に設定（デフォルト「なし」にチェック）
         if not self.initial.get('repeat_type'):
             self.initial['repeat_type'] = 0
+
+class MemoForm(forms.ModelForm):
+    class Meta:
+        model = Memo
+        fields = ['memo_title', 'content', 'image']
