@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <!-- タイトル -->
+    <div class="mb-3">
+      <label for="id_memo_title">タイトル</label>
+      {{ form.memo_title }}
+    </div>
+
+    <!-- 本文 -->
+    <div class="mb-3">
+      <label for="id_content">本文</label>
+      {{ form.content }}
+    </div>
+
+    <!-- 画像選択 -->
+    <div class="mb-3">
+      <label for="id_image">画像選択</label>
+      {{ form.image }}
+    </div>
+
+    <!-- 既存画像の表示 -->
+    {% if memo.image %}
+      <div class="mb-3">
+        <label>現在の画像</label><br>
+        <img src="{{ memo.image.url }}" alt="画像" style="max-width: 300px;">
+      </div>
+    {% endif %}
+
+    <!-- ボタンエリア -->
+    <div class="d-flex justify-content-between mt-4">
+      <button type="submit" class="btn btn-primary">完了</button>
+
+      <div>
+        <a href="{% url 'memos' %}" class="btn btn-secondary">キャンセル</a>
+        <a href="{% url 'memo_delete' memo.id %}" class="btn btn-danger"
+           onclick="return confirm('このメモを削除しますか？');">
+          このメモを削除する
+        </a>
+      </div>
+    </div>
+  </form>
+</div>
+{% endblock %}
