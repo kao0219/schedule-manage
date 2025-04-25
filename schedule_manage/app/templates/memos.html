@@ -13,19 +13,17 @@
       <div class="card h-100">
         <div class="card-body">
           <h5 class="card-title">{{ memo.memo_title }}</h5>
-          <p class="card-text">{{ memo.content|truncatechars:40 }}</p>
+          <p class="card-text">{{ memo.content|truncatechars:50|linebreaksbr }}</p>
 
           {% if memo.image %}
             <img src="{{ memo.image.url }}" class="img-fluid mt-2" alt="サムネイル">
           {% endif %}
 
-          <!-- メモ詳細（編集）ページへのリンク -->
-          <a href="{% url 'memo_detail' memo.id %}" class="stretched-link"></a>
+          <!-- 確認/編集へ -->
+          <a href="{% url 'app:memo_detail' memo.id %}" class="stretched-link"></a>
         </div>
       </div>
     </div>
-  {% empty %}
-    <p>メモがありません。</p>
   {% endfor %}
 </div>
 

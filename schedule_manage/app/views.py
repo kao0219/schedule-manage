@@ -150,7 +150,7 @@ def comment_list_view(request):
 
 def memos_view(request):
     memos = Memo.objects.all().order_by('-created_at')  # 最新順に並べる
-    paginator = Paginator(memos, 8)  # 1ページに8件
+    paginator = Paginator(memos, 8)  # 8件まで
 
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -164,7 +164,7 @@ def create_memo_view(request):
     if request.method == 'POST':
         title = request.POST.get('memo_title')
         content = request.POST.get('content')
-        image = request.FILES.get('image')  # 画像を取得！
+        image = request.FILES.get('image')  # 画像を取得
 
         Memo.objects.create(
             memo_title=title,
@@ -180,7 +180,7 @@ def memo_detail_view(request, memo_id):
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
             form.save()
-            return redirect('memo_detail', memo_id=memo.id)
+            return redirect('app:memo_detail', memo_id=memo.id)
     else:
         form = MemoForm(instance=memo)
 
@@ -189,7 +189,7 @@ def memo_detail_view(request, memo_id):
 def memo_delete_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
     memo.delete()
-    return redirect('memos')  # 削除後メモ一覧へ
+    return redirect('app:memos')  # 削除後メモ一覧へ
 
 @login_required
 def settings_view(request):
