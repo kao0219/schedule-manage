@@ -176,6 +176,10 @@ def memo_detail_view(request, memo_id):
 
     return render(request, 'memo_detail.html', {'form': form, 'memo': memo})
 
+def memo_delete_view(request, memo_id):
+    memo = get_object_or_404(Memo, id=memo_id)
+    memo.delete()
+    return redirect('memos')  # 削除後メモ一覧へ
 
 @login_required
 def settings_view(request):
