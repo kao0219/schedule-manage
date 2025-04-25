@@ -149,7 +149,16 @@ def comment_list_view(request):
 
 
 def memos_view(request):
-    return render(request, 'memos.html')
+    memos = Memo.objects.all().order_by('-created_at')  # 最新順に並べる
+    paginator = Paginator(memos, 8)  # 1ページに8件
+
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+
+    return render(request, 'memos.html', {
+        'page_obj': page_obj,
+    })
+
 
 def create_memo_view(request):
     if request.method == 'POST':
