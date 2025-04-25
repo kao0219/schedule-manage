@@ -170,7 +170,7 @@ def memo_detail_view(request, memo_id):
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
             form.save()
-            return redirect('memos')  # 編集完了後はメモ一覧へ戻る
+            return redirect('memo_detail', memo_id=memo.id)
     else:
         form = MemoForm(instance=memo)
 
