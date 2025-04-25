@@ -23,5 +23,6 @@ urlpatterns = [
     path('comments/', views.comment_list_view, name='comment_list_view'),
     path('schedule/<int:schedule_id>/', views.schedule_detail_view, name='schedule_detail'),
     path('schedule/<int:schedule_id>/comment/', views.comment_add_view, name='comment_add'),
+    path('memo/<int:memo_id>/detail/', views.memo_detail_partial_view, name='memo_detail_partial'),
 
 ]
