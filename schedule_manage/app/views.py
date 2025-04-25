@@ -23,6 +23,7 @@ from .forms import ScheduleForm
 from .models import ScheduleComment
 from .forms import CommentForm
 from .forms import MemoForm
+from django.core.paginator import Paginator
 
 
 User = get_user_model()
