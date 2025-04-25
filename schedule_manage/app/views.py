@@ -22,7 +22,7 @@ from datetime import date
 from .forms import ScheduleForm
 from .models import ScheduleComment
 from .forms import CommentForm
-
+from .forms import MemoForm
 
 
 User = get_user_model()
