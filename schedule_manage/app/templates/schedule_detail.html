@@ -42,7 +42,7 @@
   </div>
 
   <!-- コメント投稿 -->
-  <form method="post" action="{% url 'comment_add_view' schedule_id=schedule.id %}">
+  <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
       {% csrf_token %}
       <div class="mb-3">
           <label for="id_content" class="form-label">コメントを入力</label>
