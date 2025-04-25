@@ -11,6 +11,8 @@ urlpatterns = [
     path('search/', views.search_view, name='search'),
     path('memos/', views.memos_view, name='memos'),
     path('memos/create/', views.create_memo_view, name='create_memo'),
+    path('memo/<int:memo_id>/', views.memo_detail_view, name='memo_detail'),
+    path('memo/<int:memo_id>/delete/', views.memo_delete_view, name='memo_delete'),
     path('settings/', views.settings_view, name='settings'),
     path('logout/', views.logout_view, name='logout'),
     path('invite_member/', views.invite_member_view, name='invite_member'),
@@ -21,4 +23,5 @@ urlpatterns = [
     path('comments/', views.comment_list_view, name='comment_list_view'),
     path('schedule/<int:schedule_id>/', views.schedule_detail_view, name='schedule_detail'),
     path('schedule/<int:schedule_id>/comment/', views.comment_add_view, name='comment_add_view'),
+
 ]
