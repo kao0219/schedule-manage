@@ -24,8 +24,6 @@ from .models import ScheduleComment
 from .forms import CommentForm
 from .forms import MemoForm
 from django.core.paginator import Paginator
-from django.http import JsonResponse
-from django.template.loader import render_to_string
 
 
 User = get_user_model()
@@ -79,17 +77,16 @@ def search_view(request):
     schedules = Schedule.objects.filter(schedule_title__icontains=query) if query else []
     memos = Memo.objects.filter(memo_title__icontains=query) if query else []
 
+    for memo in memos:
+        memo.form = MemoForm(instance=memo)
+
+
     context = {
         'query': query,
         'schedules': schedules,
         'memos': memos,
     }
     return render(request, 'search_results.html',context)
-
-def memo_detail_partial_view(request, memo_id):
-    memo = get_object_or_404(Memo, id=memo_id)
-    html = render_to_string('memo_detail.html', {'memo': memo}, request=request)
-    return JsonResponse({'html': html})
 
 @login_required
 def schedule_create_view(request):
