@@ -47,7 +47,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('/home/') #ホーム画面へ
         except User.DoesNotExist:
-            pass #とくにエラーメッセージなし
+            pass #エラーメッセージなし
 
         #失敗した場合はログイン画面に戻る
         return redirect('/login/') 
@@ -60,7 +60,7 @@ def signup_view(request):
         username = request.POST["username"]
         password = request.POST["password"]
 
-        #ユーザー作成　パスは暗号化して保存
+        
         CustomUser.objects.create(
             email=email,
             username=username,
@@ -130,35 +130,24 @@ def schedule_detail_view(request, schedule_id):
     schedule = get_object_or_404(Schedule, id=schedule_id)
 
     if request.method == 'POST':
-        if 'content' in request.POST:
-            # コメント投稿の処理
-            comment_form = CommentForm(request.POST)
-            if comment_form.is_valid():
-                comment = comment_form.save(commit=False)
-                comment.user = request.user
-                comment.schedule = schedule
-                comment.save()
-            return redirect('schedule_detail', schedule_id=schedule_id)
-        
-        else:
-            # 予定編集の処理
-            form = ScheduleForm(request.POST, request.FILES, instance=schedule)
-            if form.is_valid():
-                form.save()
-                return redirect('home')  # 必要に応じて変える
-
+        form = ScheduleForm(request.POST, request.FILES, instance=schedule)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  # ※ここは必要に応じて変えてOK
     else:
         form = ScheduleForm(instance=schedule)
-        comment_form = CommentForm()
 
-    # コメントを取得して表示する
     comments = ScheduleComment.objects.filter(schedule=schedule).order_by('-created_at')
+    comment_form = CommentForm()
+
+    username_initial = schedule.user.username[:1].upper()
 
     return render(request, 'schedule_detail.html', {
         'form': form,
         'schedule': schedule,
         'comments': comments,
         'comment_form': comment_form,
+        'username_initial': username_initial,
     })
 
 
@@ -179,7 +168,7 @@ def comment_list_view(request):
 
 
 def memos_view(request):
-    memos = Memo.objects.all().order_by('-created_at')  # 最新順に並べる
+    memos = Memo.objects.all().order_by('-created_at')  
     paginator = Paginator(memos, 8)  # 8件まで
 
     page_number = request.GET.get('page')
