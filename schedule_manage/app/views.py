@@ -76,6 +76,13 @@ def search_view(request):
     query = request.GET.get('q', '')
     schedules = Schedule.objects.filter(schedule_title__icontains=query) if query else []
     memos = Memo.objects.filter(memo_title__icontains=query) if query else []
+    
+    if request.method == 'POST':
+        memo_id = request.POST.get('memo_id')
+        memo = get_object_or_404(Memo, id=memo_id)
+        form = MemoForm(request.POST, request.FILES, instance=memo)
+        if form.is_valid():
+            form.save()
 
     for memo in memos:
         memo.form = MemoForm(instance=memo)
