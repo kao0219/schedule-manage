@@ -130,22 +130,37 @@ def schedule_detail_view(request, schedule_id):
     schedule = get_object_or_404(Schedule, id=schedule_id)
 
     if request.method == 'POST':
-        form = ScheduleForm(request.POST, request.FILES, instance=schedule)
-        if form.is_valid():
-            form.save()
-            return redirect('home')  # 必要に応じて変更
+        if 'content' in request.POST:
+            # コメント投稿の処理
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.user = request.user
+                comment.schedule = schedule
+                comment.save()
+            return redirect('schedule_detail', schedule_id=schedule_id)
+        
+        else:
+            # 予定編集の処理
+            form = ScheduleForm(request.POST, request.FILES, instance=schedule)
+            if form.is_valid():
+                form.save()
+                return redirect('home')  # 必要に応じて変える
+
     else:
         form = ScheduleForm(instance=schedule)
+        comment_form = CommentForm()
 
+    # コメントを取得して表示する
     comments = ScheduleComment.objects.filter(schedule=schedule).order_by('-created_at')
-    comment_form = CommentForm()
 
     return render(request, 'schedule_detail.html', {
         'form': form,
         'schedule': schedule,
         'comments': comments,
-        'comment_form': comment_form
+        'comment_form': comment_form,
     })
+
 
 @login_required
 def comment_add_view(request, schedule_id):
