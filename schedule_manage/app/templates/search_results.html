@@ -110,10 +110,14 @@
 
 {% if updated_memo_id %}
 <script>
-  const targetModal = document.getElementById("memoModal{{ updated_memo_id }}");
-  const modal = new bootstrap.Modal(targetModal);
-  modal.show();
-</script>
+   document.addEventListener("DOMContentLoaded", function () {
+     const targetModal = document.getElementById("memoModal{{ updated_memo_id }}");
+     if (targetModal) {
+       const modal = new bootstrap.Modal(targetModal);
+       modal.show();
+     }
+   });
+ </script>
 {% endif %}
 
 {% endblock %}
