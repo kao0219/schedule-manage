@@ -37,7 +37,7 @@
 
       <div>
         <a href="{{ request.GET.next|default:'/memos/' }}" class="btn btn-secondary">キャンセル</a>
-        <a href="{% url 'memo_delete' memo.id %}?next={% url 'memos' %}">
+        <a href="{% url 'app:memo_delete' memo.id %}?next={% url 'app:memos' %}">
           このメモを削除する
         </a>
       </div>

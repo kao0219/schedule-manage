@@ -89,8 +89,7 @@
   
               <!-- ボタン類 -->
               <div class="d-flex justify-content-between mt-4">
-                <a href="{% url 'memo_delete' memo.id %}?next={{ request.get_full_path }}" class="btn btn-danger"
-                   onclick="return confirm('このメモを削除しますか？');">
+                <a href="{% url 'app:memo_delete' memo.id %}?next={{ request.get_full_path }}" class="btn btn-danger">
                   このメモを削除する
                 </a>
                 <div>

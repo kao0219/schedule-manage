@@ -77,12 +77,15 @@ def search_view(request):
     schedules = Schedule.objects.filter(schedule_title__icontains=query) if query else []
     memos = Memo.objects.filter(memo_title__icontains=query) if query else []
     
+    updated_memo_id = None
+
     if request.method == 'POST':
         memo_id = request.POST.get('memo_id')
         memo = get_object_or_404(Memo, id=memo_id)
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
             form.save()
+            updated_memo_id = memo_id
 
     for memo in memos:
         memo.form = MemoForm(instance=memo)
@@ -91,6 +94,7 @@ def search_view(request):
         'query': query,
         'schedules': schedules,
         'memos': memos,
+        'updated_memo_id' : updated_memo_id,
     }
     return render(request, 'search_results.html',context)
 
