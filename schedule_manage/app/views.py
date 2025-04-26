@@ -157,7 +157,7 @@ def comment_add_view(request, schedule_id):
             comment.user = request.user
             comment.schedule = schedule
             comment.save()
-            return redirect('schedule_detail', schedule_id)
+            return redirect('schedule_detail', schedule_id=schedule_id)
 
 def comment_list_view(request):
     return render(request, 'comment_list.html')
