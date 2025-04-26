@@ -9,6 +9,7 @@ urlpatterns = [
     path('signup/', views.signup_view, name='signup'),
     path('home/', views.home_view, name='home'),
     path('search/', views.search_view, name='search'),
+    path('memo/<int:memo_id>/update/', views.memo_update_view, name='memo_update'),
     path('memos/', views.memos_view, name='memos'),
     path('memos/create/', views.create_memo_view, name='create_memo'),
     path('memo/<int:memo_id>/', views.memo_detail_view, name='memo_detail'),
@@ -23,5 +24,5 @@ urlpatterns = [
     path('comments/', views.comment_list_view, name='comment_list_view'),
     path('schedule/<int:schedule_id>/', views.schedule_detail_view, name='schedule_detail'),
     path('schedule/<int:schedule_id>/comment/', views.comment_add_view, name='comment_add'),
-
+    
 ]

@@ -26,7 +26,7 @@
   {% endfor %}
 </div>
 
-<!-- メモ結果 -->
+<!-- メモ一覧 -->
 <h3 class="mt-4">【該当するメモがあります】</h3>
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for memo in memos %}
@@ -50,19 +50,37 @@
     </div>
 
     <!-- モーダル本体 -->
-    <div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-labelledby="memoModalLabel{{ memo.id }}" aria-hidden="true">
-      <div class="modal-dialog">
+    <div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ内容</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+            <h5 class="modal-title">メモ確認／編集</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
           </div>
           <div class="modal-body">
-            <h5>{{ memo.memo_title }}</h5>
-            <p>{{ memo.content }}</p>
-            {% if memo.image %}
-              <img src="{{ memo.image.url }}" class="img-fluid mt-2" alt="メモ画像">
-            {% endif %}
+            <form method="POST" action="{% url 'memo_update' memo.id %}" enctype="multipart/form-data">
+              {% csrf_token %}
+              {{ memo.form.memo_title.label_tag }}
+              {{ memo.form.memo_title }}
+              {{ memo.form.content.label_tag }}
+              {{ memo.form.content }}
+              {{ memo.form.image.label_tag }}
+              {{ memo.form.image }}
+
+              {% if memo.image %}
+                <p>現在の画像：</p>
+                <img src="{{ memo.image.url }}" alt="画像" style="max-width: 200px;">
+              {% endif %}
+
+              <div class="d-flex justify-content-between mt-4">
+                <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</a>
+                <a href="{% url 'memo_delete' memo.id %}" class="btn btn-danger"
+                   onclick="return confirm('このメモを削除しますか？');">
+                  このメモを削除する
+                </a>
+                <button type="submit" class="btn btn-primary">完了</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
@@ -71,4 +89,6 @@
     <p>該当するメモはありません。</p>
   {% endfor %}
 </div>
+
+
 {% endblock %}
