@@ -36,7 +36,7 @@
       <button type="submit" class="btn btn-primary">完了</button>
 
       <div>
-        <a href="{% url 'app:memos' %}" class="btn btn-secondary">キャンセル</a>
+        <a href="{{ request.GET.next|default:'/memos/' }}" class="btn btn-secondary">キャンセル</a>
         <a href="{% url 'memo_delete' memo.id %}?next={% url 'memos' %}">
           このメモを削除する
         </a>

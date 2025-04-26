@@ -87,18 +87,6 @@ def search_view(request):
     }
     return render(request, 'search_results.html',context)
 
-def memo_update_view(request, memo_id):
-    memo = get_object_or_404(Memo, id=memo_id)
-
-    if request.method == 'POST':
-        form = MemoForm(request.POST, request.FILES, instance=memo)
-        if form.is_valid():
-            form.save()
-            return redirect('search')  # または元のURLに戻すなら GETにURL残す方法でもOK
-    else:
-        form = MemoForm(instance=memo)
-
-    return render(request, 'memo_detail.html', {'form': form, 'memo': memo})
 
 @login_required
 def schedule_create_view(request):
@@ -205,6 +193,10 @@ def memo_detail_view(request, memo_id):
 def memo_delete_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
     memo.delete()
+
+    next_url = request.GET.get('next')
+    if next_url:
+        return redirect(next_url)
     return redirect('app:memos')  # 削除後メモ一覧へ
 
 @login_required

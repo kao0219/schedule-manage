@@ -49,41 +49,61 @@
       </div>
     </div>
 
-    <!-- モーダル本体 -->
     <div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title">メモ確認／編集</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
           </div>
+  
           <div class="modal-body">
-            <form method="POST" action="{% url 'memo_update' memo.id %}" enctype="multipart/form-data">
+            <form method="POST" action="" enctype="multipart/form-data">
               {% csrf_token %}
-              {{ memo.form.memo_title.label_tag }}
-              {{ memo.form.memo_title }}
-              {{ memo.form.content.label_tag }}
-              {{ memo.form.content }}
-              {{ memo.form.image.label_tag }}
-              {{ memo.form.image }}
-
+              <input type="hidden" name="memo_id" value="{{ memo.id }}">
+  
+              <!-- タイトル -->
+              <div class="mb-3">
+                {{ memo.form.memo_title.label_tag }}
+                {{ memo.form.memo_title }}
+              </div>
+  
+              <!-- 本文 -->
+              <div class="mb-3">
+                {{ memo.form.content.label_tag }}
+                {{ memo.form.content }}
+              </div>
+  
+              <!-- 画像 -->
+              <div class="mb-3">
+                {{ memo.form.image.label_tag }}
+                {{ memo.form.image }}
+              </div>
+  
               {% if memo.image %}
-                <p>現在の画像：</p>
-                <img src="{{ memo.image.url }}" alt="画像" style="max-width: 200px;">
+                <div class="mb-3">
+                  <label>現在の画像</label><br>
+                  <img src="{{ memo.image.url }}" alt="画像" style="max-width: 300px;">
+                </div>
               {% endif %}
-
+  
+              <!-- ボタン類 -->
               <div class="d-flex justify-content-between mt-4">
-                <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</a>
-                <a href="{% url 'memo_delete' memo.id %}?next={{ request.get_full_path }}">
+                <a href="{% url 'memo_delete' memo.id %}?next={{ request.get_full_path }}" class="btn btn-danger"
+                   onclick="return confirm('このメモを削除しますか？');">
                   このメモを削除する
                 </a>
-                <button type="submit" class="btn btn-primary">完了</button>
+                <div>
+                  <a href="{{ request.get_full_path }}" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</a>
+                  <button type="submit" class="btn btn-primary">完了</button>
+                </div>
               </div>
             </form>
           </div>
         </div>
       </div>
     </div>
+
   {% empty %}
     <p>該当するメモはありません。</p>
   {% endfor %}
