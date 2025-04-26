@@ -80,13 +80,25 @@ def search_view(request):
     for memo in memos:
         memo.form = MemoForm(instance=memo)
 
-
     context = {
         'query': query,
         'schedules': schedules,
         'memos': memos,
     }
     return render(request, 'search_results.html',context)
+
+def memo_update_view(request, memo_id):
+    memo = get_object_or_404(Memo, id=memo_id)
+
+    if request.method == 'POST':
+        form = MemoForm(request.POST, request.FILES, instance=memo)
+        if form.is_valid():
+            form.save()
+            return redirect('search')  # または元のURLに戻すなら GETにURL残す方法でもOK
+    else:
+        form = MemoForm(instance=memo)
+
+    return render(request, 'memo_detail.html', {'form': form, 'memo': memo})
 
 @login_required
 def schedule_create_view(request):

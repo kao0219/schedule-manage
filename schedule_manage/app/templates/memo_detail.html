@@ -37,8 +37,7 @@
 
       <div>
         <a href="{% url 'app:memos' %}" class="btn btn-secondary">キャンセル</a>
-        <a href="{% url 'app:memo_delete' memo.id %}" class="btn btn-danger"
-           onclick="return confirm('このメモを削除しますか？');">
+        <a href="{% url 'memo_delete' memo.id %}?next={% url 'memos' %}">
           このメモを削除する
         </a>
       </div>

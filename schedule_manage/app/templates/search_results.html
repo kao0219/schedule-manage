@@ -74,8 +74,7 @@
 
               <div class="d-flex justify-content-between mt-4">
                 <a href="#" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</a>
-                <a href="{% url 'memo_delete' memo.id %}" class="btn btn-danger"
-                   onclick="return confirm('このメモを削除しますか？');">
+                <a href="{% url 'memo_delete' memo.id %}?next={{ request.get_full_path }}">
                   このメモを削除する
                 </a>
                 <button type="submit" class="btn btn-primary">完了</button>
