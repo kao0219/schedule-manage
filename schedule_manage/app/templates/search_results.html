@@ -40,7 +40,11 @@
           <p class="card-text">{{ memo.content|truncatechars:50 }}</p>
         </div>
         <div class="card-footer text-end">
-          <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#memoModal{{ memo.id }}">確認</button>
+          <button class="btn btn-outline-primary btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#memoModal{{ memo.id }}">
+            確認
+          </button>
         </div>
       </div>
     </div>
