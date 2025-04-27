@@ -51,20 +51,24 @@
       <button type="submit" class="btn btn-secondary">送信</button>
   </form>
 
-  <!-- 終日チェック -->
+  <!-- 終日 -->
   <div class="form-check mb-3">
       <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input">
       <label class="form-check-label" for="id_is_all_day">終日</label>
   </div>
 
-  <!-- 開始・終了日時 -->
+  <!-- 開始日時 -->
   <div class="mb-3">
-      <label for="id_start_time" class="form-label">開始</label>
-      <input type="datetime-local" id="id_start_time" name="start_time" class="form-control">
+       <label for="id_start_time" class="form-label">開始</label>
+       <input type="datetime-local" id="id_start_time" name="start_time" class="form-control"
+           value="{{ schedule.start_time|date:'Y-m-d\\TH:i' }}">
   </div>
+
+  <!-- 終了日時 -->
   <div class="mb-3">
-      <label for="id_end_time" class="form-label">終了</label>
-      <input type="datetime-local" id="id_end_time" name="end_time" class="form-control">
+       <label for="id_end_time" class="form-label">終了</label>
+       <input type="datetime-local" id="id_end_time" name="end_time" class="form-control"
+           value="{{ schedule.end_time|date:'Y-m-d\\TH:i' }}">
   </div>
 
   <!-- 繰り返し -->
