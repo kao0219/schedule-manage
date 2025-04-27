@@ -32,6 +32,8 @@
                 center: 'title',
                 right: 'next'
             },
+            events: '/schedule/json/', 
+            
             dateClick: function(info) {
                 const clickedDate = info.dateStr;
                 window.location.href = `/schedule/create?date=${clickedDate}`;
