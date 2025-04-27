@@ -25,6 +25,8 @@ from .forms import CommentForm
 from .forms import MemoForm
 from django.core.paginator import Paginator
 from datetime import datetime
+import json
+from django.http import JsonResponse
 
 User = get_user_model()
 
@@ -71,6 +73,18 @@ def signup_view(request):
 
 def home_view(request):
     return render(request, 'home.html')
+
+def schedule_json_view(request):
+    schedules = Schedule.objects.all()
+    events = []
+    for schedule in schedules:
+        events.append({
+            'title': schedule.schedule_title,
+            'start': schedule.start_time.isoformat(),
+            'end': schedule.end_time.isoformat() if schedule.end_time else None,
+            'color': schedule.color if schedule.color else '#3788d8',  # 色が設定されていれば使う
+        })
+    return JsonResponse(events, safe=False)
 
 def search_view(request):
     query = request.GET.get('q', '')
