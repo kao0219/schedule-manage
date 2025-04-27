@@ -149,6 +149,7 @@ def schedule_detail_view(request, schedule_id):
         'comments': comments,
         'comment_form': comment_form,
         'username_initial': username_initial,
+        'selected_date': selected_date,
     })
 
 
