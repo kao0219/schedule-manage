@@ -141,6 +141,7 @@ def schedule_detail_view(request, schedule_id):
     comment_form = CommentForm()
 
     username_initial = schedule.user.username[:1].upper()
+    selected_date = schedule.start_time.strftime('%Y年%m月%d日(%a)')
 
     return render(request, 'schedule_detail.html', {
         'form': form,
