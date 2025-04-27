@@ -24,7 +24,7 @@ from .models import ScheduleComment
 from .forms import CommentForm
 from .forms import MemoForm
 from django.core.paginator import Paginator
-
+from datetime import datetime
 
 User = get_user_model()
 
@@ -133,7 +133,7 @@ def schedule_detail_view(request, schedule_id):
         form = ScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
             form.save()
-            return redirect('home')  # ※ここは必要に応じて変えてOK
+            return redirect('home')  
     else:
         form = ScheduleForm(instance=schedule)
 
