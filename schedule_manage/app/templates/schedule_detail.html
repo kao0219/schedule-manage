@@ -60,14 +60,14 @@
   <!-- 開始日時 -->
   <div class="mb-3">
        <label for="id_start_time" class="form-label">開始</label>
-       <input type="datetime-local" id="id_start_time" name="start_time" class="form-control"
+       <input type="datetime-local" id="id_start_time" name="start_time" class="form-control" style="max-width: 300px;"
            value="{{ schedule.start_time|date:'Y-m-d\\TH:i' }}">
   </div>
 
   <!-- 終了日時 -->
   <div class="mb-3">
        <label for="id_end_time" class="form-label">終了</label>
-       <input type="datetime-local" id="id_end_time" name="end_time" class="form-control"
+       <input type="datetime-local" id="id_end_time" name="end_time" class="form-control" style="max-width: 300px;"
            value="{{ schedule.end_time|date:'Y-m-d\\TH:i' }}">
   </div>
 
