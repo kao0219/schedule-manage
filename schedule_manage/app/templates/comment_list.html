@@ -1,4 +1,40 @@
 {% extends 'base.html' %}
 {% block content %}
 <h1>コメント一覧</h1>
+<table border="1">
+    <tr>
+        <th>未読</th>
+        <th>日付</th>
+        <th>タイトル</th>
+        <th>コメント内容</th>
+        <th>操作</th>
+    </tr>
+
+    {% for comment in comments %}
+    <tr>
+        <td>
+            {% if comment.comment_status == 1 %}
+                🔔
+            {% endif %}
+        </td>
+        <td>{{ comment.schedule.start_time|date:"Y/m/d" }}</td>
+        <td>{{ comment.schedule.schedule_title }}</td>
+        <td>{{ comment.content }}</td>
+        <td>
+            <form action="{% url 'comment_confirm' comment.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">確認</button>
+            </form>
+            <form action="{% url 'comment_delete' comment.id %}" method="post" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit">削除</button>
+            </form>
+        </td>
+    </tr>
+    {% empty %}
+    <tr>
+        <td colspan="5">コメントはありません。</td>
+    </tr>
+    {% endfor %}
+</table>
 {% endblock %}
