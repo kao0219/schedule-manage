@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.forms import UserCreationForm
 from .models import CustomUser
-from .models import Schedule, COLOR_LABELS
+from .models import Schedule
 from .models import ScheduleComment 
 from .models import Memo
 
@@ -59,12 +59,9 @@ class ScheduleForm(forms.ModelForm):
         label='繰り返し設定',
         initial='0'
     )
-
-    color = forms.TypedChoiceField(
-        choices=[(k, v) for k, v in COLOR_LABELS.items()],
-        coerce=int,
-        label='好きな色を選択',
-    )
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['color'].empty_label = "好きな色を選択"
 
 class CommentForm(forms.ModelForm):
     class Meta:
