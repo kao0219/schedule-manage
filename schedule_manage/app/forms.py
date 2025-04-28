@@ -59,7 +59,12 @@ class ScheduleForm(forms.ModelForm):
         label='繰り返し設定',
         initial='0'
     )
-        
+
+    def __init__(self, *args, **kwargs):
+        super(ScheduleForm, self).__init__(*args, **kwargs)
+        self.fields['color'].choices = [('', '好きな色を選択')] + list(Schedule.COLOR_CHOICES)   
+
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = ScheduleComment
