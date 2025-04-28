@@ -75,13 +75,13 @@ class Schedule(models.Model):
     image_url = models.ImageField(upload_to='schedule_images/', blank=True, null=True)
     
     COLOR_CHOICES = [
-        (1, '#FF0000'),  # 赤
-        (2, '#0000FF'),  # 青
-        (3, '#FFFF00'),  # 黄色
-        (4, '#00FF00'),  # 緑
-        (5, '#F08080'),  # ピンク
-        (6, '#800080'),  # 紫
-        (7, '#F57F33'),  # オレンジ
+        (1, '#FF0000', 'レッド'),  
+        (2, '#0000FF', 'ブルー'), 
+        (3, '#FFFF00', 'イエロー'),  
+        (4, '#00FF00', 'グリーン'),  
+        (5, '#F08080', 'ピンク'), 
+        (6, '#800080', 'パープル'), 
+        (7, '#F57F33', 'オレンジ'),  
     ]
     color = models.IntegerField(choices=COLOR_CHOICES, default=1)
     
