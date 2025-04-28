@@ -28,6 +28,7 @@ from datetime import datetime
 import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
+from django.urls import reverse
 
 User = get_user_model()
 
@@ -193,7 +194,8 @@ def comment_confirm_view(request, comment_id):
     comment = get_object_or_404(ScheduleComment, id=comment_id)
     comment.comment_status = 2  # 既読
     comment.save()
-    return redirect('app:comment_list_view')  # 一覧に戻る
+    schedule_id = comment.schedule.id
+    return redirect(reverse('schedule_detail', args=[schedule_id]))
 
 
 @require_POST
