@@ -84,7 +84,7 @@ class Schedule(models.Model):
         (7, 'オレンジ'),
     ]
 
-    color = models.IntegerField(choices=COLOR_CHOICES, default=1)
+    color = models.IntegerField(choices=COLOR_CHOICES, blank=True, null=True)
 
     def get_color_label(self):
         return dict(self.COLOR_CHOICES).get(self.color, '')

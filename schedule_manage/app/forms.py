@@ -61,7 +61,7 @@ class ScheduleForm(forms.ModelForm):
     )
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['color'].empty_label = "好きな色を選択"
+        self.fields['color'].choices = [('', '好きな色を選択')] + list(self.fields['color'].choices)
 
 class CommentForm(forms.ModelForm):
     class Meta:
