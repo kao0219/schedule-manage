@@ -180,7 +180,13 @@ def comment_add_view(request, schedule_id):
             return redirect('schedule_detail', schedule_id=schedule_id)
 
 def comment_list_view(request):
-    return render(request, 'comment_list.html')
+    comments = ScheduleComment.objects.all().order_by('-created_at')
+
+    context = {
+        'comments': comments,
+    }
+    return render(request, 'comment_list.html', context)
+    
 
 
 def memos_view(request):

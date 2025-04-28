@@ -20,7 +20,7 @@ class CustomUserAdmin(admin.ModelAdmin):
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('id','schedule_title', 'schedule_memo', 'get_color_label', 'image_url''start_time', 'end_time', 'created_at')
+    list_display = ('id','schedule_title', 'schedule_memo', 'get_color_label', 'image_url', 'start_time', 'end_time', 'created_at')
     search_fields = ('schedule_title',)
 
     def get_color_label(self, obj):
