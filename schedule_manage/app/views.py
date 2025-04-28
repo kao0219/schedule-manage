@@ -188,7 +188,19 @@ def comment_list_view(request):
     }
     return render(request, 'comment_list.html', context)
     
+@require_POST
+def comment_confirm_view(request, comment_id):
+    comment = get_object_or_404(ScheduleComment, id=comment_id)
+    comment.comment_status = 2  # 既読
+    comment.save()
+    return redirect('comment_list')  # 一覧に戻る
 
+
+@require_POST
+def comment_delete_view(request, comment_id):
+    comment = get_object_or_404(ScheduleComment, id=comment_id)
+    comment.delete()
+    return redirect('comment_list')  # 一覧に戻る
 
 def memos_view(request):
     memos = Memo.objects.all().order_by('-created_at')  
