@@ -75,26 +75,19 @@ class Schedule(models.Model):
     image_url = models.ImageField(upload_to='schedule_images/', blank=True, null=True)
     
     COLOR_CHOICES = [
-        (1, '#FF0000'),  
-        (2, '#0000FF'), 
-        (3, '#FFFF00'),  
-        (4, '#00FF00'),  
-        (5, '#F08080'), 
-        (6, '#800080'), 
-        (7, '#F57F33'),  
+        (1, 'レッド'),
+        (2, 'ブルー'),
+        (3, 'イエロー'),
+        (4, 'グリーン'),
+        (5, 'ピンク'),
+        (6, 'パープル'),
+        (7, 'オレンジ'),
     ]
 
-    COLOR_LABELS = {
-    1: 'レッド',
-    2: 'ブルー',
-    3: 'イエロー',
-    4: 'グリーン',
-    5: 'ピンク',
-    6: 'パープル',
-    7: 'オレンジ',
-    }
-
     color = models.IntegerField(choices=COLOR_CHOICES, default=1)
+
+    def get_color_label(self):
+        return dict(self.COLOR_CHOICES).get(self.color, '')
     
     REPEAT_CHOICES = [
         (0, 'なし'),

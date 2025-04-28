@@ -63,9 +63,9 @@ class ScheduleForm(forms.ModelForm):
     color = forms.TypedChoiceField(
         choices=[(k, v) for k, v in COLOR_LABELS.items()],
         coerce=int,
-        label='好きな色を選択'
+        label='好きな色を選択',
     )
-    
+
 class CommentForm(forms.ModelForm):
     class Meta:
         model = ScheduleComment
