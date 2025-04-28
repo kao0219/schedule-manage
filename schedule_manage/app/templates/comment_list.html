@@ -21,11 +21,11 @@
         <td>{{ comment.schedule.schedule_title }}</td>
         <td>{{ comment.content }}</td>
         <td>
-            <form action="{% url 'comment_confirm' comment.id %}" method="post" style="display:inline;">
+            <form action="{% url 'app:comment_confirm' comment.id %}" method="post" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit">確認</button>
             </form>
-            <form action="{% url 'comment_delete' comment.id %}" method="post" style="display:inline;">
+            <form action="{% url 'app:comment_delete' comment.id %}" method="post" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit">削除</button>
             </form>
