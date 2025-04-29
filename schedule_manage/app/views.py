@@ -139,18 +139,31 @@ def schedule_detail_view(request, schedule_id):
     schedule = get_object_or_404(Schedule, id=schedule_id)
 
     if request.method == 'POST':
-        form = ScheduleForm(request.POST, request.FILES, instance=schedule)
-        if form.is_valid():
-            form.save()
-            return redirect('app:home')  
+        action = request.POST.get('action')
+
+        if action == 'edit':
+            form = ScheduleForm(request.POST, request.FILES, instance=schedule)
+            comment_form = CommentForm()  
+            if form.is_valid():
+                form.save()
+                return redirect('app:home')  
+
+        elif action == 'comment':
+            form = ScheduleForm(instance=schedule)  
+            comment_form = CommentForm(request.POST)
+            if comment_form.is_valid():
+                comment = comment_form.save(commit=False)
+                comment.schedule = schedule
+                comment.user = request.user
+                comment.save()
+
     else:
         form = ScheduleForm(instance=schedule)
+        comment_form = CommentForm()
 
     comments = ScheduleComment.objects.filter(schedule=schedule).order_by('-created_at')
-    comment_form = CommentForm()
-
     username_initial = schedule.user.username[:1].upper()
-    selected_date = schedule.start_time.strftime('%Y年%m月%d日(%a)')
+    selected_date = schedule.start_time.strftime('%Y年%m月%d日（%a）')
 
     return render(request, 'schedule_detail.html', {
         'form': form,
