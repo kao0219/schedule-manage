@@ -126,20 +126,16 @@ def schedule_create_view(request):
             schedule = form.save(commit=False)
             schedule.user = request.user
             schedule.save()
-            # 登録後も同じページを表示
-            return render(request, 'schedule_create.html', {
-                'form': ScheduleForm(),
-                'date': selected_date,
-                'username_initial': username_initial,
-            })
-    else:
-        form = ScheduleForm()
+            return render('home'), 
+        
+        else:
+            form = ScheduleForm()
 
-    return render(request, 'schedule_create.html', {
-    'form': form,
-    'date': selected_date,
-    'username_initial': username_initial,
-    })
+        return render(request, 'schedule_create.html', {
+            'form': form,
+            'date': selected_date,
+            'username_initial': username_initial,
+        })
 
 @login_required
 def schedule_detail_view(request, schedule_id):
@@ -195,7 +191,7 @@ def comment_confirm_view(request, comment_id):
     comment.comment_status = 2  # 既読
     comment.save()
     schedule_id = comment.schedule.id
-    return redirect(reverse('schedule_detail', args=[schedule_id]))
+    return redirect(reverse('app:schedule_detail', args=[schedule_id]))
 
 
 @require_POST
