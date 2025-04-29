@@ -120,22 +120,20 @@ def schedule_create_view(request):
     selected_date = request.GET.get('date') or date.today().isoformat()
     username_initial = request.user.username[0].upper()
 
-    if request.method == 'POST':
-        form = ScheduleForm(request.POST, request.FILES)
-        if form.is_valid():
-            schedule = form.save(commit=False)
-            schedule.user = request.user
-            schedule.save()
-            return render('home'), 
-        
-        else:
-            form = ScheduleForm()
+    form = ScheduleForm(request.POST or None, request.FILES or None)
 
-        return render(request, 'schedule_create.html', {
-            'form': form,
-            'date': selected_date,
-            'username_initial': username_initial,
-        })
+    if request.method == 'POST' and form.is_valid():
+        schedule = form.save(commit=False)
+        schedule.user = request.user
+        schedule.save()
+        return redirect('home')  # ★ ホームへリダイレクト
+
+    # POSTで失敗 or GETのときにここが実行される
+    return render(request, 'schedule_create.html', {
+        'form': form,
+        'date': selected_date,
+        'username_initial': username_initial,
+    })
 
 @login_required
 def schedule_detail_view(request, schedule_id):
