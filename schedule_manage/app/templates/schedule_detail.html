@@ -11,92 +11,77 @@
 
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
-  
+
   <div class="mb-3">
-      <label for="id_schedule_title" class="form-label">タイトル</label>
-      {{ form.schedule_title }}
+    <label for="id_schedule_title" class="form-label">タイトル</label>
+    {{ form.schedule_title }}
   </div>
 
   <div class="mb-3">
-      <label for="id_schedule_memo" class="form-label">メモ</label>
-      {{ form.schedule_memo }}
+    <label for="id_schedule_memo" class="form-label">メモ</label>
+    {{ form.schedule_memo }}
   </div>
 
-  <!-- コメント一覧 -->
   <div class="mb-3">
-      {% for comment in comments %}
-      <div class="d-flex align-items-center border p-2 mb-2">
-          <!-- アカウントマーク -->
-          <div style="width: 36px; height: 36px; background-color: #007bff; color: white; 
-                      display: flex; align-items: center; justify-content: center; 
-                      border-radius: 50%; font-weight: bold;">
-              {{ comment.user.username|slice:":1"|upper }}
-          </div>
-
-          <!-- コメント内容 -->
-          <div style="margin-left: 10px;">
-              <strong>{{ comment.user.username }}</strong>：{{ comment.content }}
-          </div>
-      </div>
-      {% endfor %}
+    <label class="form-label">終日</label><br>
+    {{ form.is_all_day }}
   </div>
 
-  <!-- コメント投稿 -->
-  <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
-      {% csrf_token %}
-      <div class="mb-3">
-          <label for="id_content" class="form-label">コメントを入力</label>
-          {{ comment_form.content }}
-      </div>
-      <button type="submit" name="action" value="comment" class="btn btn-secondary">送信</button>
-  </form>
-
-  <!-- 終日 -->
-  <div class="form-check mb-3">
-      <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input">
-      <label class="form-check-label" for="id_is_all_day">終日</label>
-  </div>
-
-  <!-- 開始日時 -->
   <div class="mb-3">
-       <label for="id_start_time" class="form-label">開始</label>
-       <input type="datetime-local" id="id_start_time" name="start_time" class="form-control" style="max-width: 200px;"
-           value="{{ schedule.start_time|date:'Y-m-d\\TH:i' }}">
+    <label for="id_start_time" class="form-label">開始</label>
+    {{ form.start_time }}
   </div>
 
-  <!-- 終了日時 -->
   <div class="mb-3">
-       <label for="id_end_time" class="form-label">終了</label>
-       <input type="datetime-local" id="id_end_time" name="end_time" class="form-control" style="max-width: 200px;"
-           value="{{ schedule.end_time|date:'Y-m-d\\TH:i' }}">
+    <label for="id_end_time" class="form-label">終了</label>
+    {{ form.end_time }}
   </div>
 
-  <!-- 繰り返し -->
   <div class="mb-3">
-      <label>繰り返し設定</label><br>
-      {% for value, label in form.repeat_type.field.choices %}
-      <label>
-          <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
-                 {% if form.repeat_type.value == value|stringformat:"s" %}checked{% endif %}>
-          {{ label }}
-      </label>
-      {% endfor %}
+    <label class="form-label">繰り返し設定</label><br>
+    {{ form.repeat_type }}
   </div>
 
-  <!-- 色選択 -->
   <div class="mb-3">
-      <label class="form-label">見出しの色設定</label><br>
-      {{ form.color }}
+    <label class="form-label">見出しの色設定</label><br>
+    {{ form.color }}
   </div>
 
-  <!-- 画像添付 -->
   <div class="mb-3">
-      <label class="form-label">画像</label><br>
-      {{ form.image_url }}
+    <label class="form-label">画像</label><br>
+    {{ form.image_url }}
   </div>
 
   <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
 </form>
+
+<hr>
+
+<!-- コメント一覧 -->
+<div class="mb-3">
+  {% for comment in comments %}
+    <div class="d-flex align-items-center border p-2 mb-2">
+      <div style="width: 36px; height: 36px; background-color: #007bff; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">
+        {{ comment.user.username|slice:":1"|upper }}
+      </div>
+      <div style="margin-left: 10px;">
+        <strong>{{ comment.user.username }}</strong>：{{ comment.content }}
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<!-- コメント投稿 -->
+<form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="id_content" class="form-label">コメントを入力</label>
+    {{ comment_form.content }}
+  </div>
+  <button type="submit" name="action" value="comment" class="btn btn-secondary">送信</button>
+</form>
+
+
 
  
 <script>

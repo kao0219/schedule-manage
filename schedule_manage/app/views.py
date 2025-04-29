@@ -140,6 +140,7 @@ def schedule_detail_view(request, schedule_id):
 
     if request.method == 'POST':
         action = request.POST.get('action')
+    
 
         if action == 'edit':
             form = ScheduleForm(request.POST, request.FILES, instance=schedule)
