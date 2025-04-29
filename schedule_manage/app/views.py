@@ -126,9 +126,8 @@ def schedule_create_view(request):
         schedule = form.save(commit=False)
         schedule.user = request.user
         schedule.save()
-        return redirect('home')  # ★ ホームへリダイレクト
+        return redirect('app:home')  
 
-    # POSTで失敗 or GETのときにここが実行される
     return render(request, 'schedule_create.html', {
         'form': form,
         'date': selected_date,
@@ -143,7 +142,7 @@ def schedule_detail_view(request, schedule_id):
         form = ScheduleForm(request.POST, request.FILES, instance=schedule)
         if form.is_valid():
             form.save()
-            return redirect('home')  
+            return redirect('app:home')  
     else:
         form = ScheduleForm(instance=schedule)
 
