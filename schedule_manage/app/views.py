@@ -129,7 +129,7 @@ def schedule_create_view(request):
         return redirect('app:home')  
 
     return render(request, 'schedule_create.html', {
-        'form': form,
+        'form': ScheduleForm(),
         'date': selected_date,
         'username_initial': username_initial,
     })
