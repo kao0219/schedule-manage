@@ -206,12 +206,9 @@ def comment_confirm_view(request, comment_id):
 
 def schedule_delete_view(request, pk):
     schedule = get_object_or_404(Schedule, pk=pk)
+    schedule.delete()
+    return redirect('app:home')
 
-    if request.method == 'POST':
-        schedule.delete()
-        return redirect('app:home')
-
-    return redirect('app:schedule_detail', pk=pk)
 
 
 @require_POST

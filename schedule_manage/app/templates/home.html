@@ -33,11 +33,17 @@
                 right: 'next'
             },
             events: '/schedule/json/', 
-            
+
             dateClick: function(info) {
                 const clickedDate = info.dateStr;
                 window.location.href = `/schedule/create?date=${clickedDate}`;
             },
+
+            eventClick: function(info) {
+                const scheduleId = info.event.id;
+                window.location.href = `/schedule/${scheduleId}`;
+            },
+
             dayCellContent: function(arg) {
                 return arg.date.getDate();
             },
