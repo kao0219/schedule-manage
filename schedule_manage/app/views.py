@@ -186,7 +186,7 @@ def comment_add_view(request, schedule_id):
             comment.user = request.user
             comment.schedule = schedule
             comment.save()
-            return redirect('schedule_detail', schedule_id=schedule_id)
+            return redirect('app:schedule_detail', schedule_id=schedule_id)
 
 def comment_list_view(request):
     comments = ScheduleComment.objects.all().order_by('-created_at')
