@@ -10,65 +10,62 @@
 </div>
 
 <form method="post" enctype="multipart/form-data">
-  {% csrf_token %} 
-  
-  <div class="mb-3">
-    <label for="id_schedule_title" class="form-label">タイトル</label>
-    {{ form.schedule_title }}
+  {% csrf_token %}
+  <div class="container">
+    <div class="row">
+
+      <div class="col-md-6">
+        <div class="mb-3">
+          <label for="id_schedule_title" class="form-label">タイトル</label>
+          {{ form.schedule_title }}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_schedule_memo" class="form-label">メモ</label>
+          {{ form.schedule_memo }}
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <div class="form-check mb-3">
+          {{ form.is_all_day }} <label for="id_is_all_day" class="form-check-label">終日</label>
+        </div>
+
+        <div class="mb-3">
+          <label for="id_start_time" class="form-label">開始</label>
+          {{ form.start_time }}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_end_time" class="form-label">終了</label>
+          {{ form.end_time }}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">繰り返し設定</label><br>
+          {% for value, label in form.repeat_type.field.choices %}
+            <label class="me-3">
+              <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
+              {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}>
+              {{ label }}
+            </label>
+          {% endfor %}
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label">見出しの色設定</label><br>
+          {{ form.color }}
+        </div>
+
+        <div class="mb-3">
+          <label for="id_image_url" class="form-label">画像選択</label><br>
+          {{ form.image_url }}
+        </div>
+
+        <button type="submit" class="btn btn-primary">登録</button>
+      </div>
+    </div>
   </div>
-  
-  <!-- メモ -->
-  <div class="mb-3">
-    <label for="id_schedule_memo" class="form-label">メモ</label>
-    {{ form.schedule_memo }}
-  </div>
-  
-  <!-- 終日チェック -->
-  <div class="form-check mb-3">
-    <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input">
-    <label class="form-check-label" for="id_is_all_day">終日</label>
-  </div>
-  
-  <!-- 開始日時 -->
-  <div class="mb-3">
-    <label for="id_start_time" class="form-label">開始</label>
-    <input type="datetime-local" id="id_start_time" name="start_time" class="form-control"
-           style="width: 200px;"
-           value="{{ schedule.start_time|date:'Y-m-d\\TH:i' }}">
-  </div>
-  
-  <!-- 終了日時 -->
-  <div class="mb-3">
-    <label for="id_end_time" class="form-label">終了</label>
-    <input type="datetime-local" id="id_end_time" name="end_time" class="form-control"
-           style="width: 200px;"
-           value="{{ schedule.end_time|date:'Y-m-d\\TH:i' }}">
-  </div>
-  
-  <!-- 繰り返し -->
-  <div class="mb-3">
-    <label>繰り返し設定</label><br>
-    {% for value, label in form.repeat_type.field.choices %}
-      <label>
-        <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
-               {% if form.repeat_type.value == value|stringformat:"s" %}checked{% endif %}>
-        {{ label }}
-      </label>
-    {% endfor %}
-  </div>
-  
-  <!-- 色選択 -->
-  <div class="mb-3">
-    <label class="form-label">見出しの色設定</label><br>
-    {{ form.color }}
-  </div>
-  
-  <!-- 画像添付 -->
-  <div class="mb-3">
-    <label class="form-label">画像</label><br>
-    {{ form.image_url }}
-  </div>
-<button type="submit" class="btn btn-primary">登録</button>
 </form>
 
 
