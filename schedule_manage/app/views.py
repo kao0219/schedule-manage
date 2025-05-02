@@ -80,12 +80,16 @@ def schedule_json_view(request):
     schedules = Schedule.objects.all()
     events = []
     for schedule in schedules:
-        events.append({
+        event = {
+            'id': schedule.id,
             'title': schedule.schedule_title,
-            'start': schedule.start_time.isoformat(),
-            'end': schedule.end_time.isoformat() if schedule.end_time else None,
-            'color': schedule.color if schedule.color else '#3788d8',  # 色が設定されていれば使う
-        })
+            'start': schedule.start_time.date().isoformat(), 
+        }
+        if schedule.color:  
+            event['color'] = schedule.color
+
+        events.append(event)
+
     return JsonResponse(events, safe=False)
 
 def search_view(request):
