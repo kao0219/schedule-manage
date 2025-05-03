@@ -123,6 +123,11 @@ class ScheduleCommentRead(models.Model):
     comment = models.ForeignKey(ScheduleComment, on_delete=models.CASCADE)
     read_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        unique_together = ('user', 'comment')  
+
+    def __str__(self):
+        return f"{self.user.email} read {self.comment.id} at {self.read_at}"
     
 class Memo(models.Model):
     memo_title = models.CharField(max_length=200)
