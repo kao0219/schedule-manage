@@ -45,12 +45,17 @@
             },
 
             eventDidMount: function(info) {
-                if (!info.event.extendedProps.color)  {
+                if (!info.event.extendedProps.color) {
                   info.el.style.backgroundColor = 'transparent';
                   info.el.style.color = 'black';
                   info.el.style.border = '1px solid #ccc';
                 }
-
+                const titleEl = info.el.querySelector('.fc-event-title');
+                if (titleEl) {
+                  titleEl.style.color = 'black';
+                  titleEl.style.fontWeight = 'bold';
+                }
+            },
             dayCellContent: function(arg) {
                 return arg.date.getDate();
             },
