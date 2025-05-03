@@ -7,6 +7,7 @@
     メモ新規作成＋
 </button>
 
+<!--メモ一覧の表示カード-->
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
   {% for memo in page_obj %}
     <div class="col">
@@ -54,6 +55,16 @@
             <img src="{{ memo.image.url }}" alt="画像" style="max-width: 100%;">
           {% endif %}
         </div>
+
+        <div class="modal-footer">
+          <a href="{% url 'app:memo_delete' memo.id %}" class="btn btn-danger">削除</a>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+          <button type="submit" class="btn btn-primary">完了</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <!-- ページネーション -->
 <nav class="mt-4">
