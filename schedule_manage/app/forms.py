@@ -5,7 +5,7 @@ from .models import CustomUser
 from .models import Schedule
 from .models import ScheduleComment 
 from .models import Memo
-
+from django.forms.widgets import DateTimeInput
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
@@ -51,10 +51,14 @@ class ScheduleForm(forms.ModelForm):
             'color',
             'image_url',
         ]
+        widgets = {
+            'start_time': DateTimeInput(attrs={'type': 'datetime-local'}),
+            'end_time': DateTimeInput(attrs={'type': 'datetime-local'}),
+        }
 
     repeat_type = forms.TypedChoiceField(
         choices=Schedule.REPEAT_CHOICES,
-        coerce=int,  # 選択値を int に変換
+        coerce=int,  # 選択値を int に変換する
         widget=forms.RadioSelect,
         label='繰り返し設定',
         initial='0'
@@ -70,7 +74,7 @@ class CommentForm(forms.ModelForm):
 
 def __init__(self, *args, **kwargs):
         super(ScheduleForm, self).__init__(*args, **kwargs)
-        # repeat_type の初期値を 0 に設定（デフォルト「なし」にチェック）
+        # repeat_type の初期値を 0 に設定
         if not self.initial.get('repeat_type'):
             self.initial['repeat_type'] = 0
 
