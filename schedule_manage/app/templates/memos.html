@@ -39,6 +39,22 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
         </div>
 
+        <div class="modal-body">
+          {{ memo.form.memo_title.label_tag }}
+          {{ memo.form.memo_title }}
+
+          {{ memo.form.content.label_tag }}
+          {{ memo.form.content }}
+
+          {{ memo.form.image.label_tag }}
+          {{ memo.form.image }}
+          
+          {% if memo.image %}
+            <p>現在の画像：</p>
+            <img src="{{ memo.image.url }}" alt="画像" style="max-width: 100%;">
+          {% endif %}
+        </div>
+
 <!-- ページネーション -->
 <nav class="mt-4">
   <ul class="pagination justify-content-center">
