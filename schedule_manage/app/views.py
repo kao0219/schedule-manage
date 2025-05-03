@@ -121,13 +121,13 @@ def search_view(request):
 
 @login_required
 def schedule_create_view(request):
-    selected_date = request.GET.get('date') or date.today().isoformat()
-    selected_date = datetime.strptime(selected_date, "%Y-%m-%d").date()
+    selected_date_str = request.GET.get('date') or datetime.now().date().isoformat()
+    selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
     username_initial = request.user.username[0].upper()
 
     initial_data = {
-        'start_time': datetime.combine(selected_date, time(9, 0)),
-        'end_time': datetime.combine(selected_date, time(10, 0)),
+        'start_time': datetime.combine(selected_date, time(9, 0)).strftime("%Y-%m-%dT%H:%M"),
+        'end_time': datetime.combine(selected_date, time(10, 0)).strftime("%Y-%m-%dT%H:%M"),
     }
 
     if request.method == 'POST' :
