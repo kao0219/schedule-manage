@@ -218,7 +218,11 @@ def comment_add_view(request, schedule_id):
             return redirect('app:schedule_detail', schedule_id=schedule_id)
 
 def comment_list_view(request):
-    comments = ScheduleComment.objects.all().order_by('-created_at')
+    user = request.user
+    comments = ScheduleComment.objects.all().order_by('-created_at') #全コメント取得
+
+    read_comment_ids = ScheduleCommentRead.objects.filter(user=user).values_list('comment_id', flat=True)
+    #既読にしたコメントID取得
 
     context = {
         'comments': comments,
