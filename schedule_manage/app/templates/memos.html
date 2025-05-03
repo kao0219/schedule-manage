@@ -19,8 +19,8 @@
             <img src="{{ memo.image.url }}" class="img-fluid mt-2" alt="サムネイル">
           {% endif %}
 
-          <!-- 確認/編集へ -->
-          <a href="{% url 'app:memo_detail' memo.id %}" class="stretched-link"></a>
+          <!-- 確認/編集-->
+          <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#memoModal{{ memo.id }}"></a>
         </div>
       </div>
     </div>
