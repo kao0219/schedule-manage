@@ -226,6 +226,7 @@ def comment_list_view(request):
 
     context = {
         'comments': comments,
+        'read_comment_ids': list(read_comment_ids),  
     }
     return render(request, 'comment_list.html', context)
     
