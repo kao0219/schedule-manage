@@ -121,8 +121,8 @@ def search_view(request):
 
 @login_required
 def schedule_create_view(request):
-    selected_date_str = request.GET.get('date') or date.today().isoformat()
-    selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+    selected_date = request.GET.get('date') or date.today().isoformat()
+    selected_date = datetime.strptime(selected_date, "%Y-%m-%d").date()
     username_initial = request.user.username[0].upper()
 
     initial_data = {
@@ -143,7 +143,7 @@ def schedule_create_view(request):
 
     return render(request, 'schedule_create.html', {
         'form': ScheduleForm(),
-        'selected_date': selected_date_str,
+        'selected_date': selected_date,
         'username_initial': username_initial,
     })
 
