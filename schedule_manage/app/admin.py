@@ -30,7 +30,7 @@ class ScheduleAdmin(admin.ModelAdmin):
 
 @admin.register(ScheduleComment)
 class ScheduleCommentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'schedule', 'content', 'comment_status', 'created_at')
+    list_display = ('user', 'schedule', 'content', 'created_at')
     search_fields = ('content',)
 
 @admin.register(Memo)
