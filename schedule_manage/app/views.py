@@ -29,6 +29,7 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.urls import reverse
+from .models import ScheduleComment, ScheduleCommentRead
 
 User = get_user_model()
 
