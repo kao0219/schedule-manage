@@ -125,9 +125,13 @@ def schedule_create_view(request):
     selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
     username_initial = request.user.username[0].upper()
 
+    now = datetime.now()
+    start_hour = now.hour
+    start_minute = 0   #日時反映部分
+   
     initial_data = {
-        'start_time': datetime.combine(selected_date, time(9, 0)).strftime("%Y-%m-%dT%H:%M"),
-        'end_time': datetime.combine(selected_date, time(10, 0)).strftime("%Y-%m-%dT%H:%M"),
+        'start_time': datetime.combine(selected_date, time(start_hour, start_minute)),
+        'end_time': datetime.combine(selected_date, time(start_hour + 1, start_minute)),
     }
 
     if request.method == 'POST' :
