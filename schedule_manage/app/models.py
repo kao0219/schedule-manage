@@ -118,6 +118,11 @@ class ScheduleComment(models.Model):
         return self.content
 
 
+class ScheduleCommentRead(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    comment = models.ForeignKey(ScheduleComment, on_delete=models.CASCADE)
+    read_at = models.DateTimeField(auto_now_add=True)
+
     
 class Memo(models.Model):
     memo_title = models.CharField(max_length=200)
