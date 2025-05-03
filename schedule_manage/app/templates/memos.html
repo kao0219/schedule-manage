@@ -25,46 +25,46 @@
         </div>
       </div>
     </div>
-  {% endfor %}
-</div>
+  
+
 
 <!--選択したメモのモーダル-->
-<div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-labelledby="memoModalLabel{{ memo.id }}" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <form method="POST" enctype="multipart/form-data" action="">
-        {% csrf_token %}
-        <input type="hidden" name="memo_id" value="{{ memo.id }}">
+    <div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-labelledby="memoModalLabel{{ memo.id }}" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <form method="POST" enctype="multipart/form-data" action="{% url 'app:memo_detail' memo.id %}">
+            {% csrf_token %}
+            <div class="modal-header">
+              <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ確認／編集</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+            </div>
 
-        <div class="modal-header">
-          <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ確認／編集</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-        </div>
+            <div class="modal-body">
+              {{ memo.form.memo_title.label_tag }}
+              {{ memo.form.memo_title }}
 
-        <div class="modal-body">
-          {{ memo.form.memo_title.label_tag }}
-          {{ memo.form.memo_title }}
+              {{ memo.form.content.label_tag }}
+              {{ memo.form.content }}
 
-          {{ memo.form.content.label_tag }}
-          {{ memo.form.content }}
-
-          {{ memo.form.image.label_tag }}
-          {{ memo.form.image }}
+              {{ memo.form.image.label_tag }}
+              {{ memo.form.image }}
           
-          {% if memo.image %}
-            <p>現在の画像：</p>
-            <img src="{{ memo.image.url }}" alt="画像" style="max-width: 100%;">
-          {% endif %}
-        </div>
+              {% if memo.image %}
+                <p>現在の画像：</p>
+                <img src="{{ memo.image.url }}" alt="画像" style="max-width: 100%;">
+              {% endif %}
+            </div>
 
-        <div class="modal-footer">
-          <a href="{% url 'app:memo_delete' memo.id %}" class="btn btn-danger">削除</a>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
-          <button type="submit" class="btn btn-primary">完了</button>
+            <div class="modal-footer">
+              <a href="{% url 'app:memo_delete' memo.id %}" class="btn btn-danger">削除</a>  <!--←ここ-->
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+              <button type="submit" class="btn btn-primary">完了</button>
+            </div>
+          </form>
         </div>
-      </form>
+      </div>
     </div>
-  </div>
+  {% endfor %}
 </div>
 
 <!-- ページネーション -->
