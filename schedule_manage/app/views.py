@@ -80,6 +80,9 @@ def schedule_json_view(request):
     schedules = Schedule.objects.all()
     events = []
     for schedule in schedules:
+        if schedule.start_time is None:
+            continue
+        
         event = {
             'id': schedule.id,
             'title': schedule.schedule_title,
