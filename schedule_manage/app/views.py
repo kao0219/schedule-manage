@@ -35,6 +35,9 @@ User = get_user_model()
 def index(request):
     return HttpResponse('<h1>schedule manage</h1>')
 
+def portfolio_view(request):
+    return render(request, 'portfolio.html')
+
 
 def login_view(request):
     if request.method == 'POST':
@@ -82,7 +85,7 @@ def schedule_json_view(request):
     for schedule in schedules:
         if schedule.start_time is None:
             continue
-        
+
         event = {
             'id': schedule.id,
             'title': schedule.schedule_title,
