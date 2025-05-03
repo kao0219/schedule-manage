@@ -91,20 +91,18 @@
 </nav>
 
 
-
+<!--登録モーダル-->
 <div class="modal fade" id="createMemoModal" tabindex="-1" aria-labelledby="creatememoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
-      <div class="modal-header">
+        {% csrf_token %}
+        <div class="modal-header">
         <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ登録</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="×キャンセル"></button>
       </div>
 
       <div class="modal-body">
-     
-        <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
-           {% csrf_token %}
         <div class="mb-3">
           <label>タイトル</label>
           <input type="text" name="memo_title" class="form-control" required>
