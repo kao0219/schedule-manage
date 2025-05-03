@@ -59,7 +59,8 @@ class ScheduleForm(forms.ModelForm):
 
     def clean(self):
         cleaned_data = super().clean()
-        is_all_day = cleaned_data.get('is_all_day')
+        is_all_day = bool(cleaned_data.get('is_all_day'))
+    
         start_time = cleaned_data.get('start_time')
         end_time = cleaned_data.get('end_time')
 
