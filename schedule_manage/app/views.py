@@ -142,7 +142,7 @@ def schedule_create_view(request):
         form = ScheduleForm(initial=initial_data)
 
     return render(request, 'schedule_create.html', {
-        'form': ScheduleForm(),
+        'form': form,
         'selected_date': selected_date,
         'username_initial': username_initial,
     })
