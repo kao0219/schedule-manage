@@ -13,7 +13,7 @@
     {% for comment in comments %}
     <tr>
         <td>
-            {% if comment.id not  in read_comment_ids %}
+            {% if comment.id not  in read_comment_ids %}  <!-- ここまで修正-->
                 🔔
             {% endif %}
         </td>
