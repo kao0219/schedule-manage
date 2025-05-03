@@ -89,17 +89,18 @@
     {% endif %}
   </ul>
 </nav>
-</div>
 
 
-<div class="modal fade" id="memoModal" tabindex="-1" aria-labelledby="memoModalLabel" {{ memo.id }}aria-hidden="true">
+
+<div class="modal fade" id="createMemoModal" tabindex="-1" aria-labelledby="creatememoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
+      <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
       <div class="modal-header">
-        <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ編集</h5>
+        <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ登録</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="×キャンセル"></button>
-</div>
-<!--登録モーダル-->
+      </div>
+
       <div class="modal-body">
      
         <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
