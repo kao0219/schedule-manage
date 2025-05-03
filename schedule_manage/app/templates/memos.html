@@ -30,6 +30,14 @@
 <div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-labelledby="memoModalLabel{{ memo.id }}" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
+      <form method="POST" enctype="multipart/form-data" action="">
+        {% csrf_token %}
+        <input type="hidden" name="memo_id" value="{{ memo.id }}">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ確認／編集</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        </div>
 
 <!-- ページネーション -->
 <nav class="mt-4">
