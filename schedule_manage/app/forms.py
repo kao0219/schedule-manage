@@ -6,6 +6,7 @@ from .models import Schedule
 from .models import ScheduleComment 
 from .models import Memo
 from django.forms.widgets import DateTimeInput
+from django.core.exceptions import ValidationError
 
 class CustomPasswordChangeForm(PasswordChangeForm):
     def __init__(self, *args, **kwargs):
@@ -56,9 +57,20 @@ class ScheduleForm(forms.ModelForm):
             'end_time': DateTimeInput(attrs={'type': 'datetime-local'}),
         }
 
+    def clean(self):
+        cleaned_data = super().clean()
+        is_all_day = cleaned_data.get('is_all_day')
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
+
+        if not is_all_day:
+            if not start_time or not end_time:
+                raise ValidationError('開始・終了時間を入力してください。')
+        return cleaned_data
+
     repeat_type = forms.TypedChoiceField(
         choices=Schedule.REPEAT_CHOICES,
-        coerce=int,  # 選択値を int に変換する
+        coerce=int,  # 選択値を int に変換
         widget=forms.RadioSelect,
         label='繰り返し設定',
         initial='0'
