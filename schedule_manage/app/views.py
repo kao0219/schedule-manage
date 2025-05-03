@@ -268,7 +268,7 @@ def create_memo_view(request):
             content=content,
             image=image
         )
-        return redirect('app:memos')  # 名前空間ありならこちらに修正
+        return redirect('app:memos')  # メモ一覧へ
 
 def memo_detail_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
