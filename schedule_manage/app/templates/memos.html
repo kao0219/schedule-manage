@@ -3,7 +3,7 @@
 
 
 {% block content %}
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#memoModal">
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#memoEditModal{{ memo.id }}">
     メモ新規作成＋
 </button>
 
@@ -52,11 +52,17 @@
 </div>
 
 
-<div class="modal fade" id="memoModal" tabindex="-1" aria-labelledby="memoModalLabel" aria-hidden="true">
+<div class="modal fade" id="memoModal" tabindex="-1" aria-labelledby="memoModalLabel" {{ memo.id }}aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
-        {% csrf_token %}
+      <div class="modal-header">
+        <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ編集</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="×キャンセル"></button>
+      </div>
+      <div class="modal-body">
+
+        <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
+           {% csrf_token %}
         <div class="mb-3">
           <label>タイトル</label>
           <input type="text" name="memo_title" class="form-control" required>
