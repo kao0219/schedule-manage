@@ -66,8 +66,9 @@ class ScheduleForm(forms.ModelForm):
 
         if not is_all_day:
             if not start_time or not end_time:
-                raise ValidationError('開始・終了時間を入力してください。')
-        return cleaned_data
+                raise forms.ValidationError('開始・終了時間を入力してください。')
+            if start_time >= end_time:
+                raise forms.ValidationError("開始時間は終了時間より前に設定してください。")
 
     repeat_type = forms.TypedChoiceField(
         choices=Schedule.REPEAT_CHOICES,

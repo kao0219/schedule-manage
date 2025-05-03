@@ -181,7 +181,12 @@ def schedule_detail_view(request, schedule_id):
 
     comments = ScheduleComment.objects.filter(schedule=schedule).order_by('-created_at')
     username_initial = schedule.user.username[:1].upper()
-    selected_date = schedule.start_time.strftime('%Y年%m月%d日（%a）')
+
+    if schedule.start_time:
+        selected_date = schedule.start_time.strftime('%Y年%m月%d日（%a）')
+    else:
+        selected_date = ''
+
 
     return render(request, 'schedule_detail.html', {
         'form': form,
