@@ -18,7 +18,7 @@ from .models import Invite
 from .forms import CustomUserCreationForm
 from django.utils.dateparse import parse_date
 from .models import Schedule, Memo
-from datetime import date
+from datetime import date, time
 from .forms import ScheduleForm
 from .models import ScheduleComment
 from .forms import CommentForm
@@ -121,20 +121,29 @@ def search_view(request):
 
 @login_required
 def schedule_create_view(request):
-    selected_date = request.GET.get('date') or date.today().isoformat()
+    selected_date_str = request.GET.get('date') or date.today().isoformat()
+    selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
     username_initial = request.user.username[0].upper()
 
-    form = ScheduleForm(request.POST or None, request.FILES or None)
+    initial_data = {
+        'start_time': datetime.combine(selected_date, time(9, 0)),
+        'end_time': datetime.combine(selected_date, time(10, 0)),
+    }
 
-    if request.method == 'POST' and form.is_valid():
-        schedule = form.save(commit=False)
-        schedule.user = request.user
-        schedule.save()
-        return redirect('app:home')  
+    if request.method == 'POST' :
+        form = ScheduleForm(request.POST, request.FILES)
+        if form.is_valid():
+           schedule = form.save(commit=False)
+           schedule.user = request.user
+           schedule.save()
+           return redirect('app:home')  
+    
+    else:
+        form = ScheduleForm(initial=initial_data)
 
     return render(request, 'schedule_create.html', {
         'form': ScheduleForm(),
-        'selected_date': selected_date,
+        'selected_date': selected_date_str,
         'username_initial': username_initial,
     })
 

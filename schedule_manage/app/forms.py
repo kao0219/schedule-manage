@@ -63,10 +63,20 @@ class ScheduleForm(forms.ModelForm):
         label='繰り返し設定',
         initial='0'
     )
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['color'].choices = [('', '好きな色を選択')] + list(self.fields['color'].choices)
+        self.fields['color'].choices = [('', '好きな色を選択')] + list(self.fields['color'].choices) 
 
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        is_all_day = cleaned_data.get('is_all_day')
+        start_time = cleaned_data.get('start_time')
+        end_time = cleaned_data.get('end_time')
+
+
+        
 class CommentForm(forms.ModelForm):
     class Meta:
         model = ScheduleComment
