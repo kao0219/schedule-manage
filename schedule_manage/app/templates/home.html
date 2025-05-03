@@ -44,6 +44,11 @@
                 window.location.href = `/schedule/${scheduleId}/`;
             },
 
+            eventDidMount: function(info) {
+                if (!info.event.backgroundColor && !info.event.borderColor && !info.event.extendedProps.color) {
+                  info.el.style.backgroundColor = 'transparent';
+                  
+                }
             dayCellContent: function(arg) {
                 return arg.date.getDate();
             },
