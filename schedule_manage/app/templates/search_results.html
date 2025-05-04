@@ -90,7 +90,7 @@
               <!-- ボタン類 -->
               <div class="d-flex justify-content-between mt-4">
                 <a href="{% url 'app:memo_delete' memo.id %}?next={{ request.get_full_path }}" class="btn btn-danger">
-                  このメモを削除する
+                  削除
                 </a>
                 <div>
                   <a href="{{ request.get_full_path }}" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</a>
