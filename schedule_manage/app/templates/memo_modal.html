@@ -1,0 +1,44 @@
+<div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-labelledby="memoModalLabel{{ memo.id }}" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <form method="POST" enctype="multipart/form-data" action="{% url 'app:memo_detail' memo.id %}">
+          {% csrf_token %}
+          <div class="modal-header">
+            <h5 class="modal-title" id="memoModalLabel{{ memo.id }}"></h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+          </div>
+
+          <div class="modal-body">
+            <!-- タイトル -->
+            <div class="mb-3">
+                {{ memo.form.memo_title.label_tag }}
+                {{ memo.form.memo_title }}
+              </div>
+  
+              <!-- 本文 -->
+              <div class="mb-3">
+                {{ memo.form.content.label_tag }}
+                {{ memo.form.content }}
+              </div>
+  
+              <!-- 画像 -->
+              <div class="mb-3">
+                {{ memo.form.image.label_tag }}
+                {{ memo.form.image }}
+              </div>
+              {% if memo.image %}
+              <div class="mb-3">
+                <label>現在の画像</label><br>
+                <img src="{{ memo.image.url }}" alt="画像" style="max-width: 300px;">
+              </div>
+            {% endif %}
+          </div>
+          <div class="modal-footer">
+            <a href="{% url 'app:memo_delete' memo.id %}" class="btn btn-danger">削除</a>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">キャンセル</button>
+            <button type="submit" class="btn btn-primary">完了</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>  
