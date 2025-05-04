@@ -276,6 +276,9 @@ def memos_view(request):
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
+    for memo in page_obj:
+        memo.form = MemoForm(instance=memo)
+
     return render(request, 'memos.html', {
         'page_obj': page_obj,
     })

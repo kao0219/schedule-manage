@@ -35,7 +35,7 @@
           <form method="POST" enctype="multipart/form-data" action="{% url 'app:memo_detail' memo.id %}">
             {% csrf_token %}
             <div class="modal-header">
-              <h5 class="modal-title" id="memoModalLabel{{ memo.id }}">メモ確認／編集</h5>
+              <h5 class="modal-title" id="memoModalLabel{{ memo.id }}"></h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
             </div>
 
