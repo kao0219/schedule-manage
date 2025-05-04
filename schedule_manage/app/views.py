@@ -103,6 +103,10 @@ def schedule_json_view(request):
         }
         if schedule.color:  
             event['color'] = schedule.color
+        
+        # 未読なら🔔マークを見出しに表示
+        if schedule.id in unread_schedule_ids:
+            event['title'] += ' 🔔'
 
         events.append(event)
 
