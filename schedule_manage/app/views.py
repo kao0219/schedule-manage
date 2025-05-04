@@ -83,6 +83,15 @@ def home_view(request):
 def schedule_json_view(request):
     schedules = Schedule.objects.all()
     events = []
+    
+    # 未読コメントの予定ID一覧
+    unread_schedule_ids = []
+    if request.user.is_authenticated:
+        read_ids = ScheduleCommentRead.objects.filter(user=request.user).values_list('comment_id', flat=True)
+        unread_comments = ScheduleComment.objects.exclude(id__in=read_ids)
+        unread_schedule_ids = unread_comments.values_list('schedule_id', flat=True).distinct()
+
+
     for schedule in schedules:
         if schedule.start_time is None:
             continue
@@ -217,7 +226,7 @@ def comment_add_view(request, schedule_id):
             comment.save()
             return redirect('app:schedule_detail', schedule_id=schedule_id)
         
-        
+
 @login_required
 def comment_list_view(request):
     user = request.user
