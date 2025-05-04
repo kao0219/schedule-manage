@@ -76,6 +76,9 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="scheduleDropdown" role="button" data-bs-toggle='dropdown'aria-expanded="false">
                   予定
+                  {% if has_unread_comment %}
+                  🔔
+                  {% endif %}
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="scheduleDropdown">
                     <li><a class="dropdown-item" href="{% url 'app:schedule_create' %}">新規登録</a></li>
