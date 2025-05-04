@@ -216,7 +216,9 @@ def comment_add_view(request, schedule_id):
             comment.schedule = schedule
             comment.save()
             return redirect('app:schedule_detail', schedule_id=schedule_id)
-
+        
+        
+@login_required
 def comment_list_view(request):
     user = request.user
     comments = ScheduleComment.objects.all().order_by('-created_at') #全コメント取得
@@ -233,8 +235,11 @@ def comment_list_view(request):
 @require_POST
 def comment_confirm_view(request, comment_id):
     comment = get_object_or_404(ScheduleComment, id=comment_id)
-    comment.comment_status = 2  # 既読
-    comment.save()
+    user = request.user
+
+    #既読履歴なしであれば新規作成
+    ScheduleCommentRead.objects.get_or_create(user=user, comment=comment)
+
     schedule_id = comment.schedule.id
     return redirect(reverse('app:schedule_detail', args=[schedule_id]))
 
