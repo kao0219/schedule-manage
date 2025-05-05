@@ -69,6 +69,7 @@ class ScheduleForm(forms.ModelForm):
                 raise forms.ValidationError('開始・終了時間を入力してください。')
             if start_time >= end_time:
                 raise forms.ValidationError("開始時間は終了時間より前に設定してください。")
+        return cleaned_data
 
     repeat_type = forms.TypedChoiceField(
         choices=Schedule.REPEAT_CHOICES,
