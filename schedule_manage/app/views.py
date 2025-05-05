@@ -157,16 +157,27 @@ def schedule_create_view(request):
     if request.method == 'POST' :
         form = ScheduleForm(request.POST, request.FILES)
         if form.is_valid():
-           schedule = form.save(commit=False)
-           schedule.user = request.user
+            schedule = form.save(commit=False)
+            schedule.user = request.user
         
-        if schedule.is_all_day:
-           if schedule.start_time:
-               schedule.schedule_date = schedule.start_time.date()
+            if schedule.is_all_day:
+                # 終日なら開始時刻があればその日付を使って登録
+                if schedule.start_time:
+                  schedule.schedule_date = schedule.start_time.date()
+                else:
+                    schedule.schedule_date = selected_date
+                schedule.start_time = None
+                schedule.end_time = None
+        
+        
+            else:
+                if schedule.start_time:
+                    schedule.schedule_date = schedule.start_time.date()
+                else:
+                    schedule.schedule_date = None
 
-
-           schedule.save()
-           return redirect('app:home')  
+            schedule.save()
+            return redirect('app:home')  
     
     else:
         form = ScheduleForm(initial=initial_data)
