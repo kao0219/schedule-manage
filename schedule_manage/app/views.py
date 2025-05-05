@@ -171,6 +171,7 @@ def schedule_create_view(request):
         
         
             else:
+                # 通常は開始時間から日付を取得して設定
                 if schedule.start_time:
                     schedule.schedule_date = schedule.start_time.date()
                 else:
