@@ -71,6 +71,7 @@ class Family(models.Model):
 class Schedule(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     schedule_title = models.CharField(max_length=100)
+    schedule_date = models.DateField(null=True, blank=True)  # 終日用の日付
     schedule_memo = models.CharField(max_length=255, blank=True)
     image_url = models.ImageField(upload_to='schedule_images/', blank=True, null=True)
     

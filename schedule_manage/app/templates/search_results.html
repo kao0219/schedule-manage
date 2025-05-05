@@ -30,7 +30,7 @@
 <h3 class="mt-4">【該当するメモがあります】</h3>
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for memo in memos %}
-    <div class="col">
+   <div class="col">
       <div class="card h-100">
         {% if memo.image %}
           <img src="{{ memo.image.url }}" class="card-img-top" alt="メモ画像">
@@ -47,13 +47,14 @@
           </button>
         </div>
       </div>
-    </div>
+   </div>
 
-    {% include "components/memo_modal.html" with memo=memo %}
+   <!-- 共通モーダル表示用　-->
+   {% include "components/memo_modal.html" with memo=memo %}
 
-  {% empty %}
+   {% empty %}
     <p>該当するメモはありません。</p>
-  {% endfor %}
+   {% endfor %}
 </div>
 
 {% if updated_memo_id %}
