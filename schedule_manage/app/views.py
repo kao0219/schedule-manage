@@ -202,11 +202,11 @@ def schedule_detail_view(request, schedule_id):
                 schedule = form.save(commit=False)
                 schedule.user = request.user
 
-                if schedule.is_all_day:
+                if schedule.is_all_day:      # ↓終日なら開始時刻があればその日付を使って登録
                     schedule.schedule_date = schedule.start_time.date() if schedule.start_time else selected_date
                     schedule.start_time = None
                     schedule.end_time = None
-                else:
+                else:                        # ↓通常は開始時間から日付を取得し設定
                     schedule.schedule_date = schedule.start_time.date() if schedule.start_time else None
                 
                 schedule.save()
