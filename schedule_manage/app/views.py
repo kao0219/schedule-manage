@@ -200,14 +200,20 @@ def schedule_detail_view(request, schedule_id):
             comment_form = CommentForm()  
             if form.is_valid():
                 schedule = form.save(commit=False)
-                schedule.user = request.user
+                
 
-                if schedule.is_all_day:      # ↓終日なら開始時刻があればその日付を使って登録
-                    schedule.schedule_date = schedule.start_time.date() if schedule.start_time else selected_date
+                if schedule.is_all_day:    
+                    # 終日の場合：start_time/end_timeは使わず、schedule_dateを selected_date に合わせる  
                     schedule.start_time = None
                     schedule.end_time = None
-                else:                        # ↓通常は開始時間から日付を取得し設定
-                    schedule.schedule_date = schedule.start_time.date() if schedule.start_time else None
+                    schedule.schedule_date = schedule.schedule_date or timezone.now().date()
+                elif schedule.start_time:
+                    # 通常の場合：start_timeがあるならそこからschedule_dateを生成
+                    schedule.schedule_date = schedule.start_time.date()
+                else:
+                    # start_timeすらない場合の保険
+                    schedule.schedule_date = None
+
                 
                 schedule.save()
                 return redirect('app:home')  
