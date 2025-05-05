@@ -195,13 +195,21 @@ def schedule_detail_view(request, schedule_id):
 
     if request.method == 'POST':
         action = request.POST.get('action')
-    
-
         if action == 'edit':
             form = ScheduleForm(request.POST, request.FILES, instance=schedule)
             comment_form = CommentForm()  
             if form.is_valid():
-                form.save()
+                schedule = form.save(commit=False)
+                schedule.user = request.user
+
+                if schedule.is_all_day:
+                    schedule.schedule_date = schedule.start_time.date() if schedule.start_time else selected_date
+                    schedule.start_time = None
+                    schedule.end_time = None
+                else:
+                    schedule.schedule_date = schedule.start_time.date() if schedule.start_time else None
+                
+                schedule.save()
                 return redirect('app:home')  
 
         elif action == 'comment':
