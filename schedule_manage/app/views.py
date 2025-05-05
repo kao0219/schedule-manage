@@ -159,6 +159,12 @@ def schedule_create_view(request):
         if form.is_valid():
            schedule = form.save(commit=False)
            schedule.user = request.user
+        
+        if schedule.is_all_day:
+           if schedule.start_time:
+               schedule.schedule_date = schedule.start_time.date()
+
+
            schedule.save()
            return redirect('app:home')  
     
