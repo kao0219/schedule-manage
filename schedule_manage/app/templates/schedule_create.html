@@ -16,8 +16,8 @@
   {% csrf_token %}
   <div class="container">
     <div class="row">
-
       <div class="col-md-6">
+
         <div class="mb-3">
           <label for="id_schedule_title" class="form-label">タイトル</label>
           {{ form.schedule_title }}
@@ -31,7 +31,8 @@
 
       <div class="col-md-6">
         <div class="form-check mb-3">
-          {{ form.is_all_day }} <label for="id_is_all_day" class="form-check-label">終日</label>
+          <input type="checkbox" class="form-check-input" id="id_is_all_day" name="is_all_day" {% if form.is_all_day.value %}checked{% endif %}>
+          <label class="form-check-label" for="id_is_all_day">終日</label>
         </div>
 
         <div class="mb-3">
@@ -49,7 +50,7 @@
           {% for value, label in form.repeat_type.field.choices %}
             <label class="me-3">
               <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}" class="repeat-option">
-                {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}>
+                {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}
               {{ label }}
             </label>
           {% endfor %}

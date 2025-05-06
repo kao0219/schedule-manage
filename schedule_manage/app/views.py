@@ -152,6 +152,7 @@ def schedule_create_view(request):
     initial_data = {
         'start_time': datetime.combine(selected_date, time(start_hour, start_minute)),
         'end_time': datetime.combine(selected_date, time(start_hour + 1, start_minute)),
+        'repeat_type': 0, # 繰り返し「なし」デフォルト
     }
 
     if request.method == 'POST' :
