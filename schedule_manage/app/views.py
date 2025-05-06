@@ -165,7 +165,7 @@ def schedule_create_view(request):
                 if schedule.start_time:
                     schedule.schedule_date = schedule.start_time.date()
                 else:
-                    schedule.schedule_date = selected_date
+                    schedule.schedule_date = selected_date or timezone.now().date()
                 schedule.start_time = None
                 schedule.end_time = None
         
