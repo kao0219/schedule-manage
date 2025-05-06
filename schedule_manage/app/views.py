@@ -100,6 +100,7 @@ def schedule_json_view(request):
             'id': schedule.id,
             'title': schedule.schedule_title,
             'start': schedule.start_time.date().isoformat(), 
+            'color': schedule.get_color_code(),
         }
         if schedule.color:  
             event['color'] = schedule.color
