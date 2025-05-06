@@ -16,4 +16,9 @@ document.addEventListener('DOMContentLoaded', function () {
       // チェック切り替え時に制御
       isAllDayCheckbox.addEventListener('change', toggleTimeInputs);
     }
+
+    // 日付が異なる場合、繰り返しラジオを無効化
+    const startDateInput = document.getElementById('start_date');
+    const endDateInput = document.getElementById('end_date');
+    const repeatRadios = document.querySelectorAll('input[name="repeat"]');
 });
