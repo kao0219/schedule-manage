@@ -90,6 +90,18 @@ class Schedule(models.Model):
     def get_color_label(self):
         return dict(self.COLOR_CHOICES).get(self.color, '')
     
+    def get_color_code(self):
+        color_map = {
+            1: '#FF0000',
+            2: '#0000FF',
+            3: '#FFFF00',
+            4: '#00FF00',
+            5: '#FFB6C1',
+            6: '#800080',
+            7: '#F57C33',
+        }
+        return color_map.get(self.color, '#FFFFFF')
+    
     REPEAT_CHOICES = [
         (0, 'なし'),
         (1, '毎日'),
