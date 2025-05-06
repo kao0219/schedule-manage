@@ -21,4 +21,32 @@ document.addEventListener('DOMContentLoaded', function () {
     const startDateInput = document.getElementById('start_date');
     const endDateInput = document.getElementById('end_date');
     const repeatRadios = document.querySelectorAll('input[name="repeat"]');
-});
+
+    function checkRepeatDisabled() {
+        if (!startDateInput || !endDateInput || !startDateInput.value || !endDateInput.value) return;
+    
+        const start = new Date(startDateInput.value);
+        const end = new Date(endDateInput.value);
+
+        if (start.toDateString() !== end.toDateString()) {
+            repeatRadios.forEach(radio => {
+              if (radio.value !== 'none') {
+                radio.disabled = true;
+                radio.checked = false;
+              }
+            });
+            document.querySelector('input[name="repeat"][value="none"]').checked = true;
+        }   else {
+            repeatRadios.forEach(radio => {
+              radio.disabled = false;
+            });
+        }
+    }
+    
+    if (startDateInput && endDateInput) {
+        startDateInput.addEventListener('change', checkRepeatDisabled);
+        endDateInput.addEventListener('change', checkRepeatDisabled);
+        checkRepeatDisabled();
+      }
+    });
+
