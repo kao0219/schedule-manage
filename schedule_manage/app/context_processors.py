@@ -1,4 +1,5 @@
-from .models import ScheduleComment, ScheduleCommentRead #予定コメントマーク表示のため作成
+#予定コメントマーク表示のため作成
+from .models import ScheduleComment, ScheduleCommentRead 
 
 def unread_comment_flag(request):
     if request.user.is_authenticated:
