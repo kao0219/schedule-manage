@@ -41,7 +41,6 @@
 
         <div class="mb-3">
           <label for="id_end_time" class="form-label">終了</label>
-          
           <input type="datetime-local" name="end_time" id="end_date" class="form-control">
         </div>
 
@@ -49,8 +48,8 @@
           <label class="form-label">繰り返し設定</label><br>
           {% for value, label in form.repeat_type.field.choices %}
             <label class="me-3">
-              <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
-              {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}>
+              <input type="radio" name="repeat_type.name" value="{{ value }}"
+                {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}>
               {{ label }}
             </label>
           {% endfor %}
