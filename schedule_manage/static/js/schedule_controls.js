@@ -23,18 +23,15 @@ document.addEventListener('DOMContentLoaded', function () {
     const repeatRadios = document.querySelectorAll('input[name="repeat"]');
 
     function toggleRepeatOptions(){
-        const startDate = new Date(startDateInput.value);
-        const endDate = new Date(endDateInput.value);
+        const startVal = startDateInput.value;
+        const endVal = endDateInput.value;
 
-        const isCrossDay = startDate.toDateString.toDateString() !==endDate.toDateString();
+        const isCrossDay = startDate.toDateString() !==endDate.toDateString();
 
         repeatRadios.forEach(radio => {
             radio.disabled = isCrossDay;
-            if (isCrossDay) {
-                radio.checked = false;
-            }
-        });
-            
+            if (isCrossDay) radio.checked = false;   
+        });  
     }   
     
     toggleRepeatOptions();
