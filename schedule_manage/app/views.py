@@ -102,8 +102,7 @@ def schedule_json_view(request):
             'start': schedule.start_time.date().isoformat(), 
             'color': schedule.get_color_code(),
         }
-        if schedule.color:  
-            event['color'] = schedule.color
+        
         
         # 未読なら🔔マークを見出しに表示
         if schedule.id in unread_schedule_ids:

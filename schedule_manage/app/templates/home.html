@@ -47,7 +47,7 @@
 
             eventDidMount: function(info) {
                 if (!info.event.extendedProps.color) {
-                  info.el.style.backgroundColor = 'transparent';
+                  info.el.style.backgroundColor = info.event.extendedProps.color;
                   info.el.style.color = 'black';
                   info.el.style.border = '1px solid #ccc';
                 }
