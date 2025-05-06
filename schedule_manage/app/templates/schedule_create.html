@@ -42,7 +42,8 @@
 
         <div class="mb-3">
           <label for="id_end_time" class="form-label">終了</label>
-          {{ form.end_time }}
+          {{ form.end_time|add_class:"form-control" }}
+          <input type="datetime-local" name="end_time" id="end_date" class="form-control">
         </div>
 
         <div class="mb-3">
