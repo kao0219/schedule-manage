@@ -2,6 +2,9 @@ document.addEventListener('DOMContentLoaded', function () {
     const isAllDayCheckbox = document.getElementById('id_is_all_day');
     const startTimeInput = document.getElementById('id_start_time');
     const endTimeInput = document.getElementById('id_end_time');
+    const repeatOptions = document.querySelectorAll('.repeat-option');
+
+    if (!startTimeInput || !endTimeInput || !isAllDayCheckbox) return;
     
     // 終日チェックで時間入力を制御
     function toggleTimeInputs() {
@@ -14,12 +17,10 @@ document.addEventListener('DOMContentLoaded', function () {
     function toggleRepeatOptions() {
         const startDateStr = startTimeInput.value;
         const endDateStr = endTimeInput.value;
-
         if (!startDateStr || !endDateStr) return;
 
         const startDate = new Date(startDateStr);
         const endDate = new Date(endDateStr);
-
         const isDifferentDay = startDate.toDateString() !== endDate.toDateString();
 
         repeatOptions.forEach(option => {
