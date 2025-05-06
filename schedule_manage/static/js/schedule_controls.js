@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
-    
+
     if (startDateInput && endDateInput) {
         startDateInput.addEventListener('change', checkRepeatDisabled);
         endDateInput.addEventListener('change', checkRepeatDisabled);
         checkRepeatDisabled();
-      }
-    });
+    }
+});
 
