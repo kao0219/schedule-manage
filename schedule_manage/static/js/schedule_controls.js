@@ -27,20 +27,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    function toggleRepeatOptions(){
-        const startVal = startDateInput.value;
-        const endVal = endDateInput.value;
-
-        const isCrossDay = startDate.toDateString() !==endDate.toDateString();
-
-        repeatRadios.forEach(radio => {
-            radio.disabled = isCrossDay;
-            if (isCrossDay) radio.checked = false;   
-        });  
-    }   
-    
+    // 初期状態チェック
+    toggleTimeInputs();
     toggleRepeatOptions();
-    startDateInput.addEventListener('change', toggleRepeatOptions);
-    endDateInput.addEventListener('change', toggleRepeatOptions);
-});
 
+    // イベントリスナー登録
+    isAllDayCheckbox.addEventListener('change', () => {
+        toggleTimeInputs();
+        toggleRepeatOptions();
+    });
+
+    startTimeInput.addEventListener('change', toggleRepeatOptions);
+    endTimeInput.addEventListener('change', toggleRepeatOptions);
+});
