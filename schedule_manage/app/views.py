@@ -163,7 +163,7 @@ def schedule_create_view(request):
             if schedule.is_all_day:
                 # 終日なら開始時刻があればその日付を使って登録
                 if schedule.start_time:
-                  schedule.schedule_date = schedule.start_time.date()
+                    schedule.schedule_date = schedule.start_time.date()
                 else:
                     schedule.schedule_date = selected_date
                 schedule.start_time = None
@@ -202,18 +202,20 @@ def schedule_detail_view(request, schedule_id):
                 schedule = form.save(commit=False)
                 
 
-                if schedule.is_all_day:    
-                    # 終日の場合：start_time/end_timeは使わず、schedule_dateを selected_date に合わせる  
+                if schedule.is_all_day: 
+                    #  開始時刻があればそれを日付を取得し登録
+                    if schedule.start_time:
+                        schedule.schedule_date = schedule.start_time.date()
+                    else:
+                        # なければ元のschedule日付か、なければ今日の日付いれる
+                        schedule.schedule_date = schedule.schedule_date or timezone.now().date()
                     schedule.start_time = None
-                    schedule.end_time = None
-                    schedule.schedule_date = schedule.schedule_date or timezone.now().date()
-                elif schedule.start_time:
-                    # 通常の場合：start_timeがあるならそこからschedule_dateを生成
-                    schedule.schedule_date = schedule.start_time.date()
+                    schedule.end_time = None  
                 else:
-                    # start_timeすらない場合の保険
-                    schedule.schedule_date = None
-
+                    if schedule.start_time:
+                        schedule.schedule_date = schedule.start_time.date()
+                    else:
+                        schedule.schedule_date = None
                 
                 schedule.save()
                 return redirect('app:home')  
