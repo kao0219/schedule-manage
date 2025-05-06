@@ -49,9 +49,9 @@
           <label class="form-label">繰り返し設定</label><br>
           {% for value, label in form.repeat_type.field.choices %}
             <label class="me-3">
-              <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}" class="repeat-option">
-                {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}
-              {{ label }}
+              <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}" class="repeat-option"
+                     {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" == value|stringformat:"s" %}checked{% endif %}>
+              {{ label }}  
             </label>
           {% endfor %}
         </div>
