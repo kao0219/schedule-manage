@@ -162,32 +162,23 @@ def schedule_create_view(request):
         
             if schedule.is_all_day:
                 # 終日なら開始時刻があればその日付を使って登録
-                if schedule.start_time:
-                    schedule.schedule_date = schedule.start_time.date()
-                else:
-                    schedule.schedule_date = selected_date or timezone.now().date()
-                schedule.start_time = None
-                schedule.end_time = None
-        
-        
+                schedule.schedule_date = schedule.start_time.date()
             else:
-                # 通常は開始時間から日付を取得して設定
-                if schedule.start_time:
-                    schedule.schedule_date = schedule.start_time.date()
-                else:
-                    schedule.schedule_date = None
-
+                schedule.schedule_date = selected_date
             schedule.save()
             return redirect('app:home')  
-    
+        
+        
     else:
         form = ScheduleForm(initial=initial_data)
-
-    return render(request, 'schedule_create.html', {
+    context = {
         'form': form,
         'selected_date': selected_date,
         'username_initial': username_initial,
-    })
+        'now': now.strftime("%Y-%m-%dT%H:%M"),  
+    }
+
+    return render(request, 'schedule_create.html', context)
 
 @login_required
 def schedule_detail_view(request, schedule_id):
