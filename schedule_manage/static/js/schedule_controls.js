@@ -22,31 +22,23 @@ document.addEventListener('DOMContentLoaded', function () {
     const endDateInput = document.getElementById('end_date');
     const repeatRadios = document.querySelectorAll('input[name="repeat"]');
 
-    function checkRepeatDisabled() {
-        if (!startDateInput || !endDateInput || !startDateInput.value || !endDateInput.value) return;
-    
-        const start = new Date(startDateInput.value);
-        const end = new Date(endDateInput.value);
+    function toggleRepeatOptions(){
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
 
-        if (start.toDateString() !== end.toDateString()) {
-            repeatRadios.forEach(radio => {
-              if (radio.value !== 'none') {
-                radio.disabled = true;
+        const isCrossDay = startDate.toDateString.toDateString() !==endDate.toDateString();
+
+        repeatRadios.forEach(radio => {
+            radio.disabled = isCrossDay;
+            if (isCrossDay) {
                 radio.checked = false;
-              }
-            });
-            document.querySelector('input[name="repeat"][value="none"]').checked = true;
-        }   else {
-            repeatRadios.forEach(radio => {
-              radio.disabled = false;
-            });
-        }
-    }
-
-    if (startDateInput && endDateInput) {
-        startDateInput.addEventListener('change', checkRepeatDisabled);
-        endDateInput.addEventListener('change', checkRepeatDisabled);
-        checkRepeatDisabled();
-    }
+            }
+        });
+            
+    }   
+    
+    toggleRepeatOptions();
+    startDateInput.addEventListener('change', toggleRepeatOptions);
+    endDateInput.addEventListener('change', toggleRepeatOptions);
 });
 
