@@ -148,10 +148,12 @@ def schedule_create_view(request):
     now = datetime.now()
     start_hour = now.hour
     start_minute = 0   #日時反映部分
-   
+    
+    start_dt = datetime.combine(selected_date, time(start_hour, start_minute))
+
     initial_data = {
-        'start_time': datetime.combine(selected_date, time(start_hour, start_minute)),
-        'end_time': datetime.combine(selected_date, time(start_hour + 1, start_minute)),
+        'start_time': start_dt,
+        'end_time': start_dt,
         'repeat_type': 0, # 繰り返し「なし」デフォルト
     }
 
