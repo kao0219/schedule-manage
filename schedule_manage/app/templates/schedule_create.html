@@ -12,65 +12,68 @@
   </div>
 </div>
 
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
 
-        <div class="mb-3">
-          <label for="id_schedule_title" class="form-label">タイトル</label>
-          {{ form.schedule_title }}
+<div id="main" data-is-edit="false">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+
+          <div class="mb-3">
+            <label for="id_schedule_title" class="form-label">タイトル</label>
+            {{ form.schedule_title }}
+          </div>
+
+          <div class="mb-3">
+            <label for="id_schedule_memo" class="form-label">メモ</label>
+            {{ form.schedule_memo }}
+          </div>
         </div>
 
-        <div class="mb-3">
-          <label for="id_schedule_memo" class="form-label">メモ</label>
-          {{ form.schedule_memo }}
-        </div>
-      </div>
+        <div class="col-md-6">
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="id_is_all_day" name="is_all_day" {% if form.is_all_day.value %}checked{% endif %}>
+            <label class="form-check-label" for="id_is_all_day">終日</label>
+          </div>
 
-      <div class="col-md-6">
-        <div class="form-check mb-3">
-          <input type="checkbox" class="form-check-input" id="id_is_all_day" name="is_all_day" {% if form.is_all_day.value %}checked{% endif %}>
-          <label class="form-check-label" for="id_is_all_day">終日</label>
-        </div>
+          <div class="mb-3">
+            <label for="start_date" class="form-label">開始</label>
+            <input type="datetime-local" name="start_time" id="start_date" class="form-control" value="{{ now }}" style="width: 200px;">
+          </div>
 
-        <div class="mb-3">
-          <label for="start_date" class="form-label">開始</label>
-          <input type="datetime-local" name="start_time" id="start_date" class="form-control" value="{{ now }}" style="width: 200px;">
-        </div>
+          <div class="mb-3">
+            <label for="end_date" class="form-label">終了</label>
+            <input type="datetime-local" name="end_time" id="end_date" class="form-control" value="{{ now }}" style="width: 200px;">
+          </div>
 
-        <div class="mb-3">
-          <label for="end_date" class="form-label">終了</label>
-          <input type="datetime-local" name="end_time" id="end_date" class="form-control" value="{{ now }}" style="width: 200px;">
-        </div>
+          <div class="mb-3">
+            <label class="form-label">繰り返し設定</label><br>
+            {% for value, label in form.repeat_type.field.choices %}
+              <label class="me-3">
+                <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}" class="repeat-option"
+                      {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" == value|stringformat:"s" %}checked{% endif %}>
+                {{ label }}  
+              </label>
+            {% endfor %}
+          </div>
 
-        <div class="mb-3">
-          <label class="form-label">繰り返し設定</label><br>
-          {% for value, label in form.repeat_type.field.choices %}
-            <label class="me-3">
-              <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}" class="repeat-option"
-                     {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" == value|stringformat:"s" %}checked{% endif %}>
-              {{ label }}  
-            </label>
-          {% endfor %}
-        </div>
+          <div class="mb-3">
+            <label class="form-label">見出しの色設定</label><br>
+            {{ form.color }}
+          </div>
 
-        <div class="mb-3">
-          <label class="form-label">見出しの色設定</label><br>
-          {{ form.color }}
-        </div>
+          <div class="mb-3">
+            <label for="id_image_url" class="form-label">画像選択</label><br>
+            {{ form.image_url }}
+          </div>
 
-        <div class="mb-3">
-          <label for="id_image_url" class="form-label">画像選択</label><br>
-          {{ form.image_url }}
+          <button type="submit" class="btn btn-primary">登録</button>
         </div>
-
-        <button type="submit" class="btn btn-primary">登録</button>
       </div>
     </div>
-  </div>
-</form>
+  </form>
+</div>
 
 
 <script src="{% static 'js/schedule_controls.js' %}"></script>
