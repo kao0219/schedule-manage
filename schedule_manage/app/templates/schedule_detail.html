@@ -12,101 +12,104 @@
   </div>
 </div>
 
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-  <div class="container">
-    <div class="row">
+
+<div id="main" data-is-edit="true">
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="container">
+      <div class="row">
+
+        <div class="col-md-6">
+          <div class="mb-3">
+            <label for="id_schedule_title" class="form-label">タイトル</label>
+            {{ form.schedule_title }}
+          </div>
+
+          <div class="mb-3">
+            <label for="id_schedule_memo" class="form-label">メモ</label>
+            {{ form.schedule_memo }}
+          </div>
+        </div>
 
       <div class="col-md-6">
-        <div class="mb-3">
-          <label for="id_schedule_title" class="form-label">タイトル</label>
-          {{ form.schedule_title }}
+        <div class="form-check mb-3">
+          <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input"
+                {% if form.is_all_day.value %}checked{% endif %}>
+          <label for="id_is_all_day" class="form-check-label">終日</label>
         </div>
 
         <div class="mb-3">
-          <label for="id_schedule_memo" class="form-label">メモ</label>
-          {{ form.schedule_memo }}
+          <label for="id_start_time" class="form-label">開始</label>
+          <input type="datetime-local" name="start_time" id="id_start_time" class="form-control"
+                value="{{ schedule.start_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
         </div>
-      </div>
 
-    <div class="col-md-6">
-      <div class="form-check mb-3">
-        <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input"
-               {% if form.is_all_day.value %}checked{% endif %}>
-        <label for="id_is_all_day" class="form-check-label">終日</label>
-      </div>
+        <div class="mb-3">
+          <label for="id_end_time" class="form-label">終了</label>
+          <input type="datetime-local" name="end_time" id="id_end_time" class="form-control"
+                value="{{ schedule.end_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
+        </div>
 
-      <div class="mb-3">
-        <label for="id_start_time" class="form-label">開始</label>
-        <input type="datetime-local" name="start_time" id="id_start_time" class="form-control"
-               value="{{ schedule.start_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
-      </div>
+        <div class="mb-3">
+          <label class="form-label">繰り返し設定</label><br>
+          {% for value, label in form.repeat_type.field.choices %}
+            <label class="me-3">
+              <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
+                    {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}> {{ label }}
+            </label>
+          {% endfor %}
+        </div>
 
-      <div class="mb-3">
-        <label for="id_end_time" class="form-label">終了</label>
-        <input type="datetime-local" name="end_time" id="id_end_time" class="form-control"
-               value="{{ schedule.end_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
-      </div>
+        <div class="mb-3">
+          <label class="form-label">見出しの色設定</label><br>
+          {{ form.color }}
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label">繰り返し設定</label><br>
-        {% for value, label in form.repeat_type.field.choices %}
-          <label class="me-3">
-            <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
-                   {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}> {{ label }}
-          </label>
-        {% endfor %}
-      </div>
+        <div class="mb-3">
+          <label for="id_image_url" class="form-label">画像選択</label><br>
+          {{ form.image_url }}
+          {% if schedule.image_url %}
+            <div class="mt-2">
+              <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 100%;">
+            </div>
+          {% endif %}
+        </div>
 
-      <div class="mb-3">
-        <label class="form-label">見出しの色設定</label><br>
-        {{ form.color }}
+        <!-- 完了 -->
+        <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
+        <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger">削除</a>
       </div>
-
-      <div class="mb-3">
-        <label for="id_image_url" class="form-label">画像選択</label><br>
-        {{ form.image_url }}
-        {% if schedule.image_url %}
-          <div class="mt-2">
-            <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 100%;">
-          </div>
-        {% endif %}
-      </div>
-
-      <!-- 完了 -->
-      <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
-      <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger">削除</a>
     </div>
   </div>
-</div>
-</form>
+  </form>
+  
 
-<hr>
+  <hr>
 
-<!-- コメント一覧 -->
-<div class="mb-3">
-  {% for comment in comments %}
-    <div class="d-flex align-items-center border p-2 mb-2">
-      <div style="width: 36px; height: 36px; background-color: #007bff; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">
-        {{ comment.user.username|slice:":1"|upper }}
-      </div>
-      <div style="margin-left: 10px;">
-        <strong>{{ comment.user.username }}</strong>：{{ comment.content }}
-      </div>
-    </div>
-  {% endfor %}
-</div>
-
-<!-- コメント投稿 -->
-<form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
-  {% csrf_token %}
+  <!-- コメント一覧 -->
   <div class="mb-3">
-    <label for="id_content" class="form-label">コメントを入力</label>
-    {{ comment_form.content }}
+    {% for comment in comments %}
+      <div class="d-flex align-items-center border p-2 mb-2">
+        <div style="width: 36px; height: 36px; background-color: #007bff; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">
+          {{ comment.user.username|slice:":1"|upper }}
+        </div>
+        <div style="margin-left: 10px;">
+          <strong>{{ comment.user.username }}</strong>：{{ comment.content }}
+        </div>
+      </div>
+    {% endfor %}
   </div>
-  <button type="submit" name="action" value="comment" class="btn btn-secondary">送信</button>
-</form>
 
+  <!-- コメント投稿 -->
+  <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
+    {% csrf_token %}
+    <div class="mb-3">
+      <label for="id_content" class="form-label">コメントを入力</label>
+      {{ comment_form.content }}
+    </div>
+    <button type="submit" name="action" value="comment" class="btn btn-secondary">送信</button>
+  </form>
+</div>
 
 <script src="{% static 'js/schedule_controls.js' %}"></script>
 
