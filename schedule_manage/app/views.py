@@ -177,6 +177,7 @@ def schedule_create_view(request):
         'selected_date': selected_date,
         'username_initial': username_initial,
         'now': now.strftime("%Y-%m-%dT%H:%M"),  
+        'is_edit': False,
     }
 
     return render(request, 'schedule_create.html', context)
@@ -241,6 +242,7 @@ def schedule_detail_view(request, schedule_id):
         'comment_form': comment_form,
         'username_initial': username_initial,
         'selected_date': selected_date,
+        'is_edit': True,
     })
 
 
