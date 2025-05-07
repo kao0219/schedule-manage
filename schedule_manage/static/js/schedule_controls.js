@@ -4,6 +4,16 @@ document.addEventListener('DOMContentLoaded', function () {
     const endTimeInput = document.getElementById('id_end_time');
     const repeatOptions = document.querySelectorAll('.repeat-option');
 
+    const mainElement = document.getElementById('main');
+    const isEdit = mainElement?.dataset?.isEdit === 'true';
+
+    // 新規登録の場合、繰り返し「なし」をデフォルト
+    if (!isEdit && repeatOptions.length > 0) {
+        repeatOptions.forEach(option => {
+            option.checked = option.value === '0';
+        });
+    }
+
     if (!startTimeInput || !endTimeInput || !isAllDayCheckbox) return;
     
     // 終日チェックで時間入力を制御
