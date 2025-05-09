@@ -289,12 +289,23 @@ def comment_confirm_view(request, comment_id):
     schedule_id = comment.schedule.id
     return redirect(reverse('app:schedule_detail', args=[schedule_id]))
 
-@require_POST
+@require_POST # コメント一覧から削除
 def comment_list_delete_view(request, comment_id):
     user = request.user
     comment = get_object_or_404(ScheduleComment, id=comment_id)
 
+    # 既読あれば更新、なければ新規登録（既読+削除）
+    read_entry, created = ScheduleCommentRead.objects.get_or_create(
+        user=user,
+        comment=comment,
+        defaults={'is_deleted': True}
+    )
     
+    if not created:
+        read_entry.is_deleted = True
+        read_entry.save()
+
+    return redirect('app:comment_list_view')  # 一覧ページに戻る
 
 def schedule_delete_view(request, pk):
     schedule = get_object_or_404(Schedule, pk=pk)
