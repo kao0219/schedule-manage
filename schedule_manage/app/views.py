@@ -172,30 +172,40 @@ def schedule_create_view(request):
                 # 終日なら開始時刻があればその日付を使って登録
                 if schedule.start_time:
                     schedule.schedule_date = schedule.start_time.date()
+                else:
+                    schedule.schedule_date = selected_date
+                    schedule.start_time = None
+                    schedule.end_time = None
             else:
-                schedule.schedule_date = selected_date
-            schedule.start_time = None
-            schedule.end_time = None
-        else:
-            if schedule.start_time:
-                schedule.schedule_date = schedule.start_time.date()
-            else:
-                schedule.schedule_date = selected_date
+                if schedule.start_time:
+                    schedule.schedule_date = schedule.start_time.date()
+                else:
+                    schedule.schedule_date = selected_date
 
-        schedule.save()
-        return redirect('app:home')  
+            schedule.save()
+            return redirect('app:home')  
         
+        else:
+            
+            context = {
+                'form': form,
+                'selected_date': selected_date,
+                'username_initial': username_initial,
+                'now': now.strftime("%Y-%m-%dT%H:%M"),  
+                'is_edit': False,
+            }
+
+            return render(request, 'schedule_create.html', context)
     else:
         form = ScheduleForm(initial=initial_data)
-    context = {
-        'form': form,
-        'selected_date': selected_date,
-        'username_initial': username_initial,
-        'now': now.strftime("%Y-%m-%dT%H:%M"),  
-        'is_edit': False,
-    }
-
-    return render(request, 'schedule_create.html', context)
+        context = {
+            'form': form,
+            'selected_date': selected_date,
+            'username_initial': username_initial,
+            'now': now.strftime("%Y-%m-%dT%H:%M"),
+            'is_edit': False,
+        }
+        return render(request, 'schedule_create.html', context)    
 
 @login_required
 def schedule_detail_view(request, schedule_id):
