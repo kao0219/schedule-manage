@@ -7,7 +7,14 @@ def unread_comment_flag(request):
             user=request.user,
             is_deleted=False #　削除されていない既読のみ
         ).values_list('comment_id', flat=True)
-        has_unread = ScheduleComment.objects.exclude(id__in=read_ids).exclude(user=request.user).exists()
+
+        print("read_ids:", list(read_ids))
+
+        has_unread = ScheduleComment.objects.exclude(
+            id__in=read_ids
+        ).exclude(
+            user=request.user
+        ).exists()
     else:
         has_unread = False
 
