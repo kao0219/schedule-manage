@@ -35,12 +35,16 @@ class ScheduleCommentAdmin(admin.ModelAdmin):
 
 @admin.register(ScheduleCommentRead)
 class ScheduleCommentReadAdmin(admin.ModelAdmin):
-    list_display = ('user', 'comment_id_display', 'is_deleted', 'created_at', 'updated_at') 
+    list_display = ('user', 'comment_id_display', 'is_deleted_display', 'created_at', 'updated_at') 
 
     def comment_id_display(self, obj):
         return obj.comment.id  
+    comment_id_display.short_description = 'Comment ID'
 
-    comment_id_display.short_description = 'Comment ID'  
+    def is_deleted_display(self, obj):
+        return 'True' if obj.is_deleted else 'False'
+    is_deleted_display.short_description = 'Is Deleted'
+
 
 @admin.register(Memo)
 class MemoAdmin(admin.ModelAdmin):
