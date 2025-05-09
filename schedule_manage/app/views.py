@@ -294,7 +294,7 @@ def comment_list_delete_view(request, comment_id):
     user = request.user
     comment = get_object_or_404(ScheduleComment, id=comment_id)
 
-    # 既読あれば更新、なければ新規登録（既読+削除）
+    # 未読でも削除ボタン押下可能へ
     read_entry, created = ScheduleCommentRead.objects.get_or_create(
         user=user,
         comment=comment,

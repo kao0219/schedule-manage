@@ -23,6 +23,7 @@ urlpatterns = [
     path('invite/<str:token>/', views.invite_register_view, name='invite_register'),
     path('schedule/create/', views.schedule_create_view, name='schedule_create'),
     path('comments/', views.comment_list_view, name='comment_list_view'),
+    path('comments/delete/<int:comment_id>/', views.comment_list_delete_view, name='comment_list_delete'),
     path('comments/confirm/<int:comment_id>/', views.comment_confirm_view, name='comment_confirm'),
     path('comments/delete/<int:comment_id>/', views.comment_delete_view, name='comment_delete'),
     path('schedule/<int:schedule_id>/', views.schedule_detail_view, name='schedule_detail'),
