@@ -37,6 +37,11 @@ class ScheduleCommentAdmin(admin.ModelAdmin):
 class ScheduleCommentReadAdmin(admin.ModelAdmin):
     list_display = ('user', 'comment', 'is_deleted', 'created_at', 'updated_at') 
 
+    def comment_id_display(self, obj):
+        return obj.comment.id  
+
+    comment_id_display.short_description = 'Comment ID'  
+
 @admin.register(Memo)
 class MemoAdmin(admin.ModelAdmin):
     list_display = ('memo_title', 'content', 'image_tag', 'created_at')
