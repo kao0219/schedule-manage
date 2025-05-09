@@ -25,7 +25,7 @@
                 {% csrf_token %}
                 <button type="submit">確認</button>
             </form>
-            <form action="{% url 'app:comment_delete' comment.id %}" method="post" style="display:inline;">
+            <form action="{% url 'app:comment_list_delete' comment.id %}" method="post" style="display:inline;">
                 {% csrf_token %}
                 <button type="submit">削除</button>
             </form>

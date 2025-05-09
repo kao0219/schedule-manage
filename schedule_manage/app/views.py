@@ -325,13 +325,6 @@ def schedule_delete_view(request, pk):
     return redirect('app:home')
 
 
-
-@require_POST
-def comment_delete_view(request, comment_id):
-    comment = get_object_or_404(ScheduleComment, id=comment_id)
-    comment.delete()
-    return redirect('app:comment_list_view')  # 一覧に戻る
-
 def memos_view(request):
     memos = Memo.objects.all().order_by('-created_at')  
     paginator = Paginator(memos, 8)  # 8件まで

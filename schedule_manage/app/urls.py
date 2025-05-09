@@ -25,7 +25,6 @@ urlpatterns = [
     path('comments/', views.comment_list_view, name='comment_list_view'),
     path('comments/delete/<int:comment_id>/', views.comment_list_delete_view, name='comment_list_delete'),
     path('comments/confirm/<int:comment_id>/', views.comment_confirm_view, name='comment_confirm'),
-    path('comments/delete/<int:comment_id>/', views.comment_delete_view, name='comment_delete'),
     path('schedule/<int:schedule_id>/', views.schedule_detail_view, name='schedule_detail'),
     path('schedule/<int:schedule_id>/comment/', views.comment_add_view, name='comment_add'),
     path('schedule/<int:pk>/delete/', views.schedule_delete_view, name='schedule_delete'),
