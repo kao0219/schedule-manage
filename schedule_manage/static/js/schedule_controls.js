@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const startTimeInput = document.getElementById('id_start_time');
     const endTimeInput = document.getElementById('id_end_time');
     const repeatOptions = document.querySelectorAll('.repeat-option');
-    const mainElement = document.getElementById('main');
+    
 
     if (!isAllDayCheckbox || !startTimeInput || !endTimeInput || !repeatOptions.length || !mainElement) return;
 
@@ -42,7 +42,16 @@ document.addEventListener('DOMContentLoaded', function () {
         repeatOptions.forEach(option => {
             option.disabled = isDifferentDay;
         });
-    }
+        
+        // 日にち跨ぎの場合は「なし」に強制リセット
+        if (isDifferentDay) {
+            repeatOptions.forEach(option => {
+                if (option.value === "0") {
+                    option.checked = true;
+                }
+            });
+        }
+    } 
 
     // 初期状態チェック
     toggleTimeInputs();
