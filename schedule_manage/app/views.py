@@ -87,7 +87,11 @@ def schedule_json_view(request):
     # 未読コメントの予定ID一覧
     unread_schedule_ids = []
     if request.user.is_authenticated:
-        read_ids = ScheduleCommentRead.objects.filter(user=request.user).values_list('comment_id', flat=True)
+        read_ids = ScheduleCommentRead.objects.filter(
+            user=request.user,
+            is_deleted=False
+        ).values_list('comment_id', flat=True)
+        
         unread_comments = ScheduleComment.objects.exclude(id__in=read_ids).exclude(user=request.user)
         unread_schedule_ids = unread_comments.values_list('schedule_id', flat=True).distinct()
 
