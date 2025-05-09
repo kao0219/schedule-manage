@@ -265,7 +265,7 @@ def comment_add_view(request, schedule_id):
 @login_required
 def comment_list_view(request):
     user = request.user
-    comments = ScheduleComment.objects.all().order_by('-created_at') #全コメント取得
+    comments = ScheduleComment.objects.exclude(user=user).order_by('-created_at') #他人のコメントだけ取得
 
     read_comment_ids = ScheduleCommentRead.objects.filter(user=user).values_list('comment_id', flat=True)
     #既読にしたコメントID取得
