@@ -35,7 +35,7 @@ class ScheduleCommentAdmin(admin.ModelAdmin):
 
 @admin.register(ScheduleCommentRead)
 class ScheduleCommentReadAdmin(admin.ModelAdmin):
-    list_display = ('user', 'comment', 'is_deleted', 'created_at', 'updated_at') 
+    list_display = ('user', 'comment_id_display', 'is_deleted', 'created_at', 'updated_at') 
 
     def comment_id_display(self, obj):
         return obj.comment.id  
