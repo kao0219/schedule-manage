@@ -56,8 +56,12 @@
             <label class="me-3">
               <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
                     class="repeat-option"
-                    {% if form.repeat_type.value|stringformat:"s" == value %}checked{% endif %}>
-              {{ label }}
+                    {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" %}
+                        checked
+                    {% elif form.repeat_type.value|stringformat:"s" == "" and value == "0"%}  
+                        checked 
+                    {% endif %}>
+              {{ label }}              
             </label>
           {% endfor %}
         </div>
