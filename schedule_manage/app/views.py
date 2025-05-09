@@ -278,7 +278,7 @@ def comment_list_view(request):
     }
     return render(request, 'comment_list.html', context)
     
-@require_POST
+@require_POST # コメント確認
 def comment_confirm_view(request, comment_id):
     comment = get_object_or_404(ScheduleComment, id=comment_id)
     user = request.user
