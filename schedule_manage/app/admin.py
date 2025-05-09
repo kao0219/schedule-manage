@@ -5,7 +5,7 @@ admin.site.register(Family)
 from .models import CustomUser, Family, Schedule, ScheduleComment, Invite
 from .models import Memo
 from django.utils.html import format_html
-
+from .models import ScheduleCommentRead
 
 @admin.register(Invite)
 class InviteAdmin(admin.ModelAdmin):

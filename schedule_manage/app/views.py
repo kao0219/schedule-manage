@@ -316,6 +316,7 @@ def comment_list_delete_view(request, comment_id):
     if not created:
         read_entry.is_deleted = True
         read_entry.save()
+        print("削除フラグ立てました")
 
     return redirect('app:comment_list_view')  # 一覧ページに戻る
 
