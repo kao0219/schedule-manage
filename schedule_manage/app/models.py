@@ -135,6 +135,8 @@ class ScheduleCommentRead(models.Model):
     comment = models.ForeignKey(ScheduleComment, on_delete=models.CASCADE)
     read_at = models.DateTimeField(auto_now_add=True)
     is_deleted = models.BooleanField(default=False) # コメント一覧から削除した場合別ユーザーでは表示
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
         unique_together = ('user', 'comment')  
