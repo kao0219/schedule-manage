@@ -272,7 +272,7 @@ def comment_list_view(request):
     comments = ScheduleComment.objects.exclude(user=user).order_by('-created_at') #他人のコメントだけ取得
 
     read_comment_ids = ScheduleCommentRead.objects.filter(
-        user=user,
+        user=request.user,
         is_deleted=False #　削除されていないものだけ
     ).values_list('comment_id', flat=True) #既読にしたコメントID取得
     
