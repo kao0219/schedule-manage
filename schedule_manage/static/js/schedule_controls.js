@@ -5,22 +5,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const repeatOptions = document.querySelectorAll('.repeat-option');
     
 
-    if (!isAllDayCheckbox || !startTimeInput || !endTimeInput || !repeatOptions.length || !mainElement) return;
+    if (!isAllDayCheckbox || !startTimeInput || !endTimeInput || !repeatOptions.length) return;
 
-    const isEdit = mainElement?.dataset?.isEdit === 'true';
-
-    // 新規登録の場合、繰り返し「なし」をデフォルト
-    function setDefaultRepeatOption() {
-      if (!isEdit) {
-        repeatOptions.forEach(option => {
-            if (option.value === "0") {
-              option.checked = true;
-            }
-        });
-      }
-    }
-        
-    
     // 終日チェックで時間入力を制御
     function toggleTimeInputs() {
       const isChecked = isAllDayCheckbox.checked;
@@ -42,21 +28,11 @@ document.addEventListener('DOMContentLoaded', function () {
         repeatOptions.forEach(option => {
             option.disabled = isDifferentDay;
         });
-        
-        // 日にち跨ぎの場合は「なし」に強制リセット
-        if (isDifferentDay) {
-            repeatOptions.forEach(option => {
-                if (option.value === "0") {
-                    option.checked = true;
-                }
-            });
-        }
     } 
 
     // 初期状態チェック
     toggleTimeInputs();
     toggleRepeatOptions();
-    setDefaultRepeatOption();
 
     // イベントリスナー登録
     isAllDayCheckbox.addEventListener('change', () => {
