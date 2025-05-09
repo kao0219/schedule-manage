@@ -269,8 +269,6 @@ def comment_list_view(request):
 
     read_comment_ids = ScheduleCommentRead.objects.filter(user=user).values_list('comment_id', flat=True) #既読にしたコメントID取得
     
-    comments = ScheduleComment.objects.exclude(id__in=read_comment_ids).exclude(user=user).order_by('-created_at') #未読のみに絞る
-
     context = {
         'comments': comments,
         'read_comment_ids': list(read_comment_ids),  
