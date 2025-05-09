@@ -52,8 +52,8 @@
             {% for value, label in form.repeat_type.field.choices %}
               <label class="me-3">
                 <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}" 
-                      class="repeat-option"
-                      {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" == value|stringformat:"s" %}checked{% endif %}>
+                      class="repeat-option"                                                                                      
+                      {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" or not form.repeat_type.value and value == "0" %}checked{% endif %}>
                 {{ label }}  
               </label>
             {% endfor %}
