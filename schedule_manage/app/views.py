@@ -91,7 +91,7 @@ def schedule_json_view(request):
             user=request.user,
             is_deleted=False
         ).values_list('comment_id', flat=True)
-        
+
         unread_comments = ScheduleComment.objects.exclude(id__in=read_ids).exclude(user=request.user)
         unread_schedule_ids = unread_comments.values_list('schedule_id', flat=True).distinct()
 
@@ -287,8 +287,16 @@ def comment_confirm_view(request, comment_id):
     comment = get_object_or_404(ScheduleComment, id=comment_id)
     user = request.user
 
-    #既読履歴なしであれば新規作成
-    ScheduleCommentRead.objects.get_or_create(user=user, comment=comment)
+    #既読履歴なしである場合はis_deleted を False に戻す
+    read_entry, created = ScheduleCommentRead.objects.get_or_create(
+        user=user,
+        comment=comment
+    )
+
+    if not created:
+        # 未読で削除でも既読扱い
+        read_entry.is_deleted = False
+        read_entry.save()
 
     schedule_id = comment.schedule.id
     return redirect(reverse('app:schedule_detail', args=[schedule_id]))
