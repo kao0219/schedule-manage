@@ -88,7 +88,8 @@ def schedule_json_view(request):
     unread_schedule_ids = []
     if request.user.is_authenticated:
         read_ids = ScheduleCommentRead.objects.filter(user=request.user).values_list('comment_id', flat=True)
-        unread_comments = ScheduleComment.objects.exclude(id__in=read_ids)
+        unread_comments = ScheduleComment.objects.exclude(id__in=read_ids).exclude(user=request.user)
+
         unread_schedule_ids = unread_comments.values_list('schedule_id', flat=True).distinct()
 
 
@@ -149,6 +150,7 @@ def schedule_create_view(request):
     start_hour = now.hour
     start_minute = 0   #日時反映部分
     
+    # 開始終了時刻そろえる
     start_dt = datetime.combine(selected_date, time(start_hour, start_minute))
 
     initial_data = {
