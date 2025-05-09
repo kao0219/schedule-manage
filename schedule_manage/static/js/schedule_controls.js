@@ -43,3 +43,4 @@ document.addEventListener('DOMContentLoaded', function () {
     startTimeInput.addEventListener('change', toggleRepeatOptions);
     endTimeInput.addEventListener('change', toggleRepeatOptions);
 });
+
