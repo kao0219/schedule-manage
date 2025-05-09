@@ -33,6 +33,10 @@ class ScheduleCommentAdmin(admin.ModelAdmin):
     list_display = ('user', 'schedule', 'content', 'created_at')
     search_fields = ('content',)
 
+@admin.register(ScheduleCommentRead)
+class ScheduleCommentReadAdmin(admin.ModelAdmin):
+    list_display = ('user', 'comment', 'is_deleted', 'created_at', 'updated_at') 
+
 @admin.register(Memo)
 class MemoAdmin(admin.ModelAdmin):
     list_display = ('memo_title', 'content', 'image_tag', 'created_at')
