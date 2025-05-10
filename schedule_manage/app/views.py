@@ -145,16 +145,28 @@ def search_view(request):
 
 @login_required
 def schedule_create_view(request):
-    selected_date_str = request.GET.get('date') or datetime.now().date().isoformat()
-    selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+    
+    selected_date_str = request.GET.get('date') 
+    # or datetime.now().date().isoformat() ←あとで戻すこの行を149行につける
+    print("selected_date_str:", selected_date_str)
+
+    if selected_date_str:
+        selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+    else:
+        selected_date = datetime.now().date()
+    print("selected_date（変換後）:", selected_date) # 151～157後で消す
+
+    # selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()　←あとで戻す
+  
     username_initial = request.user.username[0].upper()
 
     now = datetime.now()
     start_hour = now.hour
-    start_minute = 0   #日時反映部分
+    start_minute = now.minute   #日時反映部分
     
     # 開始終了時刻そろえる
     start_dt = datetime.combine(selected_date, time(start_hour, start_minute))
+    
 
     initial_data = {
         'start_time': start_dt,
