@@ -163,15 +163,16 @@ def schedule_create_view(request):
     start_dt = datetime.combine(selected_date, time(start_hour, start_minute))
     
 
-    initial_data = {
-        'start_time': start_dt,
-        'end_time': start_dt,
-        'repeat_type': 0, # 繰り返し「なし」デフォルト
-    }
+    # initial_data = {
+    #     'start_time': start_dt,
+    #     'end_time': start_dt,
+    #     'repeat_type': 0, # 繰り返し「なし」デフォルト
+    # }
 
     if request.method == 'POST' :
         form = ScheduleForm(request.POST, request.FILES)
         if form.is_valid():
+            
             schedule = form.save(commit=False)
             schedule.user = request.user
             schedule.is_all_day = 'is_all_day' in request.POST
@@ -183,8 +184,34 @@ def schedule_create_view(request):
             else:
                 if schedule.start_time and schedule.end_time:
                     schedule.schedule_date = schedule.start_time.date()
+
+                    if schedule.start_time > schedule.end_time:
+                        form.add_error('end_time', '終了日時は開始日時より後に設定してください。')
+                        context = {
+                            'form': form,
+                            'selected_date': selected_date,
+                            'username_initial': username_initial,
+                            'now': now.strftime("%Y-%m-%dT%H:%M"),
+                            '_is_edit': False,
+                            'start_time': schedule.start_time,
+                            'end_time': schedule.end_time,
+                        }
+                        return render(request, 'schedule_create.html', context)
                 else:
-                    schedule.schedule_date = selected_date
+                    form.add_error(None, '開始日時と終了日時は必須です。')
+                    context = {
+                        'form': form,
+                        'selected_date': selected_date,
+                        'username_initial': username_initial,
+                        'now': now.strftime("%Y-%m-%dT%H:%M"),
+                        '_is_edit': False,
+                        'start_time': start_dt,
+                        'end_time': start_dt,
+                    }
+                    return render(request, 'schedule_create.html', context)
+
+                # else:
+                #     schedule.schedule_date = selected_date
                 # 終日なら開始時刻があればその日付を使って登録
             #     if schedule.start_time:
             #         schedule.schedule_date = schedule.start_time.date()
@@ -202,7 +229,12 @@ def schedule_create_view(request):
             return redirect('app:home')  
         
     else:
-        form = ScheduleForm(initial=initial_data)
+        form = ScheduleForm(initial={
+            'start_time': start_dt,
+            'end_time': start_dt,
+            'repeat_type': 0,  # 繰り返しはデフォルト「なし」
+        })
+        
     context = {
         'form': form,
         'selected_date': selected_date,
@@ -227,13 +259,14 @@ def schedule_detail_view(request, schedule_id):
             form = ScheduleForm(request.POST, request.FILES, instance=schedule)
             comment_form = CommentForm()  
             if form.is_valid():
+               
                 schedule = form.save(commit=False)
                 schedule.is_all_day = 'is_all_day' in request.POST
                 
 
                 if schedule.is_all_day: 
                     #  開始時刻があればそれを日付を取得し登録
-                    if schedule.start_time:
+                    if schedule.start_time and schedule.end_time:
                         schedule.schedule_date = schedule.start_time.date()
                     else:
                         schedule.schedule_date = schedule.schedule_date or timezone.now().date()
