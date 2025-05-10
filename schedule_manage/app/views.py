@@ -92,6 +92,7 @@ def schedule_json_view(request):
         Q(start_time__date__lte=selected_date) & Q(end_time__date__gte=selected_date)
     )
     events = []
+    unread_schedule_ids = []
     
     # 未読コメントの予定ID一覧
     unread_schedule_ids = []
