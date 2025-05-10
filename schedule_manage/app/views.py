@@ -30,7 +30,7 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_POST
 from django.urls import reverse
 from .models import ScheduleComment, ScheduleCommentRead
-from django.db.models import Q
+
 
 User = get_user_model()
 
@@ -88,9 +88,8 @@ def schedule_json_view(request):
     else:
         selected_date = datetime.now().date()
 
-    schedules = Schedule.objects.filter(
-        Q(start_time__date__lte=selected_date) & Q(end_time__date__gte=selected_date)
-    )
+    schedules = Schedule.objects.all()
+
     events = []
     # 未読コメントの予定ID一覧
     unread_schedule_ids = []
