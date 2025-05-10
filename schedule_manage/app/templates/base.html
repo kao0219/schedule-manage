@@ -8,7 +8,7 @@
     <style>
         .app-header {
             background-color: #e0e0e0;  /* ヘッダーの背景色 */
-            padding: 7px 22px;         /* 上下の余白を広めにして帯を太く */
+            padding: 7px 22px;         /* 上下の幅 */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -17,7 +17,6 @@
             top: 0;
             left: 0;
             border-bottom: 4px solid #999;  /* 下に太めのライン */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* 影で立体感 */
             z-index: 1000;
         }
           
@@ -60,8 +59,9 @@
         <div class="header-left"  style="display: flex; align-items: center; gap: 20px;">
           <h1 class="app-title" style="margin: 0;">schedule★Manage</h1>
           <form action="{% url 'app:search' %}" method="GET" class="search-form" style="display: flex; align-items: center;">
-            <input type="text" name="q" placeholder="検索する" class="form-control" style="margin-right:5px">
-            <button type="submit" class="search-button">🔍</button>
+            <input type="text" name="q" placeholder="検索する" class="form-control" style="border-radius: 5px; margin-right:0px; height: 30px;">
+            <button type="submit" class="search-button"
+                    style="border-radius: 5px; margin-left: 0px;">🔍</button>
           </form>
         </div>
 
