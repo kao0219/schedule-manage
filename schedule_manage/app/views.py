@@ -116,8 +116,7 @@ def schedule_json_view(request):
         event = {
             'id': schedule.id,
             'title': schedule.schedule_title,
-            'start': schedule.start_time.date().isoformat(), 
-            'end': schedule.end_time.isoformat(), 
+            'start': schedule.start_time.date().isoformat(), # ←これは消すとうまくカレンダー反映されない
             'color': schedule.get_color_code(),
         }
         
