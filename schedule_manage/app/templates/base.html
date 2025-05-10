@@ -8,7 +8,7 @@
     <style>
         .app-header {
             background-color: #e0e0e0;  /* ヘッダーの背景色 */
-            padding: 30px 20px;         /* 上下の余白を広めにして帯を太く */
+            padding: 7px 22px;         /* 上下の余白を広めにして帯を太く */
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -30,13 +30,13 @@
         .search-form {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 0px;
         }
           
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 20px;
+            gap: 50px;
             list-style: none;
             margin: 0;
             padding: 0;
@@ -56,18 +56,19 @@
    
 </head>
 <body>
-    <header class="app-header">
-        <div class="display: flex; align-items: center;">
-          <h1 class="app-title" style="margin-right: 20px;">schedule★Manage</h1>
-          <form action="{% url 'app:search' %}" method="GET" class="search-form">
-            <input type="text" name="q" placeholder="検索する">
+    <header class="app-header" style>
+        <div class="header-left"  style="display: flex; align-items: center; gap: 20px;">
+          <h1 class="app-title" style="margin: 0;">schedule★Manage</h1>
+          <form action="{% url 'app:search' %}" method="GET" class="search-form" style="display: flex; align-items: center;">
+            <input type="text" name="q" placeholder="検索する" class="form-control" style="margin-right:5px">
             <button type="submit" class="search-button">🔍</button>
           </form>
         </div>
 
-        <nav>  
-            <ul class="nav-links" style="display: flex; gap: 10px; list-style: none;">
-              <li><a href="{% url 'app:home' %}">ホーム</a></li>
+        <nav class="header-right">  
+            <ul class="nav-links">
+              <li><a class="nav-link" href="{% url 'app:home' %}">ホーム</a></li>
+
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="scheduleDropdown" role="button" data-bs-toggle='dropdown'aria-expanded="false">
                   予定
@@ -81,9 +82,9 @@
                 </ul>
               <li>
               
-              <li><a href="{% url 'app:memos' %}">メモ</a></li>
-              <li><a href="{% url 'app:settings' %}">設定</a></li>
-              <li><a href="{% url 'app:logout' %}">ログアウト</a></li>
+              <li><a class="nav-link" href="{% url 'app:memos' %}">メモ</a></li>
+              <li><a class="nav-link" href="{% url 'app:settings' %}">設定</a></li>
+              <li><a class="btn btn-primary logout-btn" href="{% url 'app:logout' %}">ログアウト</a></li>
             </ul>
         </nav>
     </header>
