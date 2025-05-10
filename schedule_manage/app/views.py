@@ -192,18 +192,21 @@ def schedule_create_view(request):
             schedule.save()
             return redirect('app:home')  
         
-        else:
-            
-            context = {
-                'form': form,
-                'selected_date': selected_date,
-                'username_initial': username_initial,
-                'now': now.strftime("%Y-%m-%dT%H:%M"),  
-                'is_edit': False,
-            }
+    else:
+        form = ScheduleForm(initial=initial_data)
+    context = {
+        'form': form,
+        'selected_date': selected_date,
+        'username_initial': username_initial,
+        'now': now.strftime("%Y-%m-%dT%H:%M"),  
+        'is_edit': False,
+        'start_time': start_dt,  # ←※これで選択した日の日にちを開始に反映
+        'end_time': start_dt, 
+    }
 
-            return render(request, 'schedule_create.html', context)
+    return render(request, 'schedule_create.html', context)
     
+  
 
 @login_required
 def schedule_detail_view(request, schedule_id):
