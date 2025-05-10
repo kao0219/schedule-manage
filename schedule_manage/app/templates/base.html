@@ -35,7 +35,7 @@
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 50px;
+            gap: 60px;
             list-style: none;
             margin: 0;
             padding: 0;
@@ -57,16 +57,16 @@
 <body>
     <header class="app-header" style>
         <div class="header-left"  style="display: flex; align-items: center; gap: 20px;">
-          <h1 class="app-title" style="margin: 0;">schedule★Manage</h1>
+          <h1 class="app-title" style="margin: 0; color: #666;">schedule★Manage</h1>
           <form action="{% url 'app:search' %}" method="GET" class="search-form" style="display: flex; align-items: center;">
-            <input type="text" name="q" placeholder="検索する" class="form-control" style="border-radius: 5px; margin-right:0px; height: 30px;">
+            <input type="text" name="q" placeholder="検索する" class="form-control" style="border-radius: 5px; margin-right:0px; height: 30px; border :0px solid #eee;">
             <button type="submit" class="search-button"
                     style="border-radius: 5px; margin-left: 0px;">🔍</button>
           </form>
         </div>
 
         <nav class="header-right">  
-            <ul class="nav-links">
+            <ul class="nav-links" style="display: flex; align-items: center; gap: 50px;">
               <li><a class="nav-link" href="{% url 'app:home' %}">ホーム</a></li>
 
               <li class="nav-item dropdown">
@@ -80,8 +80,7 @@
                     <li><a class="dropdown-item" href="{% url 'app:schedule_create' %}">新規登録</a></li>
                     <li><a class="dropdown-item" href="{% url 'app:comment_list_view' %}">コメント一覧</a></li>
                 </ul>
-              <li>
-              
+               
               <li><a class="nav-link" href="{% url 'app:memos' %}">メモ</a></li>
               <li><a class="nav-link" href="{% url 'app:settings' %}">設定</a></li>
               <li><a class="btn btn-primary logout-btn" href="{% url 'app:logout' %}">ログアウト</a></li>
