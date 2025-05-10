@@ -170,6 +170,7 @@ def schedule_create_view(request):
     }
 
     if request.method == 'POST' :
+        print(request.POST)
         form = ScheduleForm(request.POST, request.FILES)
         if form.is_valid():
             schedule = form.save(commit=False)
