@@ -236,15 +236,28 @@ def schedule_detail_view(request, schedule_id):
                     if schedule.start_time:
                         schedule.schedule_date = schedule.start_time.date()
                     else:
-                        # なければ元のschedule日付か、なければ今日の日付いれる
                         schedule.schedule_date = schedule.schedule_date or timezone.now().date()
-                    schedule.start_time = None
-                    schedule.end_time = None  
+            
+                    schedule.start_time = datetime.combine(schedule.schedule_date, time.min)
+                    schedule.end_time = datetime.combine(schedule.schedule_date, time.max)
                 else:
+                    # 通常の時間指定
                     if schedule.start_time:
                         schedule.schedule_date = schedule.start_time.date()
                     else:
-                        schedule.schedule_date = None
+                        schedule.schedule_date = schedule.schedule_date or timezone.now().date()
+                #     if schedule.start_time:
+                #         schedule.schedule_date = schedule.start_time.date()
+                #     else:
+                #         # なければ元のschedule日付か、なければ今日の日付いれる
+                #         schedule.schedule_date = schedule.schedule_date or timezone.now().date()
+                #     schedule.start_time = None
+                #     schedule.end_time = None  
+                # else:
+                #     if schedule.start_time:
+                #         schedule.schedule_date = schedule.start_time.date()
+                #     else:
+                #         schedule.schedule_date = None
                 
                 schedule.save()
                 return redirect('app:home')  
