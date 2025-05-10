@@ -39,12 +39,14 @@
 
           <div class="mb-3">
             <label for="start_date" class="form-label">開始</label>
-            <input type="datetime-local" name="start_time" id="id_start_time" class="form-control" style="width: 200px;">
+            <input type="datetime-local" name="start_time" id="id_start_time" class="form-control" 
+            value="{{ start_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
           </div>
 
           <div class="mb-3">
             <label for="end_date" class="form-label">終了</label>
-            <input type="datetime-local" name="end_time" id="id_end_time" class="form-control" style="width: 200px;">
+            <input type="datetime-local" name="end_time" id="id_end_time" class="form-control" 
+            value="{{ end_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
           </div>
 
           <div class="mb-3">

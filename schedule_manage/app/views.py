@@ -151,7 +151,10 @@ def schedule_create_view(request):
     print("selected_date_str:", selected_date_str)
 
     if selected_date_str:
-        selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+        try:
+            selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+        except ValueError:
+            selected_date = datetime.now().date()
     else:
         selected_date = datetime.now().date()
     print("selected_date（変換後）:", selected_date) # 151～157後で消す
