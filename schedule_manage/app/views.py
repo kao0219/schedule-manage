@@ -81,6 +81,7 @@ def signup_view(request):
 def home_view(request):
     return render(request, 'home.html')
 
+# カレンダー表示について管理
 def schedule_json_view(request):
     selected_date_str = request.GET.get('date')
     if selected_date_str:
