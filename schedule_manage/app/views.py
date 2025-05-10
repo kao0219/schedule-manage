@@ -92,8 +92,6 @@ def schedule_json_view(request):
         Q(start_time__date__lte=selected_date) & Q(end_time__date__gte=selected_date)
     )
     events = []
-    unread_schedule_ids = []
-    
     # 未読コメントの予定ID一覧
     unread_schedule_ids = []
     if request.user.is_authenticated:
@@ -102,8 +100,14 @@ def schedule_json_view(request):
             is_deleted=False
         ).values_list('comment_id', flat=True)
 
-        unread_comments = ScheduleComment.objects.exclude(id__in=read_ids).exclude(user=request.user)
-        unread_schedule_ids = unread_comments.values_list('schedule_id', flat=True).distinct()
+        unread_comments = ScheduleComment.objects.exclude(
+            id__in=read_ids
+        ).exclude(
+            user=request.user
+        )
+        unread_schedule_ids = unread_comments.values_list(
+            'schedule_id', flat=True
+        ).distinct()
 
 
     for schedule in schedules:
