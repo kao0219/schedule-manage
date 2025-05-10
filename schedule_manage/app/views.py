@@ -87,8 +87,10 @@ def schedule_json_view(request):
         selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
     else:
         selected_date = datetime.now().date()
-        
-    schedules = Schedule.objects.all()
+
+    schedules = Schedule.objects.filter(
+        Q(start_time__date__lte=selected_date) & Q(end_time__date__gte=selected_date)
+    )
     events = []
     
     # 未読コメントの予定ID一覧
