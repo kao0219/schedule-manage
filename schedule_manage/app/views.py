@@ -105,6 +105,7 @@ def schedule_json_view(request):
             'id': schedule.id,
             'title': schedule.schedule_title,
             'start': schedule.start_time.date().isoformat(), 
+            'end': schedule.end_time.isoformat(), 
             'color': schedule.get_color_code(),
         }
         
