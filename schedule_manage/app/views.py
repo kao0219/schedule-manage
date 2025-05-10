@@ -82,6 +82,12 @@ def home_view(request):
     return render(request, 'home.html')
 
 def schedule_json_view(request):
+    selected_date_str = request.GET.get('date')
+    if selected_date_str:
+        selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
+    else:
+        selected_date = datetime.now().date()
+        
     schedules = Schedule.objects.all()
     events = []
     
