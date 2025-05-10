@@ -179,7 +179,7 @@ def schedule_create_view(request):
             if schedule.is_all_day :
                 schedule.schedule_date = selected_date
                 schedule.start_time = datetime.combine(selected_date, time.min)
-                schedule.end_time = datetime.combine(selected_date, time.max)
+                schedule.end_time = datetime.combine(selected_date, time(23,59))
             else:
                 if schedule.start_time:
                     schedule.schedule_date = schedule.start_time.date()
@@ -239,7 +239,7 @@ def schedule_detail_view(request, schedule_id):
                         schedule.schedule_date = schedule.schedule_date or timezone.now().date()
             
                     schedule.start_time = datetime.combine(schedule.schedule_date, time.min)
-                    schedule.end_time = datetime.combine(schedule.schedule_date, time.max)
+                    schedule.end_time = datetime.combine(schedule.schedule_date, time(23,59))
                 else:
                     # 通常の時間指定
                     if schedule.start_time:
