@@ -1,5 +1,14 @@
+window.toggleDateTimeFields = function() {
+    const isAllDay = document.getElementById('id_is_all_day').checked;
+    const startTime = document.getElementById('id_start_time');
+    const endTime = document.getElementById('id_end_time');
+
+    startTime.disabled = isAllDay;
+    endTime.disabled = isAllDay;
+};
+
 document.addEventListener('DOMContentLoaded', function () {
-    alert("JSファイルは正しく読み込まれています！");
+    alert("jsファイル正しく読み込みされている")
     const isAllDayCheckbox = document.getElementById('id_is_all_day');
     const startTimeInput = document.getElementById('id_start_time');
     const endTimeInput = document.getElementById('id_end_time');
@@ -54,3 +63,4 @@ document.addEventListener('DOMContentLoaded', function () {
     endTimeInput.addEventListener('change', toggleRepeatOptions);
 });
 
+  

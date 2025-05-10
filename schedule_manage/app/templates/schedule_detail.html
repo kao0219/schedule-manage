@@ -33,7 +33,7 @@
 
       <div class="col-md-6">
         <div class="form-check mb-3">
-          <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input"
+          <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input" onchange="toggleDateTimeFields()"
                 {% if form.is_all_day.value %}checked{% endif %}>
           <label for="id_is_all_day" class="form-check-label">終日</label>
         </div>
