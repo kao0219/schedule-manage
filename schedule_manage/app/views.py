@@ -147,20 +147,12 @@ def search_view(request):
 def schedule_create_view(request):
     
     selected_date_str = request.GET.get('date') 
-    # or datetime.now().date().isoformat() ←あとで戻すこの行を149行につける
-    print("selected_date_str:", selected_date_str)
-
     if selected_date_str:
-        try:
-            selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
-        except ValueError:
-            selected_date = datetime.now().date()
+        selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
     else:
         selected_date = datetime.now().date()
-    print("selected_date（変換後）:", selected_date) # 151～157後で消す
 
-    # selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()　←あとで戻す
-  
+
     username_initial = request.user.username[0].upper()
 
     now = datetime.now()
@@ -211,16 +203,7 @@ def schedule_create_view(request):
             }
 
             return render(request, 'schedule_create.html', context)
-    else:
-        form = ScheduleForm(initial=initial_data)
-        context = {
-            'form': form,
-            'selected_date': selected_date,
-            'username_initial': username_initial,
-            'now': now.strftime("%Y-%m-%dT%H:%M"),
-            'is_edit': False,
-        }
-        return render(request, 'schedule_create.html', context)    
+    
 
 @login_required
 def schedule_detail_view(request, schedule_id):
