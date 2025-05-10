@@ -8,7 +8,6 @@ window.toggleDateTimeFields = function() {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-    alert("jsファイル正しく読み込みされている")
     const isAllDayCheckbox = document.getElementById('id_is_all_day');
     const startTimeInput = document.getElementById('id_start_time');
     const endTimeInput = document.getElementById('id_end_time');

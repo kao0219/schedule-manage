@@ -170,7 +170,6 @@ def schedule_create_view(request):
     }
 
     if request.method == 'POST' :
-        print(request.POST)
         form = ScheduleForm(request.POST, request.FILES)
         if form.is_valid():
             schedule = form.save(commit=False)
@@ -178,18 +177,26 @@ def schedule_create_view(request):
             schedule.is_all_day = 'is_all_day' in request.POST
         
             if schedule.is_all_day :
-                # 終日なら開始時刻があればその日付を使って登録
-                if schedule.start_time:
-                    schedule.schedule_date = schedule.start_time.date()
-                else:
-                    schedule.schedule_date = selected_date
-                schedule.start_time = None
-                schedule.end_time = None
+                schedule.schedule_date = selected_date
+                schedule.start_time = datetime.combine(selected_date, time.min)
+                schedule.end_time = datetime.combine(selected_date, time.max)
             else:
                 if schedule.start_time:
                     schedule.schedule_date = schedule.start_time.date()
                 else:
                     schedule.schedule_date = selected_date
+                # 終日なら開始時刻があればその日付を使って登録
+            #     if schedule.start_time:
+            #         schedule.schedule_date = schedule.start_time.date()
+            #     else:
+            #         schedule.schedule_date = selected_date
+            #     schedule.start_time = None
+            #     schedule.end_time = None
+            # else:
+            #     if schedule.start_time:
+            #         schedule.schedule_date = schedule.start_time.date()
+            #     else:
+            #         schedule.schedule_date = selected_date
 
             schedule.save()
             return redirect('app:home')  
@@ -221,6 +228,7 @@ def schedule_detail_view(request, schedule_id):
             comment_form = CommentForm()  
             if form.is_valid():
                 schedule = form.save(commit=False)
+                schedule.is_all_day = 'is_all_day' in request.POST
                 
 
                 if schedule.is_all_day: 
