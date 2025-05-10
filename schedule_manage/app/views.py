@@ -174,15 +174,16 @@ def schedule_create_view(request):
         if form.is_valid():
             schedule = form.save(commit=False)
             schedule.user = request.user
+            schedule.is_all_day = 'is_all_day' in request.POST
         
-            if schedule.is_all_day:
+            if schedule.is_all_day :
                 # 終日なら開始時刻があればその日付を使って登録
                 if schedule.start_time:
                     schedule.schedule_date = schedule.start_time.date()
                 else:
                     schedule.schedule_date = selected_date
-                    schedule.start_time = None
-                    schedule.end_time = None
+                schedule.start_time = None
+                schedule.end_time = None
             else:
                 if schedule.start_time:
                     schedule.schedule_date = schedule.start_time.date()
