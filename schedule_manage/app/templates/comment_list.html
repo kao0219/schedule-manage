@@ -5,13 +5,15 @@
 
 <div class="comment-list-container">
 <h2 class="page-title">コメント一覧</h2>
-<table border="1">
+<table class="comment-table">
+<thead>
     <tr>
         <th>未読</th>
         <th>日付</th>
         <th>タイトル</th>
         <th>コメント内容</th>
     </tr>
+</thead> 
 
     {% for comment in comments %}
     <tr>
