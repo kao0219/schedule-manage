@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h2>「{{ query }}」の検索結果</h2>
+<h2 class="search-title">「{{ query }}」の検索結果</h2>
 
-<h3>【該当する予定があります】</h3>
+<h3 class="section-title">【予定】</h3>
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for schedule in schedules %}
     <div class="col">
@@ -22,12 +22,12 @@
       </div>
     </div>
   {% empty %}
-    <p>該当する予定はありません。</p>
+    <p class="no-result">該当する予定はありません。</p>
   {% endfor %}
 </div>
 
 <!-- メモ一覧 -->
-<h3 class="mt-4">【該当するメモがあります】</h3>
+<h3 class="section-title mt-4">【メモ】</h3>
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for memo in memos %}
    <div class="col">
@@ -53,7 +53,7 @@
    {% include "components/memo_modal.html" with memo=memo %}
 
    {% empty %}
-    <p>該当するメモはありません。</p>
+    <p class="no-result">該当するメモはありません。</p>
    {% endfor %}
 </div>
 
