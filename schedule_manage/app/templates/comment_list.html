@@ -7,10 +7,24 @@
         margin-top: 40px;
     }
     .page-title {
-        font-size: 32px;
+        font-size: 25px;
         font-weight: bold;
         margin-bottom: 30px;
     }
+    .comment-table {
+        margin: 0 auto;
+        border-collapse: collapse;
+        width: 80%;  /* テーブル幅 */
+        max-width: 800px;
+    }
+    .comment-table th, .comment-table td {
+        border: 1px solid #ccc;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 16px;
+    }
+
+
 
 </style>
 
@@ -23,6 +37,7 @@
             <th>日付</th>
             <th>タイトル</th>
             <th>コメント内容</th>
+            <th></th>
           </tr>
        </thead> 
 
@@ -51,7 +66,7 @@
             </tr>
             {% empty %}
             <tr>
-                <td colspan="4">コメントはありません。</td>
+                <td colspan="5">コメントはありません。</td>
             </tr>
             {% endfor %}
         </body>
