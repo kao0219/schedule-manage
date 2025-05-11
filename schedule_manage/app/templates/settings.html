@@ -4,14 +4,17 @@
 <style>
 .member-list-header {
   display: flex;
-  align-items: center;
-  gap: 15px;
+  flex-direction: column;  /* 縦並び */
+  align-items: center;     /* 横方向の中央揃え */  
+  gap: 15px;               /* タイトルとアイコンの間隔 */
   margin-bottom: 10px;
+  margin-top: 40px;        /* ヘッダーとの余白 */
 }
   
 .member-title {
   font-weight: bold;
   margin: 0;
+  font-size: 40px;        /* タイトルの文字 */
 }
   
 .member-icons {
@@ -20,8 +23,8 @@
 }
   
 .member-icon {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   background-color: #007bff;
   color: white;
@@ -31,25 +34,28 @@
   align-items: center;
   justify-content: center;
 }
+
+ul li a {
+  font-size: 18px;        /* リンク文字サイズ */
+}
 </style>
   
 
-<div class="member-list-header" style="text-align: center; margin-top: 40px;">
+<div class="member-list-header">
   <p class="member-title">メンバーリスト</p>
-  <div class="member-icons" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
+  <div class="member-icons">
     {% for member in members %}
       <div class="member-icon" title="{{ member.username }}">
-        {{ member.username|slice:":1"|upper }}
+          {{ member.username|slice:":1"|upper }}
       </div>
     {% endfor %}
   </div>
+
+  <ul class="settings-links">
+    <li><a href="{% url 'app:invite_member' %}">メンバーを招待する</a></li>
+    <li><a href="{% url 'app:change_password' %}">パスワード変更</a></li>
+    <li><a href="{% url 'app:change_email' %}">メールアドレス変更</a></li>
+  </ul>
 </div>
-
-
-<ul>
-  <li><a href="{% url 'app:invite_member' %}">メンバーを招待する</a></li>
-  <li><a href="{% url 'app:change_password' %}">パスワード変更</a></li>
-  <li><a href="{% url 'app:change_email' %}">メールアドレス変更</a></li>
-</ul>
 
 {% endblock %}
