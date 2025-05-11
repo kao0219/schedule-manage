@@ -62,12 +62,12 @@
                 <td>
                     <form action="{% url 'app:comment_confirm' comment.id %}" method="post" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit">確認</button>
+                        <button type="submit" class="confirm-button">確認</button>
                     </form>
 
                     <form action="{% url 'app:comment_list_delete' comment.id %}" method="post" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit">削除</button>
+                        <button type="submit" class="delete-button">削除</button>
                     </form>
                 </td>
             </tr>
