@@ -34,9 +34,9 @@
 </style>
   
 
-<div class="member-list-header">
+<div class="member-list-header" style="text-align: center; margin-top: 40px;">
   <p class="member-title">メンバーリスト</p>
-  <div class="member-icons">
+  <div class="member-icons" style="display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;">
     {% for member in members %}
       <div class="member-icon" title="{{ member.username }}">
         {{ member.username|slice:":1"|upper }}
