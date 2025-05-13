@@ -118,7 +118,9 @@ def schedule_json_view(request):
             'id': schedule.id,
             'title': schedule.schedule_title,
             'start': schedule.start_time.date().isoformat(), # ←これは消すとうまくカレンダー反映されない
+            'end': schedule.end_time.isoformat(), #121end~と123all~がないとカレンダーに日跨ぎの予定がうまく表示されない。
             'color': schedule.get_color_code(),
+            'allDay': schedule.is_all_day, 
         }
         
         
