@@ -168,7 +168,6 @@ def schedule_create_view(request):
 
 
     username_initial = request.user.username[0].upper()
-
     now = datetime.now()
     start_hour = now.hour
     start_minute = now.minute   #日時反映部分
@@ -190,10 +189,15 @@ def schedule_create_view(request):
                 schedule.end_time = datetime.combine(selected_date, time(23,59))
             else:
                 if schedule.start_time and schedule.end_time:
+                    print(f"[DEBUG] start_time: {schedule.start_time}, end_time: {schedule.end_time}") 
                     schedule.schedule_date = schedule.start_time.date()
 
-                    if schedule.start_time > schedule.end_time:
-                        form.add_error('end_time', '終了日時は開始日時より後に設定してください。')
+                    if schedule.start_time.date() != schedule.end_time.date():
+                        schedule.repeat_type = '0'  # 「なし」に強制
+                        print("[DEBUG] 日跨ぎのため、repeat_typeを'なし'に設定")
+
+                    if schedule.start_time > schedule.end_time: # ここで日跨ぎもOK
+                        form.add_error('end_time', '終了日時は開始日時と同じか、それ以降に設定してください。')
                         context = {
                             'form': form,
                             'selected_date': selected_date,
@@ -216,10 +220,9 @@ def schedule_create_view(request):
                         'end_time': start_dt,
                     }
                     return render(request, 'schedule_create.html', context)
-            print(f"[DEBUG] 保存直前の開始: {schedule.start_time}, 終了: {schedule.end_time}")
+            print(f"[DEBUG] repeat_type before save: {schedule.repeat_type}")
             schedule.save()
-            return redirect('app:home')  
-        
+            return redirect('app:home') 
         else:
             print("[DEBUG] フォームエラー:", form.errors.as_json()) # 223.224あとで消す
 
@@ -230,18 +233,36 @@ def schedule_create_view(request):
             'end_time': start_dt,
             'repeat_type': 0,  # 繰り返しはデフォルト「なし」
         })
-        
     context = {
         'form': form,
         'selected_date': selected_date,
         'username_initial': username_initial,
-        'now': now.strftime("%Y-%m-%dT%H:%M"),  
-        'is_edit': False,
-        'start_time': start_dt,  # ←※これで選択した日の日にちを開始に反映
-        'end_time': start_dt, 
+        'now': now.strftime("%Y-%m-%dT%H:%M"),
+        '_is_edit': False,
+        'start_time': start_dt,
+        'end_time': start_dt,
     }
-
     return render(request, 'schedule_create.html', context)
+
+
+    # else:
+    #     form = ScheduleForm(initial={
+    #         'start_time': start_dt,
+    #         'end_time': start_dt,
+    #         'repeat_type': 0,  # 繰り返しはデフォルト「なし」
+    #     })
+        
+    #     context = {
+    #         'form': form,
+    #         'selected_date': selected_date,
+    #         'username_initial': username_initial,
+    #         'now': now.strftime("%Y-%m-%dT%H:%M"),  
+    #         'is_edit': False,
+    #         'start_time': start_dt,  # ←※これで選択した日の日にちを開始に反映
+    #         'end_time': start_dt, 
+    #     }
+
+    # return render(request, 'schedule_create.html', context)
     
   
 
