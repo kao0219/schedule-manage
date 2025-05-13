@@ -175,13 +175,6 @@ def schedule_create_view(request):
     
     # 開始終了時刻そろえる
     start_dt = datetime.combine(selected_date, time(start_hour, start_minute))
-    
-
-    # initial_data = {
-    #     'start_time': start_dt,
-    #     'end_time': start_dt,
-    #     'repeat_type': 0, # 繰り返し「なし」デフォルト
-    # }
 
     if request.method == 'POST' :
         form = ScheduleForm(request.POST, request.FILES)
@@ -223,25 +216,14 @@ def schedule_create_view(request):
                         'end_time': start_dt,
                     }
                     return render(request, 'schedule_create.html', context)
-
-                # else:
-                #     schedule.schedule_date = selected_date
-                # 終日なら開始時刻があればその日付を使って登録
-            #     if schedule.start_time:
-            #         schedule.schedule_date = schedule.start_time.date()
-            #     else:
-            #         schedule.schedule_date = selected_date
-            #     schedule.start_time = None
-            #     schedule.end_time = None
-            # else:
-            #     if schedule.start_time:
-            #         schedule.schedule_date = schedule.start_time.date()
-            #     else:
-            #         schedule.schedule_date = selected_date
-
+            print(f"[DEBUG] 保存直前の開始: {schedule.start_time}, 終了: {schedule.end_time}")
             schedule.save()
             return redirect('app:home')  
         
+        else:
+            print("[DEBUG] フォームエラー:", form.errors.as_json()) # 223.224あとで消す
+
+
     else:
         form = ScheduleForm(initial={
             'start_time': start_dt,

@@ -58,24 +58,23 @@ class ScheduleForm(forms.ModelForm):
         }
 
     def clean(self):
-        print("[DEBUG] clean() が呼び出された")
+        
         cleaned_data = super().clean()
         is_all_day = bool(cleaned_data.get('is_all_day'))
         start_time = cleaned_data.get('start_time')
         end_time = cleaned_data.get('end_time')
-
+        print(f"[DEBUG] is_all_day: {is_all_day}")
         print(f"[DEBUG] start_time: {start_time}, end_time: {end_time}")
 
         if not is_all_day:
             if not start_time or not end_time:
-                # print("エラー：開始または終了時間が未入力")
+               
                 raise forms.ValidationError('開始・終了時間を入力してください。')
             
-            if start_time >= end_time:
-                # print("エラー：開始が終了より後になっている")
+            if start_time > end_time:
+                
                 raise forms.ValidationError("開始時間は終了時間より前に設定してください。")
-        else:
-            print("[DEBUG] 終日チェックされています。")
+        print(f"[DEBUG] cleaned_data 最終確認: {cleaned_data}") # 77あとで消す
         return cleaned_data
 
     repeat_type = forms.TypedChoiceField(
