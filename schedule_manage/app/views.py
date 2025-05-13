@@ -35,7 +35,7 @@ from .models import ScheduleComment, ScheduleCommentRead
 User = get_user_model()
 
 def index(request):
-    return HttpResponse('<h1>schedule manage</h1>')
+    return HttpResponse('<h1>Schedule Manage</h1>')
 
 def portfolio_view(request):
     return render(request, 'portfolio.html')
