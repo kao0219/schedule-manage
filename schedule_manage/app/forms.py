@@ -82,7 +82,8 @@ class ScheduleForm(forms.ModelForm):
         coerce=int,  # 選択値を int に変換
         widget=forms.RadioSelect,
         label='繰り返し設定',
-        initial='0'
+        initial='0',
+        required=False #　日跨ぎの予定登録のため追加
     )
 
     def __init__(self, *args, **kwargs):
