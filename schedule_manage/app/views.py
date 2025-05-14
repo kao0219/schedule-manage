@@ -148,10 +148,10 @@ def schedule_json_view(request):
 def create_next_schedule_if_needed(schedule):
     # ① 予定がすでに削除されていないか確認（DBに存在するか）
     if not Schedule.objects.filter(id=schedule.id).exists():
-        return  # 削除されているなら終了
+        return  # 削除されているなら終了　ここのチェックで作成止まる
   
     # ② 「なし」なら次は作成しない
-    if schedule.repeat_type == 0:  # 0 →「なし」
+    if schedule.repeat_type == 0:  # 0 →「なし」　ここのチェックで作成止まる
         return
     # ③ 今の予定完了しないと次は作らない
     if schedule.start_time > datetime.now():

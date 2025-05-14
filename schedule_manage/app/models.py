@@ -113,6 +113,9 @@ class Schedule(models.Model):
     is_all_day = models.BooleanField(default=False)
     start_time = models.DateTimeField(null=True, blank=True)
     end_time = models.DateTimeField(null=True, blank=True)
+
+    is_relay_generated = models.BooleanField(default=False)  # リレーで作成された予定かどうか
+
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
