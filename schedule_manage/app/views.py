@@ -443,19 +443,30 @@ def comment_confirm_view(request, comment_id):
 def comment_list_delete_view(request, comment_id):
     user = request.user
     comment = get_object_or_404(ScheduleComment, id=comment_id)
-
-    # 未読でも削除ボタン押下可能へ
-    read_entry, created = ScheduleCommentRead.objects.get_or_create(
-        user=user,
-        comment=comment,
-        defaults={'is_deleted': True}
-    )
     
-    if not created:
-        read_entry.is_deleted = True
-        read_entry.save()
-        print("削除フラグ立てました")
-
+    try:
+        read_entry = ScheduleCommentRead.objects.get(user=user,comment=comment)
+        # 未読の場合は削除できない
+        if not read_entry.is_deleted:
+           
+            context = {
+                'alert_message': 'コメントを確認してから削除してください。',
+                'comments': ScheduleComment.objects.all(),
+                'read_comment_ids': ScheduleCommentRead.objects.filter(user=user).values_list('comment_id', flat=True),
+            }
+            return render(request,'comment_list.html', context)
+        else:
+            # 既読なら削除ボタン押せる
+            read_entry.is_deleted = True
+            read_entry.save()
+    except ScheduleCommentRead.DoesNotExist:
+            # 既読履歴ないと削除不可
+        context ={
+            'alert_message': 'コメントを確認してから削除してください。',
+            'comments': ScheduleComment.objects.all(),
+            'read_comment_ids': [],
+        }
+        return render(request, 'comment_list.html', context)
     return redirect('app:comment_list_view')  # 一覧ページに戻る
 
 def schedule_delete_view(request, pk):
