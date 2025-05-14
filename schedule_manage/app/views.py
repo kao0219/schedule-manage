@@ -166,6 +166,10 @@ def create_next_schedule_if_needed(schedule):
     
     if future_exists:
         return  # すでに次の予定が存在する
+    
+    #リレー済みなら新規作成しない
+    if schedule.is_relay_created:
+        return
 
     # ⑤ 次の予定を作成する
     next_start = schedule.start_time
