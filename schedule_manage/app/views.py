@@ -153,6 +153,9 @@ def create_next_schedule_if_needed(schedule):
     # ② 「なし」なら次は作成しない
     if schedule.repeat_type == 0:  # 0 は「なし」
         return
+    # ③ 今の予定がまだ終わっていなければ次は作らない
+    if schedule.start_time > datetime.now():
+        return
 
 
 def search_view(request):
