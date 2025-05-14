@@ -332,6 +332,12 @@ def schedule_detail_view(request, schedule_id):
                 schedule = form.save(commit=False)
                 schedule.is_all_day = 'is_all_day' in request.POST
                 
+                #繰り返し設定の変更チェック　「なし」に変更ならリレー停止
+                if schedule.repeat_type == 0:
+                    schedule.is_relay_created = False
+                else:
+                    if not schedule.is_relay_created:
+                        schedule.is_relay_created = True
 
                 if schedule.is_all_day: 
                     #  開始時刻があればそれを日付を取得し登録
