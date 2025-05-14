@@ -185,6 +185,14 @@ def create_next_schedule_if_needed(schedule):
         next_start = next_start.replace(year=year, month=month)
         next_end = next_end.replace(year=year, month=month)
 
+    Schedule.objects.create(
+        user=schedule.user,
+        schedule_title=schedule.schedule_title,
+        schedule_memo=schedule.schedule_memo,
+        start_time=next_start,
+        end_time=next_end,
+    )
+
 def search_view(request):
     query = request.GET.get('q', '')
     schedules = Schedule.objects.filter(schedule_title__icontains=query) if query else []
