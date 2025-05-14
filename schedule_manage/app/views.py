@@ -151,11 +151,19 @@ def create_next_schedule_if_needed(schedule):
         return  # 削除されているなら終了
   
     # ② 「なし」なら次は作成しない
-    if schedule.repeat_type == 0:  # 0 は「なし」
+    if schedule.repeat_type == 0:  # 0 →「なし」
         return
-    # ③ 今の予定がまだ終わっていなければ次は作らない
+    # ③ 今の予定完了しないと次は作らない
     if schedule.start_time > datetime.now():
         return
+    
+    # ④ 次の予定がすでに存在していれば作らない（未来の1件あればOK、無限に作られないため）
+    future_exists = Schedule.objects.filter(
+        user=schedule.user,
+        schedule_title=schedule.schedule_title,
+        start_time__gt=schedule.start_time
+    ).exists()
+
 
 
 def search_view(request):
