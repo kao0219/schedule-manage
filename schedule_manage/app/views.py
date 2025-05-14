@@ -191,6 +191,10 @@ def create_next_schedule_if_needed(schedule):
         schedule_memo=schedule.schedule_memo,
         start_time=next_start,
         end_time=next_end,
+        repeat_type=schedule.repeat_type,
+        is_all_day=schedule.is_all_day,
+        color=schedule.color,
+        image_url=schedule.image_url,
     )
 
 def search_view(request):
