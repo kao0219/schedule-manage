@@ -80,8 +80,18 @@ def signup_view(request):
         return redirect("app:home") #登録完了ならホーム画面へ
     return render(request, 'signup.html')
 
+# 繰り返し部分
 def home_view(request):
-    return render(request, 'home.html')
+    schedules = Schedule.objects.filter(user=request.user)
+
+    for schedule in schedules:
+        create_next_schedule_if_needed(schedule)
+
+    schedules = Schedule.objects.filter(user=request.user).order_by('start_time')
+
+    return render(request, 'home.html', {'schedules': schedules})
+
+    
 
 # カレンダー表示について管理
 def schedule_json_view(request):
@@ -133,6 +143,9 @@ def schedule_json_view(request):
         events.append(event)
 
     return JsonResponse(events, safe=False)
+
+
+  
 
 def search_view(request):
     query = request.GET.get('q', '')
