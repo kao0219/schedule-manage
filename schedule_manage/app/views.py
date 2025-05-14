@@ -144,8 +144,14 @@ def schedule_json_view(request):
 
     return JsonResponse(events, safe=False)
 
-
+# 繰り返し部分
+def create_next_schedule_if_needed(schedule):
+    # ① 予定がすでに削除されていないか確認（DBに存在するか）
+    if not Schedule.objects.filter(id=schedule.id).exists():
+        return  # 削除されているなら終了
   
+
+
 
 def search_view(request):
     query = request.GET.get('q', '')
