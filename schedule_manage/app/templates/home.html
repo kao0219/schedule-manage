@@ -23,12 +23,10 @@
 
  
     .fc-toolbar.fc-header-toolbar {
-        justify-content: center;
+        justify-content: center; /* 月日の左右に矢印 *//
     }
     
-    .fc-toolbar-title {
-        margin: 0 15px; /* 矢印と月の間の余白調整 */
-    }
+   
     
 </style>
     
@@ -40,10 +38,11 @@
             initialView: 'dayGridMonth',
             locale: 'ja',
             headerToolbar: {
-                left: 'prev',
+                left: 'prev', //43~45の並びは崩さない年月の隣に左右矢印
                 center: 'title',
                 right: 'next'
             },
+
             displayEventTime: false, //カレンダーに時間表示させないようにしている
             eventDisplay: 'block', //これをいれて見出しカラーを帯で表示
             events: '/schedule/json/', 
