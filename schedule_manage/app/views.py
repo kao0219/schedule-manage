@@ -150,7 +150,9 @@ def create_next_schedule_if_needed(schedule):
     if not Schedule.objects.filter(id=schedule.id).exists():
         return  # 削除されているなら終了
   
-
+    # ② 「なし」なら次は作成しない
+    if schedule.repeat_type == 0:  # 0 は「なし」
+        return
 
 
 def search_view(request):
