@@ -348,19 +348,7 @@ def schedule_detail_view(request, schedule_id):
                         schedule.schedule_date = schedule.start_time.date()
                     else:
                         schedule.schedule_date = schedule.schedule_date or timezone.now().date()
-                #     if schedule.start_time:
-                #         schedule.schedule_date = schedule.start_time.date()
-                #     else:
-                #         # なければ元のschedule日付か、なければ今日の日付いれる
-                #         schedule.schedule_date = schedule.schedule_date or timezone.now().date()
-                #     schedule.start_time = None
-                #     schedule.end_time = None  
-                # else:
-                #     if schedule.start_time:
-                #         schedule.schedule_date = schedule.start_time.date()
-                #     else:
-                #         schedule.schedule_date = None
-                
+        
                 schedule.save()
                 return redirect('app:home')  
 
