@@ -163,8 +163,15 @@ def create_next_schedule_if_needed(schedule):
         schedule_title=schedule.schedule_title,
         start_time__gt=schedule.start_time
     ).exists()
+    
+    if future_exists:
+        return  # すでに次の予定が存在する
 
+    # ⑤ 次の予定を作成する
+    next_start = schedule.start_time
+    next_end = schedule.end_time
 
+    
 
 def search_view(request):
     query = request.GET.get('q', '')
