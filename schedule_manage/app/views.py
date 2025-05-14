@@ -459,6 +459,7 @@ def comment_list_delete_view(request, comment_id):
             # 既読なら削除ボタン押せる
             read_entry.is_deleted = True
             read_entry.save()
+            return redirect('app:comment_list_view')
     except ScheduleCommentRead.DoesNotExist:
             # 既読履歴ないと削除不可
         context ={
@@ -467,8 +468,7 @@ def comment_list_delete_view(request, comment_id):
             'read_comment_ids': [],
         }
         return render(request, 'comment_list.html', context)
-    return redirect('app:comment_list_view')  # 一覧ページに戻る
-
+    
 def schedule_delete_view(request, pk):
     schedule = get_object_or_404(Schedule, pk=pk)
     schedule.delete()
