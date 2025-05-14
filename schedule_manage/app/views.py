@@ -200,6 +200,9 @@ def create_next_schedule_if_needed(schedule):
         color=schedule.color,
         image_url=schedule.image_url,
     )
+    #リレー済みにする
+    schedule.is_relay_created = True
+    schedule.save()
 
 def search_view(request):
     query = request.GET.get('q', '')
