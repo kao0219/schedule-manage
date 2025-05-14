@@ -174,6 +174,11 @@ def create_next_schedule_if_needed(schedule):
     if schedule.repeat_type == 1:  # 毎日
         next_start += timedelta(days=1)
         next_end += timedelta(days=1)
+        
+    elif schedule.repeat_type == 2:  # 毎週
+        next_start += timedelta(weeks=1)
+        next_end += timedelta(weeks=1)
+    
 
 def search_view(request):
     query = request.GET.get('q', '')
