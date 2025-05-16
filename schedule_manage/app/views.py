@@ -414,6 +414,9 @@ def comment_list_view(request):
         is_deleted=False #　削除されていないものだけ
     ).values_list('comment_id', flat=True) #既読にしたコメントID取得
     
+    print(f"現在のユーザー: {user}")
+    print(f"既読コメントIDリスト: {list(read_comment_ids)}")
+
     context = {
         'comments': comments,
         'read_comment_ids': list(read_comment_ids),  
@@ -430,25 +433,33 @@ def comment_confirm_view(request, comment_id):
         user=user,
         comment=comment
     )
-
+    print(f"取得した read_entry: {read_entry}, is_deleted: {read_entry.is_deleted}, created: {created}")
+    
     if not created:
         # 未読で削除でも既読扱い
+        print(f"確認ボタン押下 is_deleted 状態変更前: {read_entry.is_deleted}")
         read_entry.is_deleted = False
         read_entry.save()
+        print("【確認ボタン押下】確認後 is_deleted:, {read_entry.is_deleted}")
 
     schedule_id = comment.schedule.id
     return redirect(reverse('app:schedule_detail', args=[schedule_id]))
 
 @require_POST # コメント一覧から削除
 def comment_list_delete_view(request, comment_id):
+    
     user = request.user
+    print(f"削除リクエスト実行 ユーザー: {user}, コメントID: {comment_id}")
+    print("現在のユーザー:", user) 
     comment = get_object_or_404(ScheduleComment, id=comment_id)
     
     try:
         read_entry = ScheduleCommentRead.objects.get(user=user,comment=comment)
+        print(f"取得した read_entry: {read_entry}")
+        print(f"取得直後 is_deleted: {read_entry.is_deleted}")
         # 未読の場合は削除できない
         if not read_entry.is_deleted:
-           
+            print(f"【削除ボタン押下】read_entry.is_deleted の状態: {read_entry.is_deleted}") 
             context = {
                 'alert_message': 'コメントを確認してから削除してください。',
                 'comments': ScheduleComment.objects.all(),
@@ -457,11 +468,14 @@ def comment_list_delete_view(request, comment_id):
             return render(request,'comment_list.html', context)
         else:
             # 既読なら削除ボタン押せる
+            print("【削除処理実行】削除前 is_deleted の状態：", read_entry.is_deleted)
             read_entry.is_deleted = True
             read_entry.save()
+            print(f"【削除後】read_entry.is_deleted の状態: {read_entry.is_deleted}")
             return redirect('app:comment_list_view')
     except ScheduleCommentRead.DoesNotExist:
             # 既読履歴ないと削除不可
+        print("既読情報が存在しないため削除不可。")
         context ={
             'alert_message': 'コメントを確認してから削除してください。',
             'comments': ScheduleComment.objects.all(),

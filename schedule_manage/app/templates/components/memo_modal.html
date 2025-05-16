@@ -9,6 +9,15 @@
           </div>
 
           <div class="modal-body">
+              <!-- 編集完了のメッセージ-->
+              {% if messages %}
+                  <div class="alert alert-success mt-2" role="alert">
+                      {% for message in messages %}
+                          {{ message }} 
+                      {% endfor %}
+                  </div>
+              {% endif %}
+
             <!-- タイトル -->
             <div class="mb-3">
                 {{ memo.form.memo_title.label_tag }}
@@ -39,6 +48,13 @@
             <button type="submit" class="btn btn-primary">完了</button> <!-- ↑このキャンセル部分削除予定　-->
           </div>
         </form>
+        <script>
+            {% if messages %}
+                const modalId = "memoModal{{ memo.id }}";
+                const myModal = new bootstrap.Modal(document.getElementById(modalId));
+                myModal.show();
+            {% endif %}
+        </script>
       </div>
     </div>
 </div>  
