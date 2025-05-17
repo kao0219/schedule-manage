@@ -30,7 +30,7 @@
       <div class="card h-100"
            onclick="location.href='{% url 'app:schedule_detail' schedule.id %}'" 
            style="cursor: pointer;">
-          {% if schedule.image %}
+          {% if schedule.image_url %}
           <img src="{{ schedule.image_url.url }}" class="card-img-top" style="width: 150px; height: auto;" alt="予定画像">
           {% endif %}
           <div class="card-body">
