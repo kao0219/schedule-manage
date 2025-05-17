@@ -60,21 +60,17 @@
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for memo in memos %}
    <div class="col">
-      <div class="card h-100">
-        {% if memo.image %}
-          <img src="{{ memo.image.url }}" class="card-img-top" alt="メモ画像">
-        {% endif %}
-        <div class="card-body">
-          <h5 class="card-title">{{ memo.memo_title }}</h5>
-          <p class="card-text">{{ memo.content|truncatechars:50 }}</p>
-        </div>
-        <div class="card-footer text-end">
-          <button class="btn btn-outline-primary btn-sm"
-                  data-bs-toggle="modal"
-                  data-bs-target="#memoModal{{ memo.id }}">
-            確認
-          </button>
-        </div>
+      <div class="card h-100"
+           data-bs-toggle="modal" 
+           data-bs-target="#memoModal{{ memo.id }}" 
+           style="cursor: pointer;">
+          <div class="card-body">
+              <h5 class="card-title">{{ memo.memo_title }}</h5>
+              <p class="card-text">{{ memo.content|truncatechars:50 }}</p>
+          </div>
+          {% if memo.image %}
+              <img src="{{ memo.image.url }}" class="card-img-top" alt="メモ画像">
+          {% endif %}  
       </div>
    </div>
 
