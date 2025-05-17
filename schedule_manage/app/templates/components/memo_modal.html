@@ -24,8 +24,8 @@
   
               <!-- 画像 -->
               <div class="mb-3">
-                {{ memo.form.image.label_tag }}
-                {{ memo.form.image }}
+                <label for="image">画像選択</label>
+                <input type="file" name="image" class="form-control" accept="image/*">
               </div>
               {% if memo.image %}
               <div class="mb-3">
