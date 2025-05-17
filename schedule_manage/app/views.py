@@ -524,7 +524,6 @@ def memo_detail_view(request, memo_id):
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
             form.save()
-            messages.success(request, "メモを更新しました。")
             return redirect('app:memos') # 完了後、一覧へ
     # else:
     #     form = MemoForm(instance=memo)
