@@ -74,8 +74,11 @@
           <textarea name="content" class="form-control" rows="3"></textarea>
         </div>
         <div class="mb-3">
-          <label for="image">画像選択</label>
-          <input type="file" name="image" class="form-control" accept="image/*">
+          <label for="create_image" class="btn btn-primary">ファイルの選択</label>
+          <input type="file" id="create_image" name="image" accept="image/*" style="display: none;">
+
+          {% comment %} <label for="image">画像選択</label>
+          <input type="file" name="image" class="form-control" accept="image/*"> {% endcomment %}
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">登録</button>
