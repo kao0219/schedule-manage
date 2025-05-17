@@ -24,8 +24,9 @@
   
               <!-- 画像 -->
               <div class="mb-3">
-                <label for="edit_image_{{ memo.id }}" class="btn btn-primary">ファイルの選択</label>
+                <label for="edit_image_{{ memo.id }}" style="cursor: pointer; color: #666;">ファイルの選択</label>
                 <input type="file" id="edit_image_{{ memo.id }}" name="image" accept="image/*" style="display: none;">
+              </div>
               {% if memo.image %}
               <div class="mb-3"> <!--現在の画像-->
                 <img src="{{ memo.image.url }}" alt="画像" style="max-width: 300px;">
