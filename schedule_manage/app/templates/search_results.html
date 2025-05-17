@@ -36,20 +36,20 @@
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for schedule in schedules %}
     <div class="col">
-      <div class="card h-100">
-        {% if schedule.image %}
-          <img src="{{ schedule.image.url }}" class="card-img-top" alt="予定画像">
-        {% endif %}
-        <div class="card-body">
-          <h5 class="card-title">{{ schedule.schedule_title }}</h5>
-          <p class="card-text">{{ schedule.memo|truncatechars:50 }}</p>
-          <p class="card-text"><small class="text-muted">{{ schedule.start_time|date:"Y年m月d日" }}</small></p>
-        </div>
-        <div class="card-footer text-end">
-          <a href="{% url 'app:schedule_detail' schedule.id %}" class="btn btn-outline-primary btn-sm">確認</a>
-        </div>
+      <div class="card h-100"
+           onclick="location.href='{% url 'app:schedule_detail' schedule.id %}'" 
+           style="cursor: pointer;">
+          {% if schedule.image %}
+              <img src="{{ schedule.image.url }}" class="card-img-top" alt="予定画像">
+          {% endif %}
+          <div class="card-body">
+            <h5 class="card-title">{{ schedule.schedule_title }}</h5>
+            <p class="card-text">{{ schedule.memo|truncatechars:50 }}</p>
+            <p class="card-text"><small class="text-muted">{{ schedule.start_time|date:"Y年m月d日" }}</small></p>
+          </div>
       </div>
     </div>
+    
   {% empty %}
     <p class="no-result">該当する予定はありません。</p>
   {% endfor %}
