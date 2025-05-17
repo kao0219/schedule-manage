@@ -12,14 +12,14 @@
 
             <!-- タイトル -->
             <div class="mb-3">
-                {{ memo.form.memo_title.label_tag }}
-                {{ memo.form.memo_title }}
+                <label for="memo_title">タイトル</label>
+                <input type="text" name="memo_title" class="form-control" value="{{ memo.memo_title }}">
               </div>
   
               <!-- 本文 -->
               <div class="mb-3">
-                {{ memo.form.content.label_tag }}
-                {{ memo.form.content }}
+                <label for="content">本文</label>
+                <textarea name="content" class="form-control" rows="3">{{ memo.content }}</textarea>
               </div>
   
               <!-- 画像 -->
