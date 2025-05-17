@@ -18,13 +18,14 @@
        color: #555;
    }
    
-   /* 該当なしメッセージ */
+   {% comment %} /* 該当なしメッセージ */
    .no-result {
+       
        text-align: center;
        color: #999;
        font-size: 16px;
        margin: 30px 0;
-   }
+   } {% endcomment %}
 
 
 </style>
@@ -33,6 +34,7 @@
 <h2 class="search-title">「{{ query }}」の検索結果</h2>
 
 <h3 class="section-title">【予定】</h3>
+{% if schedules %}
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for schedule in schedules %}
     <div class="col">
@@ -40,7 +42,7 @@
            onclick="location.href='{% url 'app:schedule_detail' schedule.id %}'" 
            style="cursor: pointer;">
           {% if schedule.image %}
-              <img src="{{ schedule.image.url }}" class="card-img-top" alt="予定画像">
+          <img src="{{ schedule.image.url }}" class="card-img-top" alt="予定画像">
           {% endif %}
           <div class="card-body">
             <h5 class="card-title">{{ schedule.schedule_title }}</h5>
@@ -49,17 +51,19 @@
           </div>
       </div>
     </div>
-    
-  {% empty %}
-    <p class="no-result">該当する予定はありません。</p>
-  {% endfor %}
+    {% endfor %}
 </div>
+{% else %}
+<div class="d-flex justify-content-center align-items-center" style="height: 200px;">
+    <p class="text-center">該当する予定はありません</p>
+</div>
+{% endif %}
 
 <!-- メモ一覧 -->
 <h3 class="section-title mt-4">【メモ】</h3>
 <div class="row row-cols-1 row-cols-md-2 g-4">
   {% for memo in memos %}
-   <div class="col">
+    <div class="col">
       <div class="card h-100"
            data-bs-toggle="modal" 
            data-bs-target="#memoModal{{ memo.id }}" 
@@ -72,14 +76,14 @@
               <img src="{{ memo.image.url }}" class="card-img-top" alt="メモ画像">
           {% endif %}  
       </div>
-   </div>
+    </div>
 
    <!-- 共通モーダル表示用　-->
-   {% include "components/memo_modal.html" with memo=memo %}
+  {% include "components/memo_modal.html" with memo=memo %}
 
-   {% empty %}
-    <p class="no-result">該当するメモはありません。</p>
-   {% endfor %}
+  {% empty %}
+      <p class="no-result">該当するメモはありません</p>
+  {% endfor %}
 </div>
 
 {% if updated_memo_id %}
