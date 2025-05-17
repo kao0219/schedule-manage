@@ -9,15 +9,6 @@
           </div>
 
           <div class="modal-body">
-              <!-- 編集完了のメッセージ-->
-              {% if messages %}
-                {% for message in messages %}
-                  <div class="alert alert-success alert-dismissible fade show" role="alert">
-                      {{ message }}
-                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                  </div>
-                {% endfor %}
-              {% endif %}
 
             <!-- タイトル -->
             <div class="mb-3">
@@ -49,13 +40,6 @@
             <button type="submit" class="btn btn-primary">完了</button> <!-- ↑このキャンセル部分削除予定　-->
           </div>
         </form>
-        <script>
-            {% if messages %}
-                const modalId = "memoModal{{ memo.id }}";
-                const myModal = new bootstrap.Modal(document.getElementById(modalId));
-                myModal.show();
-            {% endif %}
-        </script>
       </div>
     </div>
 </div>  
