@@ -18,13 +18,13 @@
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
   {% for memo in page_obj %}
     <div class="col">
-      <div class="card h-100" style="background-color: #fff0f5;">
+      <div class="card h-100" style="background-color: #fff0f5; text-align: center;">
         <div class="card-body">
           <h5 class="card-title">{{ memo.memo_title }}</h5>
           <p class="card-text">{{ memo.content|truncatechars:50|linebreaksbr }}</p>
 
           {% if memo.image %}
-            <img src="{{ memo.image.url }}" alt="サムネイル" style="max-width: 180px; height: auto;">
+            <img src="{{ memo.image.url }}" alt="サムネイル" class="mx-auto d-block" style="max-width: 180px; height: auto;">
           {% endif %}
 
           <!-- モーダルを開くボタン-->
