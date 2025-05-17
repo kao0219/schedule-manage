@@ -517,6 +517,7 @@ def create_memo_view(request):
         )
         return redirect('app:memos')  # メモ一覧へ
 
+# 編集フォームデータ読み込みと保存、完了後にモーダル→一覧への処理
 def memo_detail_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
 
