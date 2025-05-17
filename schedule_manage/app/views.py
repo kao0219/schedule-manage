@@ -525,10 +525,6 @@ def memo_detail_view(request, memo_id):
         if form.is_valid():
             form.save()
             return redirect('app:memos') # 完了後、一覧へ
-    # else:
-    #     form = MemoForm(instance=memo)
-
-    # return render(request, 'memo_detail.html', {'form': form, 'memo': memo})
 
 def memo_delete_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
