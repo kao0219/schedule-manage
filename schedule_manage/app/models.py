@@ -92,13 +92,13 @@ class Schedule(models.Model):
     
     def get_color_code(self):
         color_map = {
-            1: '#FF0000',
-            2: '#0000FF',
-            3: '#FFFF00',
-            4: '#00FF00',
-            5: '#FFB6C1',
-            6: '#800080',
-            7: '#F57C33',
+            1: '#FF6347', #レッド
+            2: '#ADD8E6', #ブルー
+            3: '#FFF176', #イエロー
+            4: '#A5D6A7', #グリーン
+            5: '#F48FB1', #ピンク
+            6: '#CE93D8', #パープル
+            7: '#FFCC80', #オレンジ
         }
         return color_map.get(self.color, '#FFFFFF')
     

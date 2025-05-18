@@ -298,7 +298,7 @@ def schedule_create_view(request):
             schedule.save()
             return redirect('app:home') 
         else:
-            print("[DEBUG] フォームエラー:", form.errors.as_json()) # 223.224あとで消す
+            print("[DEBUG] フォームエラー:", form.errors.as_json())
 
 
     else:
