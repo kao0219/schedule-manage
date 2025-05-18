@@ -65,14 +65,12 @@
             <label class="form-label">見出しの色設定</label><br>
             {{ form.color }}
           </div>
+          
 
-          <div class="mb-3"> <!-- 画像選択部分-->
-              <label for="id_image_url" class="form-label" style="cursor: pointer; color: #666; text-decoration: underline;">
-                画像選択
-              </label>
-              {{ form.image_url|add_class:"d-none" }}
+          <div class="mb-3">
+              <label for="create_image" style="cursor: pointer; color: #666;">画像選択</label>
+              <input type="file" id="create_image" name="image_url" accept="image/*" style="display: none;">
           </div>
-
           <button type="submit" class="btn btn-primary">登録</button>
         </div>
       </div>

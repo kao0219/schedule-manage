@@ -71,25 +71,19 @@
           {{ form.color }}
         </div>
 
-        <!-- 画像表示　-->
-        {% if schedule.image_url %}
-        <div class="mt-2">
-            <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 100%;">
-        </div>
-        {% endif %}            
-
-        <div class="mb-3"> <!--画像選択部分-->
-          {{ form.image_url|add_class:"form-control-file" }}
-          {% if schedule.image_url %}
+        <div class="mb-3">
+            <label for="edit_image" style="cursor: pointer; color: #666;">画像選択</label>
+            <input type="file" id="edit_image" name="image_url" accept="image/*" style="display: none;">
+            {% if schedule.image_url %}
             <div class="mt-2">
-              <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 100%;">
+                <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 100%;">
             </div>
-          {% endif %}
+            {% endif %}
         </div>
 
-        <!-- 完了 -->
-        <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
+        <!-- 完了・削除　-->
         <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger">削除</a>
+        <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
       </div>
     </div>
   </div>
