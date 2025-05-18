@@ -67,8 +67,7 @@
           </div>
 
           <div class="mb-3">
-            <label for="id_image_url" class="form-label">画像選択</label><br>
-            {{ form.image_url }}
+            {{ form.image_url|add_class:"form-control-file" }}
           </div>
 
           <button type="submit" class="btn btn-primary">登録</button>
