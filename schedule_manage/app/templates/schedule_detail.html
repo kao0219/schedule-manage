@@ -71,9 +71,8 @@
           {{ form.color }}
         </div>
 
-        <div class="mb-3">
-          <label for="id_image_url" class="form-label">画像選択</label><br>
-          {{ form.image_url }}
+        <div class="mb-3"> <!--画像選択部分-->
+          {{ form.image_url|add_class:"form-control-file" }}
           {% if schedule.image_url %}
             <div class="mt-2">
               <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 100%;">
