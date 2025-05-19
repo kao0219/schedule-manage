@@ -10,7 +10,7 @@
 
     /* メモ欄の横幅と縦幅調整 */
     #id_schedule_memo {
-        width: 400px;
+        width: 420px;
         height: 150px;
     }
     /* コメントフォームの幅 */
@@ -48,11 +48,6 @@
               {{ form.schedule_memo }}
           </div>
           
-          {% if schedule.image_url %}
-            <div class="mt-2">
-                <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 300px; height: auto;">
-            </div>
-          {% endif %}
           <!-- コメント一覧　-->
           <div class="mb-3">
             {% for comment in comments %}
@@ -75,6 +70,12 @@
                   <button type="submit" name="action" value="comment" class="btn btn-secondary ms-2">送信</button>
               </div>
           </form>
+
+          {% if schedule.image_url %}
+            <div class="mt-2">
+                <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 420px; height: auto;">
+            </div>
+          {% endif %}
         </div>
         <!-- 右側　-->
         <div class="col-md-6">
