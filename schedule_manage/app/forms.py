@@ -55,14 +55,8 @@ class ScheduleForm(forms.ModelForm):
         widgets = {
             'start_time': DateTimeInput(attrs={'type': 'datetime-local'}),
             'end_time': DateTimeInput(attrs={'type': 'datetime-local'}),
-            'schedule_title': forms.TextInput(attrs={
-                'placeholder': 'タイトル',
-                'style': 'width: 300px;'
-            }),
-            'schedule_memo': forms.Textarea(attrs={
-                'placeholder': 'メモ',
-                'style': 'width:100%; height: 150px; resize: none;', 
-            }),
+            'schedule_title': forms.TextInput(attrs={'placeholder': 'タイトル',}),
+            'schedule_memo': forms.Textarea(attrs={'placeholder': 'メモ'}),
         }
 
 
@@ -105,6 +99,11 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = ScheduleComment
         fields = ['content']
+
+    #コメント投稿必須入力を無効化
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['content'].required = False 
 
 def __init__(self, *args, **kwargs):
         super(ScheduleForm, self).__init__(*args, **kwargs)
