@@ -6,6 +6,7 @@
     /* タイトルの横幅調整 */
     #id_schedule_title {
         width: 400px;
+        height: 50px;
     }
 
     /* メモ欄の横幅と縦幅調整 */
@@ -16,6 +17,7 @@
     /* コメントフォームの幅 */
     #id_content {
         width: 350px;
+        height: 40px;
     }
 </style>
 
@@ -64,8 +66,7 @@
           <!-- コメント投稿　-->
           <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
               {% csrf_token %}
-              <div class="d-flex align-items-center">
-                  <label for="id_content" class="form-label">コメントを入力</label>
+              <div class="d-flex">
                   {{ comment_form.content }}
                   <button type="submit" name="action" value="comment" class="btn btn-secondary ms-2">送信</button>
               </div>
