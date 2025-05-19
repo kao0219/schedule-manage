@@ -18,18 +18,45 @@
     {% csrf_token %}
     <div class="container">
       <div class="row">
-
+        <!-- 左側　-->
         <div class="col-md-6">
           <div class="mb-3">
-            <label for="id_schedule_title" class="form-label">タイトル</label>
-            {{ form.schedule_title }}
+              <label for="id_schedule_title" class="form-label">タイトル</label>
+              {{ form.schedule_title }}
           </div>
 
           <div class="mb-3">
-            <label for="id_schedule_memo" class="form-label">メモ</label>
-            {{ form.schedule_memo }}
+              <label for="id_schedule_memo" class="form-label">メモ</label>
+              {{ form.schedule_memo }}
           </div>
-        </div>
+          
+          {% if schedule.image_url %}
+            <div class="mt-2">
+                <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 100%;">
+            </div>
+          {% endif %}
+          <!-- コメント一覧　-->
+          <div class="mb-3">
+            {% for comment in comments %}
+              <div class="d-flex align-items-center border p-2 mb-2">
+                <div style="width: 36px; height: 36px; background-color: #007bff; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">
+                  {{ comment.user.username|slice:":1"|upper }}
+                </div>
+                <div style="margin-left: 10px;">
+                  <strong>{{ comment.user.username }}</strong>：{{ comment.content }}
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          <!-- コメント投稿　-->
+          <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
+              {% csrf_token %}
+              <div class="mb-3">
+                  <label for="id_content" class="form-label">コメントを入力</label>
+                  {{ comment_form.content }}
+                  <button type="submit" class="btn btn-secondary ms-2">送信</button>
+              </div>
+          </form>
 
       <div class="col-md-6">
         <div class="form-check mb-3">
@@ -74,11 +101,7 @@
         <div class="mb-3">
             <label for="edit_image" style="cursor: pointer; color: #666;">画像選択</label>
             <input type="file" id="edit_image" name="image_url" accept="image/*" style="display: none;">
-            {% if schedule.image_url %}
-            <div class="mt-2">
-                <img src="{{ schedule.image_url.url }}" alt="画像" style="max-width: 100%;">
-            </div>
-            {% endif %}
+            
         </div>
 
         <!-- 完了・削除　-->
@@ -92,19 +115,7 @@
 
   <hr>
 
-  <!-- コメント一覧 -->
-  <div class="mb-3">
-    {% for comment in comments %}
-      <div class="d-flex align-items-center border p-2 mb-2">
-        <div style="width: 36px; height: 36px; background-color: #007bff; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">
-          {{ comment.user.username|slice:":1"|upper }}
-        </div>
-        <div style="margin-left: 10px;">
-          <strong>{{ comment.user.username }}</strong>：{{ comment.content }}
-        </div>
-      </div>
-    {% endfor %}
-  </div>
+
 
   <!-- コメント投稿 -->
   <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
