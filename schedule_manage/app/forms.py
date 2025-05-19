@@ -56,8 +56,16 @@ class ScheduleForm(forms.ModelForm):
             'start_time': DateTimeInput(attrs={'type': 'datetime-local'}),
             'end_time': DateTimeInput(attrs={'type': 'datetime-local'}),
             'schedule_title': forms.TextInput(attrs={'placeholder': 'タイトル',}),
-            'schedule_memo': forms.Textarea(attrs={'placeholder': 'メモ'}),
+            'schedule_memo': forms.Textarea(attrs={
+            'placeholder': 'メモ', 
+            'style': 'resize: none;'
+            }),
         }
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        # ラベルをすべて非表示にする場合
+        for field in self.fields.values():
+            field.label = ''
 
 
     def clean(self):
