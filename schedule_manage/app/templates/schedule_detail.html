@@ -136,20 +136,6 @@
   </form>
 </div>  
 
-  <hr>
-
-
-
-  {% comment %} <!-- コメント投稿 -->
-  <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
-    {% csrf_token %}
-    <div class="mb-3">
-      <label for="id_content" class="form-label">コメントを入力</label>
-      {{ comment_form.content }}
-    </div>
-    <button type="submit" name="action" value="comment" class="btn btn-secondary">送信</button>
-  </form>
-</div> {% endcomment %}
 
 <script src="{% static 'js/schedule_controls.js' %}"></script>
 
