@@ -1,6 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
+<style>
+/* タイトルの横幅調整 */
+#id_schedule_title {
+    width: 400px;
+}
+
+/* メモ欄の横幅と縦幅調整 */
+#id_schedule_memo {
+    width: 400px;
+    height: 150px;
+}
+</style>
+
 <div class="text-center mb-4">
   <div class="d-inline-flex align-items-center">
     <p class="me-2 mb-0">{{ selected_date }}</p>
@@ -20,12 +34,12 @@
       <div class="row">
         <!-- 左側　-->
         <div class="col-md-6">
-          <div class="mb-3">
+          <div class="mb-3" style="width: 100%;">
               <label for="id_schedule_title" class="form-label">タイトル</label>
               {{ form.schedule_title }}
           </div>
 
-          <div class="mb-3">
+          <div class="mb-3" style="width: 100%;">
               <label for="id_schedule_memo" class="form-label">メモ</label>
               {{ form.schedule_memo }}
           </div>
@@ -58,7 +72,7 @@
               </div>
           </form>
         </div>
-
+        <!-- 右側　-->
         <div class="col-md-6">
 
           <div class="form-check mb-3">
@@ -106,8 +120,10 @@
           </div>
 
           <!-- 完了・削除　-->
-          <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger">削除</a>
-          <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
+          <div class="mb-3">
+              <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger">削除</a>
+              <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
+          </div>
         </div>
       </div>
     </div>
