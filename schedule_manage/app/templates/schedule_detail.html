@@ -57,67 +57,68 @@
                   <button type="submit" class="btn btn-secondary ms-2">送信</button>
               </div>
           </form>
-
-      <div class="col-md-6">
-        <div class="form-check mb-3">
-          <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input" onchange="toggleDateTimeFields()"
-                {% if form.is_all_day.value %}checked{% endif %}>
-          <label for="id_is_all_day" class="form-check-label">終日</label>
         </div>
 
-        <div class="mb-3">
-          <label for="id_start_time" class="form-label">開始</label>
-          <input type="datetime-local" name="start_time" id="id_start_time" class="form-control"
-                value="{{ schedule.start_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
-        </div>
+        <div class="col-md-6">
 
-        <div class="mb-3">
-          <label for="id_end_time" class="form-label">終了</label>
-          <input type="datetime-local" name="end_time" id="id_end_time" class="form-control"
-                value="{{ schedule.end_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
-        </div>
+          <div class="form-check mb-3">
+            <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input" onchange="toggleDateTimeFields()"
+                  {% if form.is_all_day.value %}checked{% endif %}>
+            <label for="id_is_all_day" class="form-check-label">終日</label>
+          </div>
 
-        <div class="mb-3">
-          <label class="form-label">繰り返し設定</label><br>
-          {% for value, label in form.repeat_type.field.choices %}
-            <label class="me-3"> <!-- ラジオボタン登録したもの反映　-->
-              <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
-                    class="repeat-option"
-                    {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" %}
-                        checked
-                    {% elif form.repeat_type.value|stringformat:"s" == "" and value == "0"%}  
-                        checked 
-                    {% endif %}>
-              {{ label }}              
-            </label>
-          {% endfor %}
-        </div>
+          <div class="mb-3">
+            <label for="id_start_time" class="form-label">開始</label>
+            <input type="datetime-local" name="start_time" id="id_start_time" class="form-control"
+                  value="{{ schedule.start_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
+          </div>
 
-        <div class="mb-3">
-          <label class="form-label">見出しの色設定</label><br>
-          {{ form.color }}
-        </div>
+          <div class="mb-3">
+            <label for="id_end_time" class="form-label">終了</label>
+            <input type="datetime-local" name="end_time" id="id_end_time" class="form-control"
+                  value="{{ schedule.end_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
+          </div>
 
-        <div class="mb-3">
-            <label for="edit_image" style="cursor: pointer; color: #666;">画像選択</label>
-            <input type="file" id="edit_image" name="image_url" accept="image/*" style="display: none;">
-            
-        </div>
+          <div class="mb-3">
+            <label class="form-label">繰り返し設定</label><br>
+            {% for value, label in form.repeat_type.field.choices %}
+              <label class="me-3"> <!-- ラジオボタン登録したもの反映　-->
+                <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
+                      class="repeat-option"
+                      {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" %}
+                          checked
+                      {% elif form.repeat_type.value|stringformat:"s" == "" and value == "0"%}  
+                          checked 
+                      {% endif %}>
+                {{ label }}              
+              </label>
+            {% endfor %}
+          </div>
 
-        <!-- 完了・削除　-->
-        <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger">削除</a>
-        <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
+          <div class="mb-3">
+            <label class="form-label">見出しの色設定</label><br>
+            {{ form.color }}
+          </div>
+
+          <div class="mb-3">
+              <label for="edit_image" style="cursor: pointer; color: #666;">画像選択</label>
+              <input type="file" id="edit_image" name="image_url" accept="image/*" style="display: none;">  
+          </div>
+
+          <!-- 完了・削除　-->
+          <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger">削除</a>
+          <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
+        </div>
       </div>
     </div>
-  </div>
   </form>
-  
+</div>  
 
   <hr>
 
 
 
-  <!-- コメント投稿 -->
+  {% comment %} <!-- コメント投稿 -->
   <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
     {% csrf_token %}
     <div class="mb-3">
@@ -126,7 +127,7 @@
     </div>
     <button type="submit" name="action" value="comment" class="btn btn-secondary">送信</button>
   </form>
-</div>
+</div> {% endcomment %}
 
 <script src="{% static 'js/schedule_controls.js' %}"></script>
 
