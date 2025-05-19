@@ -1,6 +1,22 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
+
+<style>
+    /* タイトルの横幅調整 */
+    #id_schedule_title {
+        width: 470px;
+        height: 50px;
+    }
+
+    /* メモ欄の横幅と縦幅調整 */
+    #id_schedule_memo {
+        width: 470px;
+        height: 150px;
+    }
+</style>
+
+
 <div class="text-center mb-4">
   <div class="d-inline-flex align-items-center">
     <p class="me-2 mb-0">{{ selected_date }}</p>
