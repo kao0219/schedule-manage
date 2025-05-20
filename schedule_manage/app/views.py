@@ -372,6 +372,17 @@ def schedule_detail_view(request, schedule_id):
         comment_form = CommentForm()
 
     comments = ScheduleComment.objects.filter(schedule=schedule).order_by('-created_at')
+    
+    for comment in comments:
+        if comment.user != request.user:  # 自分以外のコメントに限定
+            read_entry, created = ScheduleCommentRead.objects.get_or_create(
+                user=request.user,
+                comment=comment
+            )
+            if read_entry.is_deleted:
+                read_entry.is_deleted = False
+                read_entry.save()
+
     username_initial = schedule.user.username[:1].upper()
 
     if schedule.start_time:
