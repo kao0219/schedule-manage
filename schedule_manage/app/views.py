@@ -458,8 +458,8 @@ def comment_list_delete_view(request, comment_id):
     read_entry = ScheduleCommentRead.objects.get(user=request.user, comment=comment)
     read_entry.is_deleted = True
     read_entry.save()
-    # comment.delete()
-    # return redirect('app:comment_list_view')
+    
+    return redirect('app:comment_list_view')
        
    
 def schedule_delete_view(request, pk):
