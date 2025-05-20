@@ -80,12 +80,12 @@ def signup_view(request):
         return redirect("app:home") #登録完了ならホーム画面へ
     return render(request, 'signup.html')
 
-# 繰り返し部分
+@login_required
 def home_view(request):
     schedules = Schedule.objects.filter(user=request.user)
 
     for schedule in schedules:
-        create_next_schedule_if_needed(schedule)
+        create_next_schedule_if_needed(schedule) # 繰り返し部分
 
     schedules = Schedule.objects.filter(user=request.user).order_by('start_time')
 
