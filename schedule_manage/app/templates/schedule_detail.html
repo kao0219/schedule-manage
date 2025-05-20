@@ -5,7 +5,7 @@
 <style>
     /* タイトルの横幅調整 */
     #id_schedule_title {
-        width: 450px;
+        width: 470px;
         height: 50px;
     }
 
@@ -22,9 +22,13 @@
     }
     /* 枠のデザイン */
     input[type="text"], textarea {
-    border: 1px solid #cccccc;  /* 薄めのグレー */
-    border-radius: 4px;          /* 角を少し丸く */
-    padding: 8px;                 /* 内側の余白調整 */
+        border: 1px solid #cccccc;  /* 薄めのグレー */
+        border-radius: 4px;          /* 角を少し丸く */
+        padding: 8px;                 /* 内側の余白調整 */
+    }
+
+    .comment-list {
+        width: 470px;
     }
 </style>
 
@@ -57,7 +61,7 @@
           </div>
           
           <!-- コメント一覧　-->
-          <div class="mb-3">
+          <div class="mb-3 comment-list">
             {% for comment in comments %}
               <div class="d-flex align-items-center border p-2 mb-2">
                 <div style="width: 36px; height: 36px; background-color: #007bff; color: white; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">
