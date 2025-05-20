@@ -20,6 +20,12 @@
         width: 430px;
         height: 40px;
     }
+    /* 枠のデザイン */
+    input[type="text"], textarea {
+    border: 1px solid #cccccc;  /* 薄めのグレー */
+    border-radius: 4px;          /* 角を少し丸く */
+    padding: 8px;                 /* 内側の余白調整 */
+    }
 </style>
 
 <div class="text-center mb-4">
@@ -127,7 +133,7 @@
 
           <!-- 完了・削除　-->
           <div class="text-end">
-              <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger">削除</a>
+              <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger me-2">削除</a>
               <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
           </div>
         </div>
