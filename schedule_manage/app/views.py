@@ -419,7 +419,13 @@ def comment_add_view(request, schedule_id):
 def comment_list_view(request):
     user = request.user
     comments = ScheduleComment.objects.exclude(user=user).order_by('-created_at') #他人のコメントだけ取得
-
+    
+    # 一覧から削除されたコメントIDを取得（非表示にする用）
+    deleted_comment_ids = ScheduleCommentRead.objects.filter(
+        user=user,
+        is_deleted=True
+    ).values_list('comment_id', flat=True)
+    
     read_comment_ids = ScheduleCommentRead.objects.filter(
         user=request.user,
         is_deleted=False #　削除されていないものだけ
@@ -458,7 +464,7 @@ def comment_list_delete_view(request, comment_id):
     read_entry = ScheduleCommentRead.objects.get(user=request.user, comment=comment)
     read_entry.is_deleted = True
     read_entry.save()
-    
+
     return redirect('app:comment_list_view')
        
    
