@@ -65,24 +65,24 @@
 <body>
 
     <h2 style="text-align: center; margin-bottom: 20px;">アカウント新規登録</h2>
-    
-    {% if form.errors %} <!-- バリデーションエラー　-->
-    <div class="error-messages" style="color: red; margin-bottom: 15px;">
-        <ul>
-            {% for field in form %}
-                {% for error in field.errors %}
-                    <li>{{ field.label }}：{{ error }}</li>
-                {% endfor %}
-            {% endfor %}
-            {% for error in form.non_field_errors %}
-                <li>{{ error }}</li>
-            {% endfor %}
-        </ul>
-    </div>
-    {% endif %}
 
     <form method="POST" action="{% url 'app:invite_register' token %}">
         {% csrf_token %}
+        
+        {% if form.errors %} <!-- バリデーションエラー　-->
+        <div class="error-messages" style="color: red; margin-bottom: 15px;">
+            <ul>
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <li>{{ field.label }}：{{ error }}</li>
+                    {% endfor %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
 
         <div class="form-row">
             <label for="username">名前/ニックネーム</label>
