@@ -418,16 +418,19 @@ def comment_add_view(request, schedule_id):
 @login_required
 def comment_list_view(request):
     user = request.user
-    comments = ScheduleComment.objects.exclude(user=user).order_by('-created_at') #他人のコメントだけ取得
     
     # 一覧から削除されたコメントIDを取得（非表示にする用）
     deleted_comment_ids = ScheduleCommentRead.objects.filter(
         user=user,
         is_deleted=True
     ).values_list('comment_id', flat=True)
+
+    comments = ScheduleComment.objects.exclude(user=user).exclude(
+        id__in=deleted_comment_ids
+    ).order_by('-created_at') #他人のコメントだけ取得
     
     read_comment_ids = ScheduleCommentRead.objects.filter(
-        user=request.user,
+        user=user,
         is_deleted=False #　削除されていないものだけ
     ).values_list('comment_id', flat=True) #既読にしたコメントID取得
     
