@@ -92,11 +92,15 @@
                         {% csrf_token %}
                         <button type="submit" class="confirm-button">確認</button>
                     </form>
-
-                    <form action="{% url 'app:comment_list_delete' comment.id %}" method="post" style="display:inline;">
+                  
+                    {% if comment.id in read_comment_ids %} 
+                      <form action="{% url 'app:comment_list_delete' comment.id %}" method="post" style="display:inline;">
                         {% csrf_token %}
                         <button type="submit" class="delete-button">削除</button>
-                    </form>
+                      </form>
+                    {% else %}
+                      <span class="text-muted">未読</span> 
+                    {% endif %}
                 </td>
             </tr>
             {% empty %}

@@ -433,14 +433,10 @@ def comment_confirm_view(request, comment_id):
         user=user,
         comment=comment
     )
-    print(f"取得した read_entry: {read_entry}, is_deleted: {read_entry.is_deleted}, created: {created}")
-    
-    if not created:
-        # 未読で削除でも既読扱い
-        print(f"確認ボタン押下 is_deleted 状態変更前: {read_entry.is_deleted}")
+    if read_entry.is_deleted:
         read_entry.is_deleted = False
         read_entry.save()
-        print("【確認ボタン押下】確認後 is_deleted:, {read_entry.is_deleted}")
+    print("【確認ボタン押下】確認後 is_deleted:, {read_entry.is_deleted}")
 
     schedule_id = comment.schedule.id
     return redirect(reverse('app:schedule_detail', args=[schedule_id]))
@@ -455,6 +451,7 @@ def comment_list_delete_view(request, comment_id):
     
     try:
         read_entry = ScheduleCommentRead.objects.get(user=user,comment=comment)
+        read_entry.refresh_from_db()
         print(f"取得した read_entry: {read_entry}")
         print(f"取得直後 is_deleted: {read_entry.is_deleted}")
         # 未読の場合は削除できない
@@ -466,13 +463,17 @@ def comment_list_delete_view(request, comment_id):
                 'read_comment_ids': ScheduleCommentRead.objects.filter(user=user).values_list('comment_id', flat=True),
             }
             return render(request,'comment_list.html', context)
-        else:
-            # 既読なら削除ボタン押せる
-            print("【削除処理実行】削除前 is_deleted の状態：", read_entry.is_deleted)
-            read_entry.is_deleted = True
-            read_entry.save()
-            print(f"【削除後】read_entry.is_deleted の状態: {read_entry.is_deleted}")
-            return redirect('app:comment_list_view')
+        
+        comment.delete()
+        return redirect('app:comment_list_view')
+        # else:
+        #     # 既読なら削除ボタン押せる
+        #     print("【削除処理実行】：コメントID",comment_id)
+        #     comment.delete()
+        #     # read_entry.is_deleted = True
+        #     # read_entry.save()
+        #     print(f"【削除処理実行】 コメント削除完了")
+        #     return redirect('app:comment_list_view')
     except ScheduleCommentRead.DoesNotExist:
             # 既読履歴ないと削除不可
         print("既読情報が存在しないため削除不可。")
