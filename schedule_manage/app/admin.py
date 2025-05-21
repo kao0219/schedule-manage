@@ -18,6 +18,13 @@ class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('email', 'username', 'family')
     fields = ('email', 'username', 'family', 'is_active', 'is_staff', 'is_superuser')
 
+
+class CustomUserInline(admin.TabularInline):
+    model = CustomUser
+    fields = ('username', 'email')
+    extra = 0
+
+
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
     list_display = ('id','schedule_title', 'schedule_memo', 'get_color_label', 'image_url', 'start_time', 'end_time', 'created_at')
