@@ -1,7 +1,6 @@
 from django.contrib import admin
 from .models import Invite
 from .models import Family
-admin.site.register(Family)
 from .models import CustomUser, Family, Schedule, ScheduleComment, Invite
 from .models import Memo
 from django.utils.html import format_html
@@ -18,11 +17,15 @@ class CustomUserAdmin(admin.ModelAdmin):
     list_display = ('email', 'username', 'family')
     fields = ('email', 'username', 'family', 'is_active', 'is_staff', 'is_superuser')
 
-
+# 管理画面にfamily一覧で表示するために入力
 class CustomUserInline(admin.TabularInline):
     model = CustomUser
     fields = ('username', 'email')
     extra = 0
+
+@admin.register(Family)
+class FamilyAdmin(admin.ModelAdmin):
+    inlines = [CustomUserInline]
 
 
 @admin.register(Schedule)
