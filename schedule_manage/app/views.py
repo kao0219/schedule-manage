@@ -16,6 +16,7 @@ import uuid
 from django.utils import timezone
 from .models import Invite
 from .forms import CustomUserCreationForm
+from .models import Family
 from django.utils.dateparse import parse_date
 from .models import Schedule, Memo
 from datetime import date, time
