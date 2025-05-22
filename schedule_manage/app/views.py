@@ -439,9 +439,6 @@ def comment_list_view(request):
         is_deleted=False #　削除されていないものだけ
     ).values_list('comment_id', flat=True) #既読にしたコメントID取得
     
-    print(f"現在のユーザー: {user}")
-    print(f"既読コメントIDリスト: {list(read_comment_ids)}")
-
     context = {
         'comments': comments,
         'read_comment_ids': list(read_comment_ids),  
