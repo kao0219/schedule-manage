@@ -35,6 +35,7 @@ from datetime import datetime, timedelta
 
 
 
+
 User = get_user_model()
 
 def index(request):
@@ -448,21 +449,33 @@ def comment_list_view(request):
     return render(request, 'comment_list.html', context)
     
 @require_POST # コメント確認
-def comment_confirm_view(request, comment_id):
+def comment_confirm_view(request, comment_id):  
     comment = get_object_or_404(ScheduleComment, id=comment_id)
     user = request.user
+    schedule_id = comment.schedule.id
+    
+    # 削除済み含めて既読履歴を取得
+    read_entry = ScheduleCommentRead.objects.filter(user=user, comment=comment).first()
 
-    #既読履歴なしである場合はis_deleted を False に戻す
-    read_entry, created = ScheduleCommentRead.objects.get_or_create(
-        user=user,
-        comment=comment
-    )
-    if read_entry.is_deleted:
-        read_entry.is_deleted = False
+    # 削除済みの既読履歴があれば、既読処理せず戻る
+    if read_entry and read_entry.is_deleted:
+        return redirect(reverse('app:schedule_detail', args=[schedule_id]))
+
+    # 履歴がなければ新規作成
+    if not read_entry:
+        read_entry = ScheduleCommentRead.objects.create(
+            user=user,
+            comment=comment,
+            read_at=timezone.now(),
+            is_deleted=False
+        )
+    else:
+        # 既に履歴あり、未削除なら read_at を更新
+        read_entry.read_at = timezone.now()
         read_entry.save()
 
-    schedule_id = comment.schedule.id
     return redirect(reverse('app:schedule_detail', args=[schedule_id]))
+    
 
 @require_POST # コメント一覧から削除
 def comment_list_delete_view(request, comment_id):
