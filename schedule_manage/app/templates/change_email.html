@@ -31,11 +31,11 @@
         margin-top: 20px;
     }
 
-    button {
+    .submit-button {
         width: 30%;
         padding: 5px;
         display: block;
-        margin: 5px auto;
+        margin: 30px auto 10px auto;
     }
 
     .link {
@@ -48,9 +48,10 @@
 <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
-
-    <a href="{% url 'app:settings' %}">キャンセル</a>
-    <button type="submit">変更</button>
+    <button type="submit" class="submit-button">変更</button>
+    <div class="link">
+      <a href="{% url 'app:settings' %}">キャンセル</a>
+    </div>
   </form>
     
 {% endblock %}
