@@ -33,6 +33,21 @@
         min-width: auto !important;
         height: auto !important;
     }
+    .fc-col-header-cell:first-child .fc-col-header-cell-cushion {
+        color: #ff6666; /* 日曜 */
+    }
+
+    .fc-col-header-cell:nth-child(2) .fc-col-header-cell-cushion,
+    .fc-col-header-cell:nth-child(3) .fc-col-header-cell-cushion,
+    .fc-col-header-cell:nth-child(4) .fc-col-header-cell-cushion,
+    .fc-col-header-cell:nth-child(5) .fc-col-header-cell-cushion,
+    .fc-col-header-cell:nth-child(6) .fc-col-header-cell-cushion {
+        color: #999999; /* 月〜金：薄グレー */
+    }
+
+    .fc-col-header-cell:last-child .fc-col-header-cell-cushion {
+        color: #6699ff; /* 土曜 */
+    }
 </style> 
     
 <script>
