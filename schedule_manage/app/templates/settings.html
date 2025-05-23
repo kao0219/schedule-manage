@@ -14,17 +14,17 @@
 .member-title {
   font-weight: bold;
   margin: 0;
-  font-size: 35px;        /* タイトルの文字 */
+  font-size: 30px;        /* タイトルの文字 */
 }
   
 .member-icons {
   display: flex;
-  gap: 10px;
+  gap: 40px;
 }
   
 .member-icon {
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   background-color: #007bff;
   color: white;
@@ -33,6 +33,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.member-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.member-name {
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 .settings-links {
@@ -56,8 +68,13 @@
   <p class="member-title">メンバーリスト</p>
   <div class="member-icons">
     {% for member in members %}
-      <div class="member-icon" title="{{ member.username }}">
+      <div class="member-block">
+        <div class="member-icon" title="{{ member.username }}">
           {{ member.username|slice:":1"|upper }}
+        </div>
+        <div class="member-name">
+          {{ member.username }}
+        </div>
       </div>
     {% endfor %}
   </div>
