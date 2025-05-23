@@ -9,8 +9,7 @@
     #calendar {
         max-width: 800px;
         margin: 40px auto;
-        padding: 20px;
-        
+        padding: 20px;        
     }
     .fc-daygrid-day-number {
         text-align: left;
@@ -19,6 +18,21 @@
     .fc-toolbar.fc-header-toolbar {
         justify-content: center; /* 月日の左右に矢印 *//
     }  
+    .fc-toolbar-title {
+        color: #777 !important;  /* 薄めのグレー */
+        font-weight: 600;
+    }
+    .fc-button.fc-prev-button,
+    .fc-button.fc-next-button {
+        background: none !important;
+        border: none !important;
+        box-shadow: none !important;
+        color: #888 !important;
+        font-size: 1.4rem;
+        padding: 0 8px;
+        min-width: auto !important;
+        height: auto !important;
+    }
 </style> 
     
 <script>
@@ -33,7 +47,10 @@
                 center: 'title',
                 right: 'next'
             },
-
+            buttonText: {
+                prev: '◀︎',
+                next: '▶︎'
+            },
             displayEventTime: false, //カレンダーに時間表示させないようにしている
             eventDisplay: 'block', //これをいれて見出しカラーを帯で表示
             events: '/schedule/json/', 
