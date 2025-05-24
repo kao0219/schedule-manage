@@ -5,18 +5,15 @@
     <style>
         /*戻ると登録ボタンの配置*/
         .form-buttons {
-            width: 240px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
         }
         
         .back-link {
             text-decoration: underline;
             font-size: 16px;
+            display: inline-block;
+            margin-top: 10px;
         }
 
         button.signup-btn {
@@ -27,7 +24,7 @@
             border-radius: 5px;
             display: block;
             padding: 8px;
-            margin-left: 100px;
+            margin: 0 auto;
         }
 
         body {
@@ -55,13 +52,6 @@
             padding: 5px;
         }
 
-        {% comment %} button {
-            width: 30%;
-            padding: 5px;
-            display: block;
-            margin: 10px auto;
-        } {% endcomment %}
-
         .link {
             text-align: center;
             margin-top: 10px;
@@ -74,12 +64,10 @@
     
     <form method="POST">
         {% csrf_token %}
-
         <div class="form-row">
             <label for="username">名前/ニックネーム</label>
             <input type="text" id="username" name="username" required>
         </div>
-
 
         <div class="form-row">
             <label for="email">メールアドレス</label>
@@ -97,10 +85,11 @@
         </div>
 
         <div class="form-buttons">
-            <a href="{% url 'app:login' %}" class="back-link">戻る</a>
             <button type="submit" class="signup-btn">登録</button>
         </div>
-
+        <div class="form-buttons">
+            <a href="{% url 'app:login' %}" class="back-link">戻る</a>
+        </div>
     </form>
 
 
