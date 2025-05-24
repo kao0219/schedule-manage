@@ -143,7 +143,7 @@ def schedule_json_view(request):
         
         # 未読なら🔔マークを見出しに表示
         if schedule.id in unread_schedule_ids:
-            event['title'] += ' 🔔'
+            event['title'] = '🔔'+ event['title']
 
         events.append(event)
 
