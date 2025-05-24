@@ -70,10 +70,14 @@ def signup_view(request):
         email = request.POST["email"]
         username = request.POST["username"]
         password = request.POST["password"]
+
+        if CustomUser.objects.filter(email=email).exists():
+            messages.error(request, "このメールアドレスは既に登録されています。")
+            return render(request, 'signup.html')
         # ファミリー作成
         family = Family.objects.create()
 
-        
+        # ユーザー作成
         CustomUser.objects.create(
             email=email,
             username=username,
