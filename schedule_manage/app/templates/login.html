@@ -48,7 +48,14 @@
 <body>
 
     <h1>schedule manage</h1>
-    
+    {% if messages %}
+    <div class="error-messages">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+    {% endif %}
+
     <form method="post">
         {% csrf_token %}
 
