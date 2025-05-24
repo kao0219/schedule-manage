@@ -1,27 +1,30 @@
-<!DOCTYPE html> 
+<!DOCTYPE html> <!-- 家族招待URLアクセス後の新規登録画面-->
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
     <style>
         .form-buttons {
-            width: 240px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            text-align: center;
             margin-top: 20px;
-            margin-left: auto;
-            margin-right: auto;
         }
         
         .back-link {
             text-decoration: underline;
             font-size: 16px;
+            display: inline-block;
+            margin-top: 10px;
         }
 
         .register-btn {
             width: 100px;
+            background-color; #007BFF; !important;
+            color: white; !important;
+            border: none;
+            border-radius: 5px;
             padding: 8px;
-            margin-left: 100px;
+            display: block;
+            margin: 0 auto;
+            appearance: none; 
         }
 
         body {
@@ -49,13 +52,6 @@
             padding: 5px;
         }
 
-        button {
-            width: 30%;
-            padding: 5px;
-            display: block;
-            margin: 10px auto;
-        }
-
         .link {
             text-align: center;
             margin-top: 10px;
@@ -71,10 +67,8 @@
 <body>
 
     <h2 style="text-align: center; margin-bottom: 20px;">アカウント新規登録</h2>
-
     <form method="POST" action="{% url 'app:invite_register' token %}">
         {% csrf_token %}
-        
         {% if form.errors %} <!-- バリデーションエラー　-->
         <div class="error-messages" style="color: red; margin-bottom: 15px;">
             <ul>
@@ -95,7 +89,6 @@
             <input type="text" id="username" name="username" required>
         </div>
 
-
         <div class="form-row">
             <label for="email">メールアドレス</label>
             <input type="email" id="email" name="email" required>
@@ -112,8 +105,10 @@
         </div>
 
         <div class="form-buttons">
-            <a href="{% url 'app:login' %}" class="back-link">戻る</a>
             <button type="submit" class="register-btn">登録</button>
+        </div>
+        <div class="form-buttons">
+            <a href="{% url 'app:login' %}" class="back-link">戻る</a>
         </div>
     </form>
 </body>
