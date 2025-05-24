@@ -74,6 +74,11 @@ def signup_view(request):
         if CustomUser.objects.filter(email=email).exists():
             messages.error(request, "このメールアドレスは既に登録されています。")
             return render(request, 'signup.html')
+        
+        if len(password) < 8:
+            messages.error(request, "パスワードは8文字以上で入力してください。")
+            return render(request, 'signup.html')
+
         # ファミリー作成
         family = Family.objects.create()
 
