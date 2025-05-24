@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <style>
+        /*戻ると登録ボタンの配置*/
         .form-buttons {
             width: 240px;
             display: flex;
@@ -18,8 +19,13 @@
             font-size: 16px;
         }
 
-        .register-btn {
+        button.signup-btn {
             width: 100px;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            display: block;
             padding: 8px;
             margin-left: 100px;
         }
@@ -49,12 +55,12 @@
             padding: 5px;
         }
 
-        button {
+        {% comment %} button {
             width: 30%;
             padding: 5px;
             display: block;
             margin: 10px auto;
-        }
+        } {% endcomment %}
 
         .link {
             text-align: center;
@@ -92,7 +98,7 @@
 
         <div class="form-buttons">
             <a href="{% url 'app:login' %}" class="back-link">戻る</a>
-            <button type="submit" class="register-btn">登録</button>
+            <button type="submit" class="signup-btn">登録</button>
         </div>
 
     </form>
