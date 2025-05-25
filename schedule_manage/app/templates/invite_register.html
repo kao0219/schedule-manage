@@ -72,11 +72,9 @@
         {% csrf_token %}
         {% if messages %}
         <div class="error-messages">
-            <ul>
             {% for message in messages %}
-                <li>{{ message }}</li>
+            <p>{{ message }}</p>
             {% endfor %}
-            </ul>
         </div>
         {% endif %}
 

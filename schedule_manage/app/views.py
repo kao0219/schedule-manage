@@ -576,18 +576,29 @@ def invite_register_view(request, token):
         return render(request, 'invite_invalid.html', {'token': token}) # 無効なURL画面
 
     if request.method == 'POST':
-        form = CustomUserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save(commit=False) # 一時保存
-            user.family = invite.family # 招待に紐づいたファミリーをセット
-            user.save()                 # 保存
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
+        if password1 != password2:
+            messages.error(request, 'パスワードが一致しません。')
+        elif len(password1) < 8:
+            messages.error(request, 'パスワードは8文字以上にしてください。')
+        elif CustomUser.objects.filter(email=email).exists():
+            messages.error(request, 'このメールアドレスはすでに使われています。')
+        else:
+
+            user = CustomUser.objects.create(
+                email=email,
+                username=username,
+                password=make_password(password1),
+                family = invite.family  # 招待に紐づいたファミリーをセット
+            )
             invite.status = 2           # 使用済みへ
             invite.save()
-            return redirect('app:home') #　ホームへ遷移
-    else:
-        form = CustomUserCreationForm()
-
-    return render(request, 'invite_register.html', {'form': form, 'token': token}) #　有効な場合は登録画面
+            return redirect('app:home') #　ホームへ遷移   
+    return render(request, 'invite_register.html', {'token': token}) #　有効な場合は登録画面
 
 def change_password_view(request):
     return render(request, 'change_password.html')
