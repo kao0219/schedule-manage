@@ -121,7 +121,7 @@ def schedule_json_view(request):
     if request.user.is_authenticated:
         read_ids = ScheduleCommentRead.objects.filter(
             user=request.user,
-            is_deleted=False
+            
         ).values_list('comment_id', flat=True)
 
         unread_comments = ScheduleComment.objects.exclude(

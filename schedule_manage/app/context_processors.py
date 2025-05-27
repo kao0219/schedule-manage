@@ -5,7 +5,7 @@ def unread_comment_flag(request):
     if request.user.is_authenticated:
         read_ids = ScheduleCommentRead.objects.filter(
             user=request.user,
-            is_deleted=False #　削除されていない既読のみ
+            
         ).values_list('comment_id', flat=True)
 
         print("read_ids:", list(read_ids))
