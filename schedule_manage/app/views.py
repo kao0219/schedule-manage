@@ -120,7 +120,7 @@ def schedule_json_view(request):
     unread_schedule_ids = []
     if request.user.is_authenticated:
         read_ids = ScheduleCommentRead.objects.filter(
-            user=request.user,
+            user=request.user
             
         ).values_list('comment_id', flat=True)
 
@@ -391,8 +391,12 @@ def schedule_detail_view(request, schedule_id):
                 user=request.user,
                 comment=comment
             )
+            #すでに削除済みなら復元せずにスキップ
             if read_entry.is_deleted:
-                read_entry.is_deleted = False
+                continue
+            #新規作成された場合　or　未削除のときだけread_atを更新    
+            if not created:  
+                read_entry.read_at = timezone.now()
                 read_entry.save()
 
     username_initial = schedule.user.username[:1].upper()
