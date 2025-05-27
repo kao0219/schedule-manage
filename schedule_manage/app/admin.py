@@ -40,7 +40,7 @@ class ScheduleAdmin(admin.ModelAdmin):
 
 @admin.register(ScheduleComment)
 class ScheduleCommentAdmin(admin.ModelAdmin):
-    list_display = ('user', 'schedule', 'content', 'created_at')
+    list_display = ('user', 'schedule', 'content', 'created_at', 'display_date')
     search_fields = ('content',)
 
 @admin.register(ScheduleCommentRead)
