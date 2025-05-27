@@ -126,6 +126,7 @@ class ScheduleComment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     schedule = models.ForeignKey(Schedule, on_delete=models.CASCADE)
     content = models.CharField(max_length=255, verbose_name='コメントの内容')  
+    display_date = models.DateField(null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
