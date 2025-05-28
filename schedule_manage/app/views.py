@@ -401,12 +401,17 @@ def schedule_detail_view(request, schedule_id):
 
     username_initial = schedule.user.username[:1].upper()
 
-    if schedule.start_time:
-        selected_date = schedule.start_time.strftime('%Y年%m月%d日（%a）')
-    else:
-        selected_date = ''
+    # クリックされた日付を取得
+    clicked_date = request.GET.get('date')
+    if clicked_date:
+        try:
+            selected_date = timezone.datetime.strptime(clicked_date, '%Y-%m-%d').strftime('%Y年%m月%d日（%a）')
+        except Exception:
+            selected_date = schedule.start_time.strftime('%Y年%m月%d日（%a）')if schedule.start_time else ''
 
-
+    else: 
+        selected_date = schedule.start_time.strftime('%Y年%m月%d日（%a）')if schedule.start_time else ''
+    
     return render(request, 'schedule_detail.html', {
         'form': form,
         'schedule': schedule,
