@@ -82,7 +82,10 @@
 
             eventClick: function(info) {
                 const scheduleId = info.event.id;
-                const clickedDate = info.jsEvent.target.closest('.fc-daygrid-day')?.getAttribute('data-date');
+
+                const clickedElement = info.el.closest('.fc-daygrid-day');
+                const clickedDate = clickedElement ? clickedElement.getAttribute('data-date') : null;
+
                 let url = `/schedule/${scheduleId}/`;
                 if (clickedDate) {
                     url += `?date=${clickedDate}`;
