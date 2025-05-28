@@ -82,8 +82,12 @@
 
             eventClick: function(info) {
                 const scheduleId = info.event.id;
-                const clickedDate = info.event.startStr.substring(0, 10); //クリックしたイベントの開始日
-                window.location.href = `/schedule/${scheduleId}?date=${clickedDate}`;
+                const clickedDate = info.jsEvent.target.closest('.fc-daygrid-day')?.getAttribute('data-date');
+                let url = `/schedule/${scheduleId}/`;
+                if (clickedDate) {
+                    url += `?date=${clickedDate}`;
+                }
+                window.location.href = url;
             },
 
             eventDidMount: function(info) {
