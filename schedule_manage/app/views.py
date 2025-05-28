@@ -383,7 +383,7 @@ def schedule_detail_view(request, schedule_id):
         form = ScheduleForm(instance=schedule)
         comment_form = CommentForm()
 
-    comments = ScheduleComment.objects.filter(schedule=schedule,).order_by('-created_at')
+    comments = ScheduleComment.objects.filter(schedule=schedule).order_by('-created_at')
     
     for comment in comments:
         if comment.user != request.user:  # 自分以外のコメントに限定
