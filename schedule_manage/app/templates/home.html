@@ -83,9 +83,7 @@
             eventClick: function(info) {
                 const scheduleId = info.event.id;
 
-                const clickedElement = info.el.closest('.fc-daygrid-day');
-                const clickedDate = clickedElement ? clickedElement.getAttribute('data-date') : null;
-
+                const clickedDate = info.jsEvent.target.closest('.fc-daygrid-day')?.getAttribute('data-date'); 
                 let url = `/schedule/${scheduleId}/`;
                 if (clickedDate) {
                     url += `?date=${clickedDate}`;
@@ -104,6 +102,10 @@
                   titleEl.style.color = 'black';
                   titleEl.style.fontWeight = 'bold';
                 }
+                const startDate = info.event.start;
+                const dateStr = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}-${String(startDate.getDate()).padStart(2, '0')}`;
+                info.el.setAttribute('data-date', dateStr);
+                
             },
             dayCellContent: function(arg) {
                 return arg.date.getDate();
