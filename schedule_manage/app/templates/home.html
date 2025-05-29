@@ -81,9 +81,15 @@
             },
 
             eventClick: function(info) {
+                
                 const scheduleId = info.event.id;
+                const clickedElement = info.jsEvent.target.closest('.fc-daygrid-day');
+                const clickedDate = clickedElement ? clickedElement.getAttribute('data-date') : null;
 
-                const clickedDate = info.jsEvent.target.closest('.fc-daygrid-day')?.getAttribute('data-date'); 
+
+                console.log("クリックされたID：", scheduleId);
+                console.log("クリックされた日付：", clickedDate);
+
                 let url = `/schedule/${scheduleId}/`;
                 if (clickedDate) {
                     url += `?date=${clickedDate}`;
@@ -92,20 +98,28 @@
             },
 
             eventDidMount: function(info) {
-                if (!info.event.extendedProps.color) {
-                  info.el.style.backgroundColor = info.event.extendedProps.color;
-                  info.el.style.color = 'black';
-                  info.el.style.border = '1px solid #ccc';
+                try {
+                    if (!info.event.extendedProps.color) {
+                    info.el.style.backgroundColor = info.event.extendedProps.color;
+                    info.el.style.color = 'black';
+                    info.el.style.border = '1px solid #ccc';
+                    }
+                    const titleEl = info.el.querySelector('.fc-event-title');
+                    if (titleEl) {
+                    titleEl.style.color = 'black';
+                    titleEl.style.fontWeight = 'bold';
+                    }
+                    const startDate = info.event.start;
+                    if (startDate) {
+                        const y = info.event.start.getFullYear();
+                        const m = String(info.event.start.getMonth() + 1).padStart(2, '0');
+                        const d = String(info.event.start.getDate()).padStart(2, '0');
+                        const dateStr = `${y}-${m}-${d}`;
+                        info.el.setAttribute('data-date', dateStr);
+                    }
+                } catch (e) {
+                    console.error('eventDidMount error:', e);
                 }
-                const titleEl = info.el.querySelector('.fc-event-title');
-                if (titleEl) {
-                  titleEl.style.color = 'black';
-                  titleEl.style.fontWeight = 'bold';
-                }
-                const startDate = info.event.start;
-                const dateStr = `${startDate.getFullYear()}-${String(startDate.getMonth() + 1).padStart(2, '0')}-${String(startDate.getDate()).padStart(2, '0')}`;
-                info.el.setAttribute('data-date', dateStr);
-                
             },
             dayCellContent: function(arg) {
                 return arg.date.getDate();
