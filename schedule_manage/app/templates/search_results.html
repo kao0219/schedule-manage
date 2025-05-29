@@ -25,6 +25,11 @@
     justify-content: center;
     text-align: center;
   }
+  .custom-border {
+    background-color: #FFF8DC;
+    border: 2px solid #C8E6C9; /* カードの枠線色 */
+    border-radius: 8px;        
+  }
 </style>
 
 
@@ -35,7 +40,7 @@
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
   {% for schedule in schedules %}
     <div class="col">
-      <div class="card h-100"
+      <div class="card h-100 custom-border"
            onclick="location.href='{% url 'app:schedule_detail' schedule.id %}'" 
            style="cursor: pointer;">
           {% if schedule.image_url %}
@@ -62,7 +67,7 @@
 <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
     {% for memo in memos %}
     <div class="col">
-      <div class="card h-100"
+      <div class="card h-100 custom-border"
            data-bs-toggle="modal" 
            data-bs-target="#memoModal{{ memo.id }}" 
            style="cursor: pointer;">
