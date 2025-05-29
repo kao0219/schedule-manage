@@ -57,6 +57,7 @@
     
 <script>
     document.addEventListener('DOMContentLoaded', function () {
+        
         const calendarEl = document.getElementById('calendar');
         if (!calendarEl) return; 
         const calendar = new FullCalendar.Calendar(calendarEl, {
@@ -81,20 +82,21 @@
             },
 
             eventClick: function(info) {
-                
                 const scheduleId = info.event.id;
-                const clickedElement = info.jsEvent.target.closest('.fc-daygrid-day');
-                const clickedDate = clickedElement ? clickedElement.getAttribute('data-date') : null;
+                const cellEl = info.jsEvent.target.closest('.fc-daygrid-day');
+                let clickedDate = null;
 
-
-                console.log("クリックされたID：", scheduleId);
-                console.log("クリックされた日付：", clickedDate);
-
-                let url = `/schedule/${scheduleId}/`;
-                if (clickedDate) {
-                    url += `?date=${clickedDate}`;
+                if (cellEl) {
+                    clickedDate = cellEl.getAttribute('data-date');
                 }
-                window.location.href = url;
+
+                // 最後のフォールバック（イベントのstart日）
+                if (!clickedDate) {
+                    clickedDate = info.event.startStr.split('T')[0];
+                }
+                console.log("クリック日→", clickedDate);
+                window.location.href = `/schedule/${scheduleId}/`;  
+                
             },
 
             eventDidMount: function(info) {
@@ -115,7 +117,7 @@
                         const m = String(info.event.start.getMonth() + 1).padStart(2, '0');
                         const d = String(info.event.start.getDate()).padStart(2, '0');
                         const dateStr = `${y}-${m}-${d}`;
-                        info.el.setAttribute('data-date', dateStr);
+                        
                     }
                 } catch (e) {
                     console.error('eventDidMount error:', e);
