@@ -251,10 +251,6 @@ def schedule_create_view(request):
         selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
     else:
         selected_date = datetime.now().date()
-    # 英語 → 日本語の曜日マップ
-    WEEKDAYS_JA = ['月', '火', '水', '木', '金', '土', '日']
-    weekday_japanese = WEEKDAYS_JA[selected_date.weekday()]
-
 
     username_initial = request.user.username[0].upper()
     now = datetime.now()
@@ -323,7 +319,9 @@ def schedule_create_view(request):
             'repeat_type': 0,  # 繰り返しはデフォルト「なし」
         })
     
-
+      # 英語 → 日本語の曜日マップ
+    WEEKDAYS_JA = ['月', '火', '水', '木', '金', '土', '日']
+    weekday_japanese = WEEKDAYS_JA[selected_date.weekday()]
     context = {
         'selected_date': selected_date,
         'weekday_japanese': weekday_japanese,
