@@ -405,25 +405,37 @@ def schedule_detail_view(request, schedule_id):
                 read_entry.save()
 
     username_initial = schedule.user.username[:1].upper()
+    WEEKDAYS_JA = {
+    'Mon': '月',
+    'Tue': '火',
+    'Wed': '水',
+    'Thu': '木',
+    'Fri': '金',
+    'Sat': '土',
+    'Sun': '日',
+    }
 
     # クリックされた日付を取得
     clicked_date = request.GET.get('date')
     if clicked_date:
         try:
-            selected_date = timezone.datetime.strptime(clicked_date, '%Y-%m-%d').strftime('%Y年%m月%d日（%a）')
+            date_obj = timezone.datetime.strptime(clicked_date, '%Y-%m-%d')
         except Exception:
-            selected_date = schedule.start_time.strftime('%Y年%m月%d日（%a）')if schedule.start_time else ''
-
+            date_obj = schedule.start_time
     else: 
-        selected_date = schedule.start_time.strftime('%Y年%m月%d日（%a）')if schedule.start_time else ''
-    
+        date_obj = schedule.start_time
+    # 曜日を漢字表示
+    weekday_en = date_obj.strftime('%a')
+    weekday_ja = WEEKDAYS_JA.get(weekday_en, weekday_en)
+    display_date = date_obj.strftime(f'%Y年%m月%d日（{weekday_ja}）')  
+
     return render(request, 'schedule_detail.html', {
         'form': form,
         'schedule': schedule,
         'comments': comments,
         'comment_form': comment_form,
         'username_initial': username_initial,
-        'selected_date': selected_date,
+        'selected_date': display_date,
         'is_edit': True,
     })
 
