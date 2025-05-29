@@ -49,7 +49,7 @@
           <div class="card-body">
             <p class="card-text"><small class="text-muted">{{ schedule.start_time|date:"Y年m月d日" }}</small></p>
             <h5 class="card-title">{{ schedule.schedule_title }}</h5>
-            <p class="card-text">{{ schedule.schedule_memo|truncatechars:20 }}</p>
+            <p class="card-text">{{ schedule.schedule_memo|truncatechars:20|linebreaksbr}}</p>
           </div>
       </div>
     </div>
@@ -73,7 +73,7 @@
            style="cursor: pointer;">
           <div class="card-body">
               <h5 class="card-title">{{ memo.memo_title }}</h5>
-              <p class="card-text">{{ memo.content|truncatechars:20 }}</p>
+              <p class="card-text">{{ memo.content|truncatechars:20|linebreaksbr}}</p>
           </div>
           {% if memo.image %}
           <img src="{{ memo.image.url }}" class="card-img-top mx-auto d-block" style="width: 150px; height: auto;" alt="メモ画像">
