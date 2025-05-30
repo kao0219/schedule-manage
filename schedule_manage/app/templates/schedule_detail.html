@@ -88,7 +88,7 @@
           <!-- コメント投稿　-->
           <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
               {% csrf_token %}
-              <p>送信される display_date: {{ display_date }}</p>
+              {% comment %} <p>送信される display_date: {{ display_date }}</p> {% endcomment %}
               <input type="hidden" name="display_date" value="{{ display_date|date:'Y-m-d' }}"> <!--92-->
               <div class="d-flex">
                   {{ comment_form.content }}
