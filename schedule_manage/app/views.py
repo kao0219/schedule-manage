@@ -344,10 +344,12 @@ def schedule_detail_view(request, schedule_id):
     if clicked_date:
         try:
             date_obj = timezone.datetime.strptime(clicked_date, '%Y-%m-%d')
-        except ValueError: #347
-            date_obj = schedule.start_time or timezone.now() #428
+        except ValueError: 
+            date_obj = schedule.start_time or timezone.now() 
     else: 
-        date_obj = schedule.start_time or timezone.now() # 430
+        date_obj = schedule.start_time or timezone.now() 
+    
+    display_date = date_obj.date()
 
     if request.method == 'POST':
         action = request.POST.get('action')
@@ -407,11 +409,15 @@ def schedule_detail_view(request, schedule_id):
         form = ScheduleForm(instance=schedule)
         comment_form = CommentForm()
 
+    filter_date = date_obj.date()
+
     comments = ScheduleComment.objects.filter(
         schedule=schedule,
-        display_date=date_obj.date() #←
-    ).order_by('-created_at')
-    
+        display_date=filter_date
+        ).order_by('-created_at')
+    print("コメント取得用 date_obj:", date_obj)
+    print("フィルタ用 display_date:", date_obj.date())
+
     for comment in comments:
         if comment.user != request.user:  # 自分以外のコメントに限定
             read_entry, created = ScheduleCommentRead.objects.get_or_create(
