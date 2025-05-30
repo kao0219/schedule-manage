@@ -386,26 +386,30 @@ def schedule_detail_view(request, schedule_id):
                 return redirect('app:home')  
 
         elif action == 'comment':
+            print("コメント処理に入った")
             form = ScheduleForm(instance=schedule)  
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
+                print("✅ コメントフォームが有効") 
                 comment = comment_form.save(commit=False)
                 comment.schedule = schedule
                 comment.user = request.user
-                display_date_str = request.POST.get('display_date') #←395
+                display_date_str = request.POST.get('display_date') #←
+                print("display_date_str:", display_date_str)
                 try:
                     comment.display_date = datetime.strptime(display_date_str, '%Y-%m-%d').date()
                 except ValueError:
                     comment.display_date = timezone.now().date()
                 comment.save()
-
+                print("コメント保存完了！")
+           
     else:
         form = ScheduleForm(instance=schedule)
         comment_form = CommentForm()
 
     comments = ScheduleComment.objects.filter(
         schedule=schedule,
-        display_date=date_obj.date() #←394
+        display_date=date_obj.date() #←
     ).order_by('-created_at')
     
     for comment in comments:
@@ -438,7 +442,8 @@ def schedule_detail_view(request, schedule_id):
     weekday_ja = WEEKDAYS_JA.get(weekday_en, weekday_en)
     display_label = date_obj.strftime(f'%Y年%m月%d日（{weekday_ja}）')  
 
-    display_date = date_obj.date()
+    #DB保存・比較用
+    display_date = date_obj.strftime('%Y-%m-%d')
 
     return render(request, 'schedule_detail.html', {
         'form': form,
@@ -446,8 +451,8 @@ def schedule_detail_view(request, schedule_id):
         'comments': comments,
         'comment_form': comment_form,
         'username_initial': username_initial,
-        'display_date': display_date, #443
-        'selected_date': display_label, #444
+        'display_date': display_date, #←
+        'selected_date': display_label, #←
         'is_edit': True,
     })
 
