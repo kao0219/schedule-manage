@@ -344,7 +344,7 @@ def schedule_detail_view(request, schedule_id):
     if clicked_date:
         try:
             date_obj = timezone.datetime.strptime(clicked_date, '%Y-%m-%d')
-        except ValueError: #427
+        except ValueError: #347
             date_obj = schedule.start_time or timezone.now() #428
     else: 
         date_obj = schedule.start_time or timezone.now() # 430
@@ -432,7 +432,9 @@ def schedule_detail_view(request, schedule_id):
     # 曜日を漢字表示
     weekday_en = date_obj.strftime('%a')
     weekday_ja = WEEKDAYS_JA.get(weekday_en, weekday_en)
-    display_date = date_obj.strftime(f'%Y年%m月%d日（{weekday_ja}）')  
+    display_label = date_obj.strftime(f'%Y年%m月%d日（{weekday_ja}）')  
+
+    display_date = date_obj.date()
 
     return render(request, 'schedule_detail.html', {
         'form': form,
@@ -440,7 +442,8 @@ def schedule_detail_view(request, schedule_id):
         'comments': comments,
         'comment_form': comment_form,
         'username_initial': username_initial,
-        'selected_date': display_date,
+        'display_date': display_date, #443
+        'selected_date': display_label, #444
         'is_edit': True,
     })
 

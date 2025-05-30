@@ -85,22 +85,18 @@
             },
 
             eventClick: function(info) {
-                
                 const scheduleId = info.event.id;
                 const cellEl = info.jsEvent.target.closest('.fc-daygrid-day');
                 let clickedDate = null;
-
                 if (cellEl) {
                     clickedDate = cellEl.getAttribute('data-date');
                 }
-
                 // 最後のフォールバック（イベントのstart日）
                 if (!clickedDate) {
                     clickedDate = info.event.startStr.split('T')[0];
                 }
                 console.log("クリック日→", clickedDate);
-                window.location.href = `/schedule/${scheduleId}/`;  
-                
+                window.location.href = `/schedule/${scheduleId}/?date=${clickedDate}`;/*99*/
             },
 
             eventDidMount: function(info) {
