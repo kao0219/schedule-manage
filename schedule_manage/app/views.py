@@ -392,7 +392,11 @@ def schedule_detail_view(request, schedule_id):
                 comment = comment_form.save(commit=False)
                 comment.schedule = schedule
                 comment.user = request.user
-                comment.display_date = request.POST.get('display_date') #←385
+                display_date_str = request.POST.get('display_date') #←395
+                try:
+                    comment.display_date = datetime.strptime(display_date_str, '%Y-%m-%d').date()
+                except ValueError:
+                    comment.display_date = timezone.now().date()
                 comment.save()
 
     else:
