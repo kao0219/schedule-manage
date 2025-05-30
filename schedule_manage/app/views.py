@@ -415,7 +415,7 @@ def schedule_detail_view(request, schedule_id):
 
     comments = ScheduleComment.objects.filter(
         schedule=schedule,
-        display_date=filter_date    
+        # display_date=filter_date    #←これを入れるとコメント保存されても予定ページに表示されない
     ).order_by('-created_at')
     print("表示対象のコメント数 =", comments.count())
     print("コメント取得用 date_obj:", date_obj)
@@ -453,7 +453,6 @@ def schedule_detail_view(request, schedule_id):
 
     #DB保存・比較用
     display_date = date_obj.strftime('%Y-%m-%d')
-
 
     return render(request, 'schedule_detail.html', {
         'form': form,
