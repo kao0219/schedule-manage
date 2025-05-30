@@ -577,6 +577,7 @@ def create_memo_view(request):
             image=image
         )
         return redirect('app:memos')  # メモ一覧へ
+    
 
 # 編集フォームデータ読み込みと保存、完了後にモーダル→一覧への処理
 def memo_detail_view(request, memo_id):
@@ -587,6 +588,15 @@ def memo_detail_view(request, memo_id):
         if form.is_valid():
             form.save()
             return redirect('app:memos') # 完了後、一覧へ
+    else:
+        form = MemoForm(instance=memo)
+
+    #  ←ここが無いと GET時に return なしでエラーになる
+    return render(request, 'components/memo_modal.html', {
+        'form': form,
+        'memo': memo,
+    })
+
 
 def memo_delete_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
