@@ -339,6 +339,16 @@ def schedule_create_view(request):
 def schedule_detail_view(request, schedule_id):
     schedule = get_object_or_404(Schedule, id=schedule_id)
 
+    # クリックされた日付を取得
+    clicked_date = request.GET.get('date')
+    if clicked_date:
+        try:
+            date_obj = timezone.datetime.strptime(clicked_date, '%Y-%m-%d')
+        except ValueError: #427
+            date_obj = schedule.start_time or timezone.now() #428
+    else: 
+        date_obj = schedule.start_time or timezone.now() # 430
+
     if request.method == 'POST':
         action = request.POST.get('action')
         if action == 'edit':
@@ -418,16 +428,7 @@ def schedule_detail_view(request, schedule_id):
     'Sat': '土',
     'Sun': '日',
     }
-
-    # クリックされた日付を取得
-    clicked_date = request.GET.get('date')
-    if clicked_date:
-        try:
-            date_obj = timezone.datetime.strptime(clicked_date, '%Y-%m-%d')
-        except Exception:
-            date_obj = schedule.start_time
-    else: 
-        date_obj = schedule.start_time
+        
     # 曜日を漢字表示
     weekday_en = date_obj.strftime('%a')
     weekday_ja = WEEKDAYS_JA.get(weekday_en, weekday_en)
