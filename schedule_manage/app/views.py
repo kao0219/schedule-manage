@@ -340,10 +340,10 @@ def schedule_detail_view(request, schedule_id):
     schedule = get_object_or_404(Schedule, id=schedule_id)
 
     # クリックされた日付を取得
-    clicked_date = request.GET.get('date')
-    if clicked_date:
+    clicked_date_str = request.GET.get('date')
+    if clicked_date_str:
         try:
-            date_obj = timezone.datetime.strptime(clicked_date, '%Y-%m-%d')
+            date_obj = datetime.strptime(clicked_date_str, '%Y-%m-%d')
         except ValueError: 
             date_obj = schedule.start_time or timezone.now() 
     else: 
@@ -392,7 +392,7 @@ def schedule_detail_view(request, schedule_id):
             form = ScheduleForm(instance=schedule)  
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
-                print("✅ コメントフォームが有効") 
+                print("コメントフォームが有効") 
                 comment = comment_form.save(commit=False)
                 comment.schedule = schedule
                 comment.user = request.user
@@ -402,19 +402,22 @@ def schedule_detail_view(request, schedule_id):
                     comment.display_date = datetime.strptime(display_date_str, '%Y-%m-%d').date()
                 except ValueError:
                     comment.display_date = timezone.now().date()
+                print("保存する comment.display_date =", comment.display_date)
                 comment.save()
                 print("コメント保存完了！")
-           
+
     else:
         form = ScheduleForm(instance=schedule)
         comment_form = CommentForm()
 
     filter_date = date_obj.date()
+    print("フィルター用日付 filter_date:", filter_date)
 
     comments = ScheduleComment.objects.filter(
         schedule=schedule,
-        display_date=filter_date
-        ).order_by('-created_at')
+        display_date=filter_date    
+    ).order_by('-created_at')
+    print("表示対象のコメント数 =", comments.count())
     print("コメント取得用 date_obj:", date_obj)
     print("フィルタ用 display_date:", date_obj.date())
 
@@ -451,14 +454,15 @@ def schedule_detail_view(request, schedule_id):
     #DB保存・比較用
     display_date = date_obj.strftime('%Y-%m-%d')
 
+
     return render(request, 'schedule_detail.html', {
         'form': form,
         'schedule': schedule,
         'comments': comments,
         'comment_form': comment_form,
         'username_initial': username_initial,
-        'display_date': display_date, #←
-        'selected_date': display_label, #←
+        'display_date': display_date, 
+        'selected_date': display_label, 
         'is_edit': True,
     })
 
