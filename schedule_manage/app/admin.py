@@ -59,7 +59,9 @@ class ScheduleCommentReadAdmin(admin.ModelAdmin):
 
 @admin.register(Memo)
 class MemoAdmin(admin.ModelAdmin):
-    list_display = ('memo_title', 'content', 'image_tag', 'created_at')
+    list_display = ('memo_title',  'user', 'content', 'image_tag', 'created_at')
+    search_fields = ('memo_title', 'user__email')
+    list_filter = ('user', 'created_at')
 
     def image_tag(self, obj):
         if obj.image:
