@@ -606,6 +606,11 @@ def memo_detail_view(request, memo_id):
 
 def memo_delete_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
+
+    #　ファミリーが一致していなければ削除できない
+    if memo.user.family != request.user.family:
+        return HttpResponseForbidden("このメモは削除できません")
+
     memo.delete()
 
     next_url = request.GET.get('next')
