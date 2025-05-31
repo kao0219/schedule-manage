@@ -550,6 +550,9 @@ def comment_list_delete_view(request, comment_id):
    
 def schedule_delete_view(request, pk):
     schedule = get_object_or_404(Schedule, pk=pk)
+    # ファミリー制限
+    if schedule.user.family != request.user.family:
+        return HttpResponseForbidden("この予定は削除できません")
     schedule.delete()
     return redirect('app:home')
 
