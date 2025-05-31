@@ -549,11 +549,11 @@ def schedule_delete_view(request, pk):
     schedule.delete()
     return redirect('app:home')
 
-
+#メモ一覧
 def memos_view(request):
-    memos = Memo.objects.all().order_by('-created_at')  
-    paginator = Paginator(memos, 8)  # 8件まで
+    memos = Memo.objects.filter(user__family=request.user.family).order_by('-created_at')  
 
+    paginator = Paginator(memos, 8)  # 8件まで
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
 
