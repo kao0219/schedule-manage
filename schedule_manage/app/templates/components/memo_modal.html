@@ -52,4 +52,26 @@ document.addEventListener('DOMContentLoaded', function () {
       const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
       const formData = new FormData(form);
 
+      fetch(url, {
+        method: 'POST',
+        headers: {
+          'X-CSRFToken': csrfToken
+        },
+        body: formData,
+      })
+      .then(response => {
+        if (response.ok) {
+          const modalElement = form.closest('.modal');
+          const modalInstance = bootstrap.Modal.getInstance(modalElement);
+          if (modalInstance) {
+            modalInstance.hide();
+          }
+        }
+        // 通信エラー時は何も表示・処理しない
+      })
+      .catch(() => {});
+    });
+  });
+});
+</script>
       
