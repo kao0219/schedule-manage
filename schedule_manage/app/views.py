@@ -628,6 +628,7 @@ def invite_member_view(request):
         token = str(uuid.uuid4())
         invite = Invite.objects.create(
             invite_token=token,
+            family=request.user.family,
             status=1, #　未使用
             expires_at = timezone.now() + timezone.timedelta(days=1) # 有効期限1日後に
         )
