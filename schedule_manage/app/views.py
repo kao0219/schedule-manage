@@ -586,16 +586,17 @@ def memo_detail_view(request, memo_id):
     if request.method == 'POST':
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
+            memo_obj = form.save(commit=False)
             #画像未選択の場合、元の画像を保持
             if not request.FILES.get('image'):
-                form.cleaned_data['image'] = memo.image
-            form.save()
+                memo_obj.image = memo.image
+            memo_obj.save()
             return HttpResponse(status=200) # JSで処理しリダイレクト不要
             # return redirect('app:memos') # 完了後、一覧へ
         else:
             print(form.errors)
-    else:
-        form = MemoForm(instance=memo)
+            form = MemoForm(instance=memo)
+    # else:
 
     # ここが無いと GET時に return なしでエラーになる
     return render(request, 'components/memo_modal.html', {
