@@ -32,6 +32,7 @@ from django.views.decorators.http import require_POST
 from django.urls import reverse
 from .models import ScheduleComment, ScheduleCommentRead
 from datetime import datetime, timedelta
+from django.http import HttpResponseForbidden
 
 
 
@@ -583,14 +584,13 @@ def create_memo_view(request):
 # 編集フォームデータ読み込みと保存、完了後にモーダル→一覧への処理
 def memo_detail_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
-
+    #ファミリー制限
+    if memo.user.family != request.user.family:
+        return HttpResponseForbidden("このメモにはアクセスできません")
+    
     if request.method == 'POST':
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
-            # memo_obj = form.save(commit=False)
-            # #画像未選択の場合、元の画像を保持
-            # if not request.FILES.get('image'):
-            #     memo_obj.image = memo.image
             form.save()
             return HttpResponse(status=200) # JSで処理しリダイレクト不要
         else:
