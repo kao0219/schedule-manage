@@ -9,7 +9,7 @@ from .models import ScheduleCommentRead
 @admin.register(Invite)
 class InviteAdmin(admin.ModelAdmin):
     list_display = ('invite_token', 'status', 'expires_at', 'created_at', 'updated_at')
-    list_filter = ('status',)
+    list_filter = ('status','family')
     search_fields = ('invite_token',)
 
 @admin.register(CustomUser)
