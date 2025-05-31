@@ -30,8 +30,9 @@ class FamilyAdmin(admin.ModelAdmin):
 
 @admin.register(Schedule)
 class ScheduleAdmin(admin.ModelAdmin):
-    list_display = ('id','schedule_title', 'schedule_memo', 'get_color_label', 'image_url', 'start_time', 'end_time', 'created_at')
-    search_fields = ('schedule_title',)
+    list_display = ('id','schedule_title','user', 'schedule_memo', 'get_color_label', 'image_url', 'start_time', 'end_time', 'created_at')
+    list_filter = ('user',)
+    search_fields = ('schedule_title', 'user__email')
 
     def get_color_label(self, obj):
         return obj.get_color_label()
