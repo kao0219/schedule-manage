@@ -574,7 +574,8 @@ def create_memo_view(request):
         Memo.objects.create(
             memo_title=title,
             content=content,
-            image=image
+            image=image,
+            user=request.user #誰がメモを作ったかを記録
         )
         return redirect('app:memos')  # メモ一覧へ
     
