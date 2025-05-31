@@ -61,18 +61,20 @@ document.addEventListener('DOMContentLoaded', function () {
       })
       .then(response => {
         if (response.ok) {
-          const modalElement = form.closest('.modal');
-          const modalInstance = bootstrap.Modal.getInstance(modalElement);
-          if (modalInstance) {
-            modalInstance.hide();
-          }
-          // 完了押した後のグレー背景を削除
-          document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
+          response.text().then(() => {
+            const modalElement = form.closest('.modal');
+            const modalInstance = bootstrap.Modal.getInstance(modalElement);
+            if (modalInstance) {
+              modalInstance.hide();
+            }
+            // 完了押した後のグレー背景を削除
+            document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
 
-          // 一覧画面をリロードして更新
-          window.location.reload();
-        }
-      })// 通信エラー時は何も表示・処理しない
+            // 一覧画面をリロードして更新
+            window.location.reload();
+          });
+        }// 通信エラー時は何も表示・処理しない
+      })  
       .catch(() => {});
     });
   });
