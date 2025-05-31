@@ -94,7 +94,7 @@ def signup_view(request):
 
 @login_required
 def home_view(request):
-    schedules = Schedule.objects.filter(user=request.user)
+    schedules = Schedule.objects.filter(user__family=request.user.family)
 
     for schedule in schedules:
         create_next_schedule_if_needed(schedule) # 繰り返し部分
