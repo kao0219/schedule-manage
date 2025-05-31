@@ -590,13 +590,14 @@ def memo_detail_view(request, memo_id):
             if not request.FILES.get('image'):
                 form.cleaned_data['image'] = memo.image
             form.save()
-            
+            return HttpResponse(status=200) # JSで処理しリダイレクト不要
             # return redirect('app:memos') # 完了後、一覧へ
+        else:
+            print(form.errors)
     else:
-        print(form.errors)
         form = MemoForm(instance=memo)
 
-    #  ←ここが無いと GET時に return なしでエラーになる
+    # ここが無いと GET時に return なしでエラーになる
     return render(request, 'components/memo_modal.html', {
         'form': form,
         'memo': memo,
