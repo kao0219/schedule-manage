@@ -339,6 +339,9 @@ def schedule_create_view(request):
 @login_required
 def schedule_detail_view(request, schedule_id):
     schedule = get_object_or_404(Schedule, id=schedule_id)
+    #　ファミリー制限
+    if schedule.user.family != request.user.family:
+        return HttpResponseForbidden("この予定にはアクセスできません")
 
     # クリックされた日付を取得
     clicked_date_str = request.GET.get('date')
