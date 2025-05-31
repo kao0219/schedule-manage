@@ -120,3 +120,7 @@ class MemoForm(forms.ModelForm):
     class Meta:
         model = Memo
         fields = ['memo_title', 'content', 'image']
+    
+    def __init__(self, *args, **kwargs):
+        self.instance = kwargs.get('instance')  # 現在のメモを保持
+        super().__init__(*args, **kwargs)
