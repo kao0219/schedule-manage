@@ -152,8 +152,7 @@ class Memo(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        related_name='memos',
-        null=True
+        related_name='memos'
     )
     memo_title = models.CharField(max_length=200)
     content = models.TextField(blank=True) #　空欄でも可
