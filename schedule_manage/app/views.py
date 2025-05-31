@@ -113,8 +113,8 @@ def schedule_json_view(request):
         selected_date = datetime.strptime(selected_date_str, "%Y-%m-%d").date()
     else:
         selected_date = datetime.now().date()
-
-    schedules = Schedule.objects.all()
+    #　ファミリー制限
+    schedules = Schedule.objects.filter(user__family=request.user.family)
 
     events = []
     # 未読コメントの予定ID一覧
