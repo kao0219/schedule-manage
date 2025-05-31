@@ -586,8 +586,12 @@ def memo_detail_view(request, memo_id):
     if request.method == 'POST':
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
+            #画像未選択の場合、元の画像を保持
+            if not request.FILES.get('image'):
+                form.cleaned_data['image'] = memo.image
             form.save()
-            return redirect('app:memos') # 完了後、一覧へ
+            
+            # return redirect('app:memos') # 完了後、一覧へ
     else:
         print(form.errors)
         form = MemoForm(instance=memo)
