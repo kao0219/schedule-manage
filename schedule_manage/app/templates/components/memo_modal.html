@@ -29,7 +29,7 @@
               </div>
               {% if memo.image %}
               <div class="mb-3"> <!--現在の画像-->
-                <img src="{{ memo.image.url }}" alt="画像" style="max-width: 100%; height: auto;">
+                <img src="{{ memo.image.url }}" alt="画像" style="max-width: 180px; height: auto; display: block; margin: 10px auto;">
               </div>
             {% endif %}
           </div>
@@ -41,3 +41,15 @@
       </div>
     </div>
 </div>  
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.modal form').forEach(function(form) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const url = form.getAttribute('action');
+      const csrfToken = form.querySelector('[name=csrfmiddlewaretoken]').value;
+      const formData = new FormData(form);
+
+      

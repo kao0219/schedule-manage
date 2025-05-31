@@ -589,6 +589,7 @@ def memo_detail_view(request, memo_id):
             form.save()
             return redirect('app:memos') # 完了後、一覧へ
     else:
+        print(form.errors)
         form = MemoForm(instance=memo)
 
     #  ←ここが無いと GET時に return なしでエラーになる
