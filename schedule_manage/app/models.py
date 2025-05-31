@@ -149,6 +149,11 @@ class ScheduleCommentRead(models.Model):
         return f"{self.user.email} read {self.comment.id} at {self.read_at}"
     
 class Memo(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='memos'
+    )
     memo_title = models.CharField(max_length=200)
     content = models.TextField(blank=True) #　空欄でも可
     image = models.ImageField(upload_to='memo_images/', blank=True, null=True)  # 画像添付
