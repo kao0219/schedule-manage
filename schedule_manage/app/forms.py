@@ -124,3 +124,9 @@ class MemoForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.instance = kwargs.get('instance')  # 現在のメモを保持
         super().__init__(*args, **kwargs)
+
+    def clean_image(self):
+        image = self.cleaned_data.get('image')
+        if not image and self.instance:
+            return self.instance.image  # 画像変更なしなら元の画像をそのまま
+        return image
