@@ -84,12 +84,15 @@ def signup_view(request):
         family = Family.objects.create()
 
         # ユーザー作成
-        CustomUser.objects.create(
+        user = CustomUser.objects.create(
             email=email,
             username=username,
             password=make_password(password),
             family=family
         )
+
+        login(request, user)
+
         return redirect("app:home") #登録完了ならホーム画面へ
     return render(request, 'signup.html')
 
