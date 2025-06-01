@@ -14,6 +14,8 @@ def unread_comment_flag(request):
             id__in=read_ids
         ).exclude(
             user=request.user
+        ).filter(
+            schedule__user__family=request.user.family  # ファミリー制限
         ).exists()
     else:
         has_unread = False
