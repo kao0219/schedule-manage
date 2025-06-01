@@ -493,10 +493,13 @@ def comment_list_view(request):
         is_deleted=True
     ).values_list('comment_id', flat=True)
 
-    comments = ScheduleComment.objects.exclude(user=user).exclude(
-        id__in=deleted_comment_ids
-    ).order_by('-created_at') #他人のコメントだけ取得
-    
+    comments = (
+        ScheduleComment.objects.exclude(user=user) 
+        .exclude(id__in=deleted_comment_ids) 
+        .filter(schedule__user__family=request.user.family) # ファミリー制限
+        .order_by('-created_at') #他人のコメントだけ取得
+    )
+
     read_comment_ids = ScheduleCommentRead.objects.filter(
         user=user,
         is_deleted=False #　削除されていないものだけ
