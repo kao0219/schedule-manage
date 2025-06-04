@@ -37,7 +37,7 @@
     -webkit-box-orient: vertical;
     overflow: hidden;      /* 複数行表示のため設定 */
     text-overflow: ellipsis;   /* 2行以上は...表示 */
-    white-space: pre-line;  /* 改行を反映 *//
+    white-space: normal;  /* 改行を反映 *//
     font-size: 14px;
     line-height: 1.4;
   }
@@ -62,9 +62,9 @@
             <p class="card-text"><small class="text-muted">{{ schedule.start_time|date:"Y年m月d日" }}</small></p>
             <h5 class="card-title">{{ schedule.schedule_title }}</h5>
             <!--改行は反映させて行数で表示-->
-            <div class="memo-clamp">
-              {{ schedule.schedule_memo }}
-            </div>
+            <p class="memo-clamp">
+              {{ schedule.schedule_memo|linebreaksbr }}
+            </p>
           </div>
       </div>
     </div>
@@ -89,9 +89,9 @@
           <div class="card-body">
               <h5 class="card-title">{{ memo.memo_title }}</h5>
               <!--改行は反映させて行数で表示-->
-              <div class="memo-clamp"> 
-                {{ memo.content }}
-              </div>
+              <p class="memo-clamp"> 
+                {{ memo.content|linebreaksbr }}
+              </p>
           </div>
           {% if memo.image %}
           <img src="{{ memo.image.url }}" class="card-img-top mx-auto d-block" style="width: 150px; height: auto;" alt="メモ画像">
