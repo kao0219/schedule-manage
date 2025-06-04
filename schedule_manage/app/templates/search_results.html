@@ -30,6 +30,14 @@
     border: 2px solid #C8E6C9; /* カードの枠線色 */
     border-radius: 8px;        
   }
+
+  .card-text-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;  /* 2行まで */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: pre-line;  /* 改行を反映 *//
+  }
 </style>
 
 
@@ -51,9 +59,9 @@
             <p class="card-text"><small class="text-muted">{{ schedule.start_time|date:"Y年m月d日" }}</small></p>
             <h5 class="card-title">{{ schedule.schedule_title }}</h5>
             <!--改行は反映させて行数で表示-->
-            <p class="card-text card-text-clamp">
-              {{ schedule.schedule_memo|linebreaksbr }}
-            </p>
+            <div class="memo-clamp">
+              {{ schedule.schedule_memo }}
+            </div>
           </div>
       </div>
     </div>
@@ -78,9 +86,9 @@
           <div class="card-body">
               <h5 class="card-title">{{ memo.memo_title }}</h5>
               <!--改行は反映させて行数で表示-->
-              <p class="card-text card-text-clamp"> 
-                {{ memo.content|linebreaksbr }}
-              </p>
+              <div class="memo-clamp"> 
+                {{ memo.content }}
+              </div>
           </div>
           {% if memo.image %}
           <img src="{{ memo.image.url }}" class="card-img-top mx-auto d-block" style="width: 150px; height: auto;" alt="メモ画像">
