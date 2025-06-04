@@ -28,7 +28,7 @@
       <div class="card h-100" style="background-color: #fff0f5; text-align: center;">
         <div class="card-body">
           <h5 class="card-title">{{ memo.memo_title }}</h5>
-          <p class="card-text">{{ memo.content|truncatechars:20|linebreaksbr }}</p>
+          <p class="memo-list-clamp">{{ memo.content|linebreaksbr }}</p>
 
           {% if memo.image %}
             <img src="{{ memo.image.url }}" alt="サムネイル" class="mx-auto d-block" style="max-width: 180px; height: auto;">
