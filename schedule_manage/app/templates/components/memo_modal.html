@@ -1,7 +1,7 @@
 <div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-labelledby="memoModalLabel{{ memo.id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form method="POST" enctype="multipart/form-data" action="{% url 'app:memo_detail' memo.id %}">
+        <form method="POST" class="edit-memo-form" enctype="multipart/form-data" action="{% url 'app:memo_detail' memo.id %}">
           {% csrf_token %}
           <div class="modal-header">
             <h5 class="modal-title" id="memoModalLabel{{ memo.id }}"></h5>
