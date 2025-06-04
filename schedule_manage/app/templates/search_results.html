@@ -50,11 +50,10 @@
           <div class="card-body">
             <p class="card-text"><small class="text-muted">{{ schedule.start_time|date:"Y年m月d日" }}</small></p>
             <h5 class="card-title">{{ schedule.schedule_title }}</h5>
-            <!--改行は反映せずに文字数制限で一旦書いてる54～56-->
-            <p class="card-text" style="white-space: pre-line;">
-              {{ schedule.schedule_memo|truncatechars:20 }}
+            <!--改行は反映させて行数で表示-->
+            <p class="card-text card-text-clamp">
+              {{ schedule.schedule_memo|linebreaksbr }}
             </p>
-            {% comment %} <p class="card-text">{{ schedule.schedule_memo|truncatechars:20|linebreaksbr}}</p> {% endcomment %}
           </div>
       </div>
     </div>
@@ -78,11 +77,10 @@
            style="cursor: pointer;">
           <div class="card-body">
               <h5 class="card-title">{{ memo.memo_title }}</h5>
-              <!--改行は反映せずに文字数制限で一旦書いてる80～83-->
-              <p class="card-text" style="white-space: pre-line;"> 
-                {{ memo.content|truncatechars:20 }}
+              <!--改行は反映させて行数で表示-->
+              <p class="card-text card-text-clamp"> 
+                {{ memo.content|linebreaksbr }}
               </p>
-              {% comment %} <p class="card-text">{{ memo.content|truncatechars:20|linebreaksbr}}</p> {% endcomment %}
           </div>
           {% if memo.image %}
           <img src="{{ memo.image.url }}" class="card-img-top mx-auto d-block" style="width: 150px; height: auto;" alt="メモ画像">
