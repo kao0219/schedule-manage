@@ -12,6 +12,17 @@
     z-index: 999;
     border-top: 1px solid #ccc;
   }
+
+  .memo-list-clamp {
+    display: -webkit-box;    /* 複数行表示のため設定 */
+    -webkit-line-clamp: 2;  /* 2行まで */
+    -webkit-box-orient: vertical;
+    overflow: hidden;      /* 複数行表示のため設定 */
+    text-overflow: ellipsis;   /* 2行以上は...表示 */
+    white-space: normal;  /* 改行を反映 *//
+    font-size: 14px;
+    line-height: 1.4;
+  }
 </style>
 
 <a href="#" data-bs-toggle="modal" data-bs-target="#createMemoModal" 
