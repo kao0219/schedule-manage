@@ -1,37 +1,37 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
-    body {
+    .change-email-page body {
         text-align: center;
         padding-top: 110px;
         font-family: sans-serif;
     }
 
-    form {
+    .change-email-page form {
         display: inline-block;
         text-align: left;
     }
 
-    .form-row {
+    .change-email-page .form-row {
         margin-bottom: 20px;
     }
 
-    label {
+    .change-email-page label {
         display: inline-block;
         width: 180px;
     }
 
-    input {
+    .change-email-page input {
         width: 250px;
         padding: 5px;
     }
 
-    .buttom-row {
+    .change-email-page .buttom-row {
         text-align: center;
         margin-top: 20px;
     }
 
-    .submit-button {
+    .change-email-page .submit-button {
         background-color: #007BFF;
         color: white;
         border: none;
@@ -42,20 +42,69 @@
         margin: 30px auto 10px auto;
     }
 
-    .link {
+    .change-email-page .link {
         text-align: center;
         margin-top: 10px;
     }
+
+    @media screen and (max-width: 768px) {
+        .change-email-page .form-row {
+            display: block;
+            margin-bottom: 20px;
+        }
+
+        .change-email-page form {
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        .change-email-page label {
+            width: 60%;
+            margin-right: 0;
+            margin-bottom: 5px;
+            text-align: center;
+            display: block;
+        }
+
+        .change-email-page input {
+            width: 100%;
+            max-width: 250px;
+            margin: 0 auto;
+            display: block;
+        }
+    }
 </style>
 
+<div class="change-email-page">
+  <form method="POST">
+    {% csrf_token %}
 
-<form method="POST">
+    <div class="form-row">
+        <label for="{{ form.current_email.id_for_label }}">現在のメールアドレス：</label>
+        {{ form.current_email }}
+    </div>
+
+    <div class="form-row">
+        <label for="{{ form.new_email.id_for_label }}">新しいメールアドレス：</label>
+        {{ form.new_email }}
+    </div>
+
+    <div class="button-row">
+        <button type="submit" class="submit-button">変更</button>
+    </div>
+
+    <div class="link">
+        <a href="{% url 'app:settings' %}">キャンセル</a>
+    </div>
+  </form>
+</div>
+{% comment %} <form method="POST">
     {% csrf_token %}
     {{ form.as_p }}
     <button type="submit" class="submit-button">変更</button>
     <div class="link">
       <a href="{% url 'app:settings' %}">キャンセル</a>
     </div>
-  </form>
+  </form> {% endcomment %}
     
 {% endblock %}
