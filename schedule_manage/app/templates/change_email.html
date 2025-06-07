@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <style>
-    .change-email-page body {
+    .change-email-page {
         text-align: center;
         padding-top: 110px;
         font-family: sans-serif;
@@ -48,6 +48,10 @@
     }
 
     @media screen and (max-width: 768px) {
+        .change-email-page {
+            padding-top: 100px !important;
+        }
+
         .change-email-page .form-row {
             display: block;
             margin-bottom: 20px;
@@ -59,11 +63,12 @@
         }
 
         .change-email-page label {
-            width: 60%;
+            width: 70%;
             margin-right: 0;
             margin-bottom: 5px;
             text-align: center;
             display: block;
+            font-size: 14px;
         }
 
         .change-email-page input {

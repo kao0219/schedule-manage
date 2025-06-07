@@ -704,8 +704,7 @@ def invite_register_view(request, token):
             return redirect('app:home') #　ホームへ遷移   
     return render(request, 'invite_register.html', {'token': token}) #　有効な場合は登録画面
 
-def change_password_view(request):
-    return render(request, 'change_password.html')
+
 
 @login_required
 def change_email_view(request):
