@@ -457,6 +457,16 @@ def schedule_detail_view(request, schedule_id):
     weekday_en = date_obj.strftime('%a')
     weekday_ja = WEEKDAYS_JA.get(weekday_en, weekday_en)
     display_label = date_obj.strftime(f'%Y年%m月%d日（{weekday_ja}）')  
+    
+    # 開始日のラベル
+    start_weekday_en = schedule.start_time.strftime('%a')
+    start_weekday_ja = WEEKDAYS_JA.get(start_weekday_en, start_weekday_en)
+    start_date_label = schedule.start_time.strftime(f'%m月%d日（{start_weekday_ja}）')
+
+    # 終了日のラベル
+    end_weekday_en = schedule.end_time.strftime('%a')
+    end_weekday_ja = WEEKDAYS_JA.get(end_weekday_en, end_weekday_en)
+    end_date_label = schedule.end_time.strftime(f'%m月%d日（{end_weekday_ja}）')
 
     #DB保存・比較用
     display_date = date_obj.strftime('%Y-%m-%d')
