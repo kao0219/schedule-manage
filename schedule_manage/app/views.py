@@ -480,6 +480,8 @@ def schedule_detail_view(request, schedule_id):
         'display_date': display_date, 
         'selected_date': display_label, 
         'is_edit': True,
+        'start_date_label': start_date_label,
+        'end_date_label': end_date_label,
     })
 
 
