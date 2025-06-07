@@ -468,6 +468,13 @@ def schedule_detail_view(request, schedule_id):
     end_weekday_ja = WEEKDAYS_JA.get(end_weekday_en, end_weekday_en)
     end_date_label = schedule.end_time.strftime(f'%m月%d日（{end_weekday_ja}）')
 
+    # 日跨ぎなら開始〜終了、それ以外は開始のみ
+    if schedule.start_time.date() == schedule.end_time.date():
+        schedule_range_label = start_date_label
+    else:
+        schedule_range_label = f"{start_date_label} 〜 {end_date_label}"
+
+
     #DB保存・比較用
     display_date = date_obj.strftime('%Y-%m-%d')
 
