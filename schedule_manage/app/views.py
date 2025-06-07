@@ -717,7 +717,7 @@ def change_email_view(request):
             request.user.save()
             return redirect('app:home')
     else:
-            form = CustomEmailChangeForm(user=request.user, initial={'current_email': request.user.email})
+            form = CustomEmailChangeForm(user=request.user)
 
     return render(request, 'change_email.html', {'form': form})
 
