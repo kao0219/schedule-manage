@@ -25,7 +25,7 @@
     .invite-invalid-btn {
       padding: 10px 30px;
       font-size: 16px;
-      background-color: #007BFF;
+      background-color: #e0e0e0;
       color: white;
       border: none;
       border-radius: 5px;
@@ -34,12 +34,30 @@
       margin-top: 20px;
       cursor: pointer;
     }
+    @media (max-width: 768px) {
+      .invite-invalid-wrapper {
+        margin: 60px auto;
+        padding: 20px;
+      }
 
+      .invite-invalid-wrapper h2 {
+        font-size: 20px;
+      }
+
+      .invite-invalid-wrapper p {
+        font-size: 14px;
+      }
+
+      .invite-invalid-btn {
+        width: 80%;
+        font-size: 15px;
+        padding: 10px;
+      }
+    }
   </style>
 </head>
 
 <body>
-
   <div class="invite-invalid-wrapper">
     <h2>この招待URLは無効です。</h2>
     <p>有効期限が切れているか、すでに使用されています。</p>
