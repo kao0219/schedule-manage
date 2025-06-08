@@ -10,50 +10,72 @@
         font-family: sans-serif;
     }
 
-    .info-box {
+    .invite-member-info {
         border: 1px solid #aaa;
         padding: 15px;
         margin-bottom: 20px;
         text-align: left;
+        word-wrap: break-word;
     }
 
-    .invite-url {
+    .invite-member-url {
         width: 200%
         padding: 8px;
         margin-top: 10px;
     }
 
-    .button {
+    .invite-member-button {
         padding: 40px 40px;
         font-weight: bold;
         margin: 10px 10;
     }
 
-    .link {
+    .invite-member-link {
         margin-top: 25px;
         display: block;
     }
+
+    @media (max-width: 768px) {
+      .invite-member-wrapper {
+        padding-top: 60px;
+        margin: 60px 10px;
+      }
+
+      .invite-member-info {
+        font-size: 14px;
+      }
+
+      .invite-member-url {
+        width: 85%;
+      }
+
+      .invite-member-button {
+        width: 85%;
+        max-width: 250px;
+        padding: 10px;
+      }
+    }
 </style>
 
-<div class="invite-wrapper"> <!-- ここまで-->
+<div class="invite-member-wrapper"> <!-- ここまで-->
   <h2>家族招待URL画面</h2>
 
-  <div class="info-box">
-    <p>利用方法：</p>
+  <div class="invite-member-info">
+    <strong>利用方法：</strong><br>
       作成をクリックし、リンク先URLを表示<br>
       招待したい家族にリンク先を共有しアカウントを登録してもらう。<br>
-      ※発行されたURLは一度利用すると失効します。<br>
+      ※発行されたURLは一度利用すると失効します。
   </div>
 
   <form method="POST">
     {% csrf_token %}
-    <button type="submit">家族招待URLを作成する</button>
+    <button type="submit" class="invite-member-button">家族招待URLを作成する</button>
   </form>
 
   {% if invite_url %}
-     <input type="text" value="{{ invite_url }}" readonly style="width: 40%;">
+    <input type="text" value="{{ invite_url }}" readonly class="invite-member-url">
   {% endif %}
-<br>
-  <a class="link" href="{% url 'app:settings' %}">キャンセル</a>   
+
+  <a href="{% url 'app:settings' %}" class="invite-member-link">キャンセル</a>   
 </div> 
 {% endblock %}
