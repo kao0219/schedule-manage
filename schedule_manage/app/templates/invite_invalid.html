@@ -6,12 +6,18 @@
   <style>
 
 
-    
-  <div style="text-align: center; margin-top: 100px;">
+  </style>
+</head>
+
+<body>
+
+  <div class="invite-invalid-wrapper">
     <h2>この招待URLは無効です。</h2>
     <p>有効期限が切れているか、すでに使用されています。</p>
 
     <a href="{% url 'app:login' %}">
-      <button type="button" style="text-align: center; margin-top: 20px;">ログイン画面へ</button>
+      <button type="button" class="invite-invalid-btn">ログイン画面へ</button>
     </a>
   </div>
+</body>
+</head>
