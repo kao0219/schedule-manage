@@ -2,6 +2,8 @@
 {% block content %}
 
 <style>
+
+
 .member-list-header {
   display: flex;
   flex-direction: column;  /* 縦並び */
@@ -61,37 +63,109 @@
 
 .settings-links a {
   font-size: 20px;  /* リンク文字のサイズ *//
-  text-decoration: none;
+  text-decoration: underline;
   color: #888888;
 }
 
 .settings-links a:hover {
   color: #555555;  
+  
+}
+
+@media (max-width: 768px) {
+  .settings-wrapper {
+    margin-top: 90px;
+  }
+}
+
+.member-list-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.member-title {
+  font-weight: bold;
+  font-size: 30px;
+  color: #333333;
+}
+
+.member-icons {
+  display: flex;
+  gap: 40px;
+}
+
+.member-icon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #ffb347;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.member-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.member-name {
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.settings-links {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+  text-align: center;
+}
+
+.settings-links li {
+  margin-bottom: 15px;
+}
+
+.settings-links a {
+  font-size: 20px;
   text-decoration: underline;
+  color: #888888;
+}
+
+.settings-links a:hover {
+  color: #555555;
+  
 }
 </style>
   
+<div class="settings-wrapper">
+  <div class="member-list-header">
+    <p class="member-title">メンバーリスト</p>
+    <div class="member-icons">
+      {% for member in members %}
+        <div class="member-block">
+          <div class="member-icon" title="{{ member.username }}">
+            {{ member.username|slice:":1"|upper }}
+          </div>
+          <div class="member-name">
+            {{ member.username }}
+          </div>
+        </div>
+      {% endfor %}
+    </div>
 
-<div class="member-list-header">
-  <p class="member-title">メンバーリスト</p>
-  <div class="member-icons">
-    {% for member in members %}
-      <div class="member-block">
-        <div class="member-icon" title="{{ member.username }}">
-          {{ member.username|slice:":1"|upper }}
-        </div>
-        <div class="member-name">
-          {{ member.username }}
-        </div>
-      </div>
-    {% endfor %}
+    <ul class="settings-links">
+      <li><a href="{% url 'app:invite_member' %}">メンバーを招待する</a></li>
+      <li><a href="{% url 'app:change_password' %}">パスワード変更</a></li>
+      <li><a href="{% url 'app:change_email' %}">メールアドレス変更</a></li>
+    </ul>
   </div>
-
-  <ul class="settings-links">
-    <li><a href="{% url 'app:invite_member' %}">メンバーを招待する</a></li>
-    <li><a href="{% url 'app:change_password' %}">パスワード変更</a></li>
-    <li><a href="{% url 'app:change_email' %}">メールアドレス変更</a></li>
-  </ul>
 </div>
-
 {% endblock %}
