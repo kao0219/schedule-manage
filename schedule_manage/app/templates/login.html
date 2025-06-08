@@ -2,6 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!--　これないとmediaクエリ効かない-->
     <style>
         .login-wrapper {
             text-align: center;
@@ -55,13 +56,12 @@
 
         @media (max-width: 768px) {
             .login-wrapper {
-                padding-top: 60px; /* 上部の余白を少し縮める */
+                padding-top: 60px; 
             }
             
             .login-row {
-                display: flex;
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
                 margin-bottom: 20px;
             }
 
@@ -101,13 +101,13 @@
         <form method="post">
             {% csrf_token %}
 
-            <div class="login-low">
+            <div class="login-row">
                 <label for="email" class="login-label">メールアドレス</label>
                 <input type="email" id="email" name="email" class="login-input" required>
             </div>
 
 
-            <div class="login-low">
+            <div class="login-row">
                 <label for="password" class="login-label">パスワード</label>
                 <input type="password" id="password" name="password" class="login-input" required>
             </div>
