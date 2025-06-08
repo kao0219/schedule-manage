@@ -32,23 +32,32 @@
             text-align: center;
             padding-top: 110px;
             font-family: sans-serif;
+
         }
 
-        .invite-wrapper form {
+        .form-wrapper {
+            display: flex;
+            justify-content: center;
+        }
+
+        .form-wrapper form {
             display: inline-block;
             text-align: left;
         }
 
-        .invite-row {
+        .form-row {
+            display: flex;
+            align-items: center;
             margin-bottom: 20px;
         }
 
         .invite-label {
             display: inline-block;
             width: 160px;
+            margin-right: 10px;
         }
 
-        .invite-input {
+        input {
             width: 250px;
             padding: 5px;
         }
@@ -70,24 +79,24 @@
                 padding-top: 60px;
             }
 
-            .invite-row {
+            .form-row {
                 flex-direction: column;
                 align-items: flex-start;
-                margin-bottom: 20px;
+                margin-bottom: 10px;
             }
 
-            .invite-label {
+            label {
                 display: block !important;
                 margin-bottom: 5px;
             }
-
-            .invite-input {
-                width: 85% !important;
+            /* フォームの長さ */
+            input {
+                width: 100% !important;
                 max-width: 300px;
             }
 
             button.register-btn {
-                width: 85% !important;
+                width: 70% !important;
                 max-width: 200px;
             }
 
@@ -100,43 +109,45 @@
 <body>
     <div class="invite-wrapper">
         <h2 style="text-align: center; margin-bottom: 20px;">アカウント新規登録</h2>
-        <form method="POST" action="{% url 'app:invite_register' token %}">
-            {% csrf_token %}
-            {% if messages %}
-            <div class="error-messages">
-                {% for message in messages %}
-                <p>{{ message }}</p>
-                {% endfor %}
-            </div>
-            {% endif %}
+        <div class="form-wrapper">
+            <form method="POST" action="{% url 'app:invite_register' token %}">
+                {% csrf_token %}
+                {% if messages %}
+                <div class="error-messages">
+                    {% for message in messages %}
+                    <p>{{ message }}</p>
+                    {% endfor %}
+                </div>
+                {% endif %}
 
-            <div class="invite-row">
-                <label for="username" class="invite-label">名前/ニックネーム</label>
-                <input type="text" id="username" name="username" class="invite-input" required>
-            </div>
+                <div class="form-row">
+                    <label for="username" class="invite-label">名前/ニックネーム</label>
+                    <input type="text" id="username" name="username" required>
+                </div>
 
-            <div class="invite-row">
-                <label for="email">メールアドレス</label>
-                <input type="email" id="email" name="email" class="invite-input" required>
-            </div>
+                <div class="form-row">
+                    <label for="email" class="invite-label">メールアドレス</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
 
-            <div class="invite-row">
-                <label for="password1">パスワード</label>
-                <input type="password" id="password1" name="password1" class="invite-input" required>
-            </div>
+                <div class="form-row">
+                    <label for="password1" class="invite-label">パスワード</label>
+                    <input type="password" id="password1" name="password1" required>
+                </div>
 
-            <div class="invite-row">
-                <label for="password2">パスワード再入力</label>
-                <input type="password" id="password2" name="password2" class="invite-input" required>
-            </div>
+                <div class="form-row">
+                    <label for="password2" class="invite-label">パスワード再入力</label>
+                    <input type="password" id="password2" name="password2" required>
+                </div>
 
-            <div class="form-buttons">
-                <button type="submit" class="register-btn">登録</button>
-            </div>
-            <div class="form-buttons">
-                <a href="{% url 'app:login' %}" class="back-link">戻る</a>
-            </div>
-        </form>
+                <div class="form-buttons">
+                    <button type="submit" class="register-btn">登録</button>
+                </div>
+                <div class="form-buttons">
+                    <a href="{% url 'app:login' %}" class="back-link">戻る</a>
+                </div>
+            </form>
+        </div>
     </div>
 </body>
 </html>
