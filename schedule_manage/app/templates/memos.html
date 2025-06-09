@@ -23,6 +23,25 @@
     font-size: 14px;
     line-height: 1.4;
   }
+  @media screen and (max-width: 768px) {
+    .card {
+      width: 70%;
+      margin: 1% auto;
+    }
+
+    .card img {
+      width: 80%;
+      height: auto;
+    }
+
+    .card-title {
+      font-size: 10px;
+    }
+
+    .memo-list-clamp {
+      font-size: 8px;
+    }
+  }
 </style>
 
 <a href="#" data-bs-toggle="modal" data-bs-target="#createMemoModal" 
@@ -33,7 +52,7 @@
 
 
 <!--メモ一覧の表示カード-->
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
+<div class="row row-cols-2 row-cols-lg-4 g-4">
   {% for memo in page_obj %}
     <div class="col">
       <div class="card h-100" style="background-color: #fff0f5; text-align: center;">
