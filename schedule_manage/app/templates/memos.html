@@ -24,6 +24,10 @@
     line-height: 1.4;
   }
   @media screen and (max-width: 768px) {
+    .memo-card-container {
+        margin-top: 40px;
+    }
+
     .card {
       width: 70%;
       margin: 1% auto;
@@ -52,26 +56,29 @@
 
 
 <!--メモ一覧の表示カード-->
-<div class="row row-cols-2 row-cols-lg-4 g-4">
-  {% for memo in page_obj %}
-    <div class="col">
-      <div class="card h-100" style="background-color: #fff0f5; text-align: center;">
-        <div class="card-body">
-          <h5 class="card-title">{{ memo.memo_title }}</h5>
-          <p class="memo-list-clamp">{{ memo.content|linebreaksbr }}</p>
+<div class="container memo-card-container">
+  <div class="row row-cols-2 row-cols-lg-4 g-4">
+    {% for memo in page_obj %}
+      <div class="col">
+        <div class="card h-100" style="background-color: #fff0f5; text-align: center;">
+          <div class="card-body">
+            <h5 class="card-title">{{ memo.memo_title }}</h5>
+            <p class="memo-list-clamp">{{ memo.content|linebreaksbr }}</p>
 
-          {% if memo.image %}
-            <img src="{{ memo.image.url }}" alt="サムネイル" class="mx-auto d-block" style="max-width: 180px; height: auto;">
-          {% endif %}
+            {% if memo.image %}
+              <img src="{{ memo.image.url }}" alt="サムネイル" class="mx-auto d-block" style="max-width: 180px; height: auto;">
+            {% endif %}
 
-          <!-- モーダルを開くボタン-->
-          <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#memoModal{{ memo.id }}"></a>
+            <!-- モーダルを開くボタン-->
+            <a href="#" class="stretched-link" data-bs-toggle="modal" data-bs-target="#memoModal{{ memo.id }}"></a>
+          </div>
         </div>
       </div>
-    </div>
 
-    {% include "components/memo_modal.html" %} <!-- 共通モーダル表示用　-->
-  {% endfor %}  
+      {% include "components/memo_modal.html" %} <!-- 共通モーダル表示用　-->
+    {% endfor %}  
+  </div>
+</div>
 
 <!-- ページネーション -->
 <nav class="pagination-wrapper">
