@@ -55,7 +55,21 @@
     .card-title {
       font-size: 10px;  /* タイトル */
     }
+
+    .card-img-top {
+      max-width: 80%;   
+      max-height: 90px; /* 高さを小さく調整 */
+      object-fit: contain; /* 縦横比 */
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 16px; 
+      margin-top: 10px;
+      margin-bottom: 10px;
+    }
   }
+  
 </style>
 
 
@@ -87,7 +101,7 @@
 </div>
 {% else %}
 <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-    <p class="text-center">該当する予定はありません</p>
+    <p class="text-center no-result-text">該当する予定はありません</p>
 </div>
 {% endif %}
 
@@ -119,7 +133,7 @@
 </div>
 {% else %}
 <div class="d-flex justify-content-center align-items-center" style="height: 100px;">
-    <p class="text-center">該当するメモはありません</p>
+    <p class="text-center no-result-text">該当するメモはありません</p>
 </div>
 {% endif %}
 
