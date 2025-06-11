@@ -81,27 +81,37 @@
 </style>
 
 <div class="change-email-page">
-  <form method="POST">
-    {% csrf_token %}
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                  {{ message }}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 
-    <div class="form-row">
-        <label for="{{ form.current_email.id_for_label }}">現在のメールアドレス：</label>
-        {{ form.current_email }}
-    </div>
+    <form method="POST">
+        {% csrf_token %}
 
-    <div class="form-row">
-        <label for="{{ form.new_email.id_for_label }}">新しいメールアドレス：</label>
-        {{ form.new_email }}
-    </div>
+        <div class="form-row">
+            <label for="{{ form.current_email.id_for_label }}">現在のメールアドレス：</label>
+            {{ form.current_email }}
+        </div>
 
-    <div class="button-row">
-        <button type="submit" class="submit-button">変更</button>
-    </div>
+        <div class="form-row">
+            <label for="{{ form.new_email.id_for_label }}">新しいメールアドレス：</label>
+            {{ form.new_email }}
+        </div>
 
-    <div class="link">
-        <a href="{% url 'app:settings' %}">キャンセル</a>
-    </div>
-  </form>
+        <div class="button-row">
+            <button type="submit" class="submit-button">変更</button>
+        </div>
+
+        <div class="link">
+            <a href="{% url 'app:settings' %}">キャンセル</a>
+        </div>
+    </form>
 </div>
     
 {% endblock %}
