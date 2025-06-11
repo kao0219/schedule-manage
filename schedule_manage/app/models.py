@@ -119,6 +119,12 @@ class Schedule(models.Model):
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    
+    def delete(self, *args, **kwargs):
+        # 画像ファイルが存在していたら削除
+        if self.image_url and os.path.isfile(self.image_url.path):
+            os.remove(self.image_url.path)
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.schedule_title
