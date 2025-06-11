@@ -714,8 +714,6 @@ def change_email_view(request):
             new_email = form.cleaned_data['new_email']
             request.user.email = new_email
             request.user.save()
-
-            messages.success(request, "メールアドレスを変更しました。")
             return redirect('app:home')
     else:
             form = CustomEmailChangeForm(user=request.user)
