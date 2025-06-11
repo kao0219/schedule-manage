@@ -5,6 +5,7 @@ from django.utils.crypto import get_random_string
 from django.contrib.auth.models import PermissionsMixin
 from django.conf import settings
 from django.contrib.auth.models import User
+import os
 
 #ユーザーの管理用のマネージャー
 class CustomUserManager(BaseUserManager):
@@ -159,6 +160,12 @@ class Memo(models.Model):
     image = models.ImageField(upload_to='memo_images/', blank=True, null=True)  # 画像添付
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def delete(self, *args, **kwargs):
+        # 画像ファイルが存在していたら削除
+        if self.image and os.path.isfile(self.image.path):
+            os.remove(self.image.path)
+        super().delete(*args, **kwargs)
 
     def __str__(self):
         return self.memo_title
