@@ -386,38 +386,32 @@ def schedule_detail_view(request, schedule_id):
                 return redirect('app:home')  
 
         elif action == 'comment':
-            print("コメント処理に入った")
+            
             form = ScheduleForm(instance=schedule)  
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
-                print("コメントフォームが有効") 
+                
                 comment = comment_form.save(commit=False)
                 comment.schedule = schedule
                 comment.user = request.user
-                display_date_str = request.POST.get('display_date') #←
-                print("display_date_str:", display_date_str)
+                display_date_str = request.POST.get('display_date') #←                
                 try:
                     comment.display_date = datetime.strptime(display_date_str, '%Y-%m-%d').date()
                 except ValueError:
-                    comment.display_date = timezone.now().date()
-                print("保存する comment.display_date =", comment.display_date)
-                comment.save()
-                print("コメント保存完了！")
-
+                    comment.display_date = timezone.now().date()                
+                comment.save()              
     else:
         form = ScheduleForm(instance=schedule)
         comment_form = CommentForm()
 
     filter_date = date_obj.date()
-    print("フィルター用日付 filter_date:", filter_date)
+    
 
     comments = ScheduleComment.objects.filter(
         schedule=schedule,
         # display_date=filter_date   #←これを入れるとコメント保存されても予定ページに表示されない
     ).order_by('-created_at')
-    print("表示対象のコメント数 =", comments.count())
-    print("コメント取得用 date_obj:", date_obj)
-    print("フィルタ用 display_date:", date_obj.date())
+   
 
     for comment in comments:
         if comment.user != request.user:  # 自分以外のコメントに限定
