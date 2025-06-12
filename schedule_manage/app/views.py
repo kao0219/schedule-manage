@@ -641,6 +641,7 @@ def logout_view(request):
     logout(request)
     return redirect('app:login') # ログアウト画面に戻る
 
+@login_required
 def invite_member_view(request):
     invite_url = None
 
