@@ -580,7 +580,7 @@ def memos_view(request):
         'page_obj': page_obj,
     })
 
-
+@login_required
 def create_memo_view(request):
     if request.method == 'POST':
         title = request.POST.get('memo_title')
@@ -597,6 +597,7 @@ def create_memo_view(request):
     
 
 # 編集フォームデータ読み込みと保存、完了後にモーダル→一覧への処理
+@login_required
 def memo_detail_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
     #ファミリー制限
@@ -703,6 +704,7 @@ def change_email_view(request):
 
     return render(request, 'change_email.html', {'form': form})
 
+@login_required
 def change_password_view(request):
     if request.method == 'POST':
         form = CustomPasswordChangeForm(user=request.user, data=request.POST)
