@@ -660,6 +660,7 @@ def invite_member_view(request):
 
     return render(request, 'invite_member.html', {'invite_url': invite_url})
 
+
 def invite_register_view(request, token):
     invite = get_object_or_404(Invite, invite_token=token)
     
