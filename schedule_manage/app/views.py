@@ -110,6 +110,7 @@ def home_view(request):
     
 
 # カレンダー表示について管理
+@login_required
 def schedule_json_view(request):
     selected_date_str = request.GET.get('date')
     if selected_date_str:
@@ -220,6 +221,7 @@ def create_next_schedule_if_needed(schedule):
     schedule.is_relay_created = True
     schedule.save()
 
+@login_required
 def search_view(request):
     query = request.GET.get('q', '')
     schedules = Schedule.objects.filter(schedule_title__icontains=query) if query else []
@@ -556,7 +558,7 @@ def comment_list_delete_view(request, comment_id):
 
     return redirect('app:comment_list_view')
        
-   
+@login_required   
 def schedule_delete_view(request, pk):
     schedule = get_object_or_404(Schedule, pk=pk)
     # ファミリー制限
@@ -566,6 +568,7 @@ def schedule_delete_view(request, pk):
     return redirect('app:home')
 
 #メモ一覧
+@login_required
 def memos_view(request):
     memos = Memo.objects.filter(user__family=request.user.family).order_by('-created_at')  
 
@@ -617,7 +620,7 @@ def memo_detail_view(request, memo_id):
         'memo': memo,
     })
 
-
+@login_required
 def memo_delete_view(request, memo_id):
     memo = get_object_or_404(Memo, id=memo_id)
 
