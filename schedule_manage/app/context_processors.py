@@ -8,8 +8,6 @@ def unread_comment_flag(request):
             
         ).values_list('comment_id', flat=True)
 
-        print("read_ids:", list(read_ids))
-
         has_unread = ScheduleComment.objects.exclude(
             id__in=read_ids
         ).exclude(
