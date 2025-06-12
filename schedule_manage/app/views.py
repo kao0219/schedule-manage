@@ -305,13 +305,8 @@ def schedule_create_view(request):
                         'end_time': start_dt,
                     }
                     return render(request, 'schedule_create.html', context)
-            print(f"[DEBUG] repeat_type before save: {schedule.repeat_type}")
             schedule.save()
             return redirect('app:home') 
-        else:
-            print("[DEBUG] フォームエラー:", form.errors.as_json())
-
-
     else:
         form = ScheduleForm(initial={
             'start_time': start_dt,
