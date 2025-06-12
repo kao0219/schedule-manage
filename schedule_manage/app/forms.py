@@ -31,7 +31,7 @@ class CustomEmailChangeForm(forms.Form):
     def clean_current_email(self):
         current_email = self.cleaned_data['current_email']
         if self.user and current_email !=self.user.email:
-            raise forms.ValidationError('')
+            raise forms.ValidationError('現在のアドレスが一致しません。')
         return current_email
     
 class CustomUserCreationForm(UserCreationForm):
