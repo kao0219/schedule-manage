@@ -278,13 +278,9 @@ def schedule_create_view(request):
                 schedule.end_time = datetime.combine(selected_date, time(23,59))
             else:
                 if schedule.start_time and schedule.end_time:
-                    # print(f"[DEBUG] start_time: {schedule.start_time}, end_time: {schedule.end_time}") 
                     schedule.schedule_date = schedule.start_time.date()
-
                     if schedule.start_time.date() != schedule.end_time.date():
                         schedule.repeat_type = '0'  # 「なし」に強制
-                        # print("[DEBUG] 日跨ぎのため、repeat_typeを'なし'に設定")
-
                     if schedule.start_time > schedule.end_time: # ここで日跨ぎもOK
                         form.add_error('end_time', '終了日時は開始日時と同じか、それ以降に設定してください。')
                         context = {
