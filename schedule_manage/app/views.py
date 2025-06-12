@@ -607,9 +607,7 @@ def memo_detail_view(request, memo_id):
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
             form.save()
-            return HttpResponse(status=200) # JSで処理しリダイレクト不要
-        else:
-            print(form.errors)           
+            return HttpResponse(status=200) # JSで処理しリダイレクト不要          
     else:
         form = MemoForm(instance=memo)
     # ここが無いと GET時に return なしでエラーになる
