@@ -60,10 +60,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         
         const calendarEl = document.getElementById('calendar');
-        if (!calendarEl) {
-            alert("calendarEl が見つかりません");
-            return; 
-        }
+        
         const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
             locale: 'ja',
