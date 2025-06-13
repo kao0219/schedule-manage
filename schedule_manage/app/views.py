@@ -70,7 +70,7 @@ def signup_view(request):
     if request.method == "POST":
         email = request.POST.get('email')
         username = request.POST.get('username')
-        password1 = request.POST.get('password1')
+        password1 = request.POST.get('password')
         password2 = request.POST.get('password2')
 
 
