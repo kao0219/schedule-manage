@@ -68,16 +68,22 @@ def login_view(request):
 
 def signup_view(request):
     if request.method == "POST":
-        email = request.POST["email"]
-        username = request.POST["username"]
-        password = request.POST["password"]
+        email = request.POST.get('email')
+        username = request.POST.get('username')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+
 
         if CustomUser.objects.filter(email=email).exists():
-            messages.error(request, "このメールアドレスは既に登録されています。")
+            messages.error(request, 'このメールアドレスは既に登録されています。')
             return render(request, 'signup.html')
         
-        if len(password) < 8:
-            messages.error(request, "パスワードは8文字以上で入力してください。")
+        if len(password1) < 8:
+            messages.error(request, 'パスワードは8文字以上で入力してください。')
+            return render(request, 'signup.html')
+
+        if password1 != password2:
+            messages.error(request, 'パスワードが一致しません。')
             return render(request, 'signup.html')
 
         # ファミリー作成
@@ -87,7 +93,7 @@ def signup_view(request):
         user = CustomUser.objects.create(
             email=email,
             username=username,
-            password=make_password(password),
+            password=make_password(password1),
             family=family
         )
 
