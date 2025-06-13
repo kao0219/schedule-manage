@@ -92,16 +92,18 @@
       <div class="card h-100 custom-border"
            onclick="location.href='{% url 'app:schedule_detail' schedule.id %}'" 
            style="cursor: pointer;">
-          {% if schedule.image_url %}
-          <img src="{{ schedule.image_url.url }}" class="card-img-top mx-auto d-block" style="width: 150px; height: auto;" alt="予定画像">
-          {% endif %}
+           
           <div class="card-body">
             <p class="card-text"><small class="text-muted">{{ schedule.start_time|date:"Y年m月d日" }}</small></p>
             <h5 class="card-title">{{ schedule.schedule_title }}</h5>
             <!--改行は反映させて行数で表示-->
-            <p class="memo-clamp">
-              {{ schedule.schedule_memo|linebreaksbr }}
-            </p>
+            <p class="memo-clamp">{{ schedule.schedule_memo|linebreaksbr }}</p>
+            {% if schedule.image_url %}
+              <img src="{{ schedule.image_url.url }}" 
+              class="d-block mx-auto mt-2" 
+              style="width: 150px; height: auto;" 
+              alt="予定画像">
+            {% endif %}
           </div>
       </div>
     </div>
