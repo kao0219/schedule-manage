@@ -688,6 +688,8 @@ def invite_register_view(request, token):
                 password=make_password(password1),
                 family = invite.family  # 招待に紐づいたファミリーをセット
             )
+            login(request, user)
+
             invite.status = 2           # 使用済みへ
             invite.save()
             return redirect('app:home') #　ホームへ遷移   
