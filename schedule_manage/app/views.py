@@ -230,9 +230,21 @@ def create_next_schedule_if_needed(schedule):
 @login_required
 def search_view(request):
     query = request.GET.get('q', '')
-    schedules = Schedule.objects.filter(schedule_title__icontains=query) if query else []
-    memos = Memo.objects.filter(memo_title__icontains=query) if query else []
-    
+    user_group = getattr(request.user, 'family', None) # ファミリー制限
+
+    if query:
+        schedules = Schedule.objects.filter(
+            schedule_title__icontains=query,
+            user__family=user_group
+        ) 
+        memos = Memo.objects.filter(
+            memo_title__icontains=query,
+            user__family=user_group
+        )
+    else:
+        schedules = []
+        memos = []
+
     updated_memo_id = None
 
     if request.method == 'POST':
