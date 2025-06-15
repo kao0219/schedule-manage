@@ -374,10 +374,10 @@ def schedule_detail_view(request, schedule_id):
         if action == 'edit':
             form = ScheduleForm(request.POST, request.FILES, instance=schedule)
             comment_form = CommentForm()  
-            if form.is_valid():
-               
+            if form.is_valid():               
                 schedule = form.save(commit=False)
                 schedule.is_all_day = 'is_all_day' in request.POST
+
                 
                 #繰り返し設定の変更チェック　「なし」に変更ならリレー停止
                 if schedule.repeat_type == 0:
