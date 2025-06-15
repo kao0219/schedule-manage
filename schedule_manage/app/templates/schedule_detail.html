@@ -42,6 +42,10 @@
     .thumbnail-image:hover {
         transform: scale(1.05);
     }
+
+    select#id_color {
+      cursor: pointer;
+    }
 </style>
 
 <div class="text-center mb-4">
@@ -130,7 +134,7 @@
         <div class="col-md-6">
 
           <div class="form-check mb-3">
-            <input type="checkbox" id="id_is_all_day" name="is_all_day" class="form-check-input" onchange="toggleDateTimeFields()"
+            <input type="checkbox" id="id_is_all_day" style="cursor: pointer;" name="is_all_day" class="form-check-input" onchange="toggleDateTimeFields()"
                   {% if form.is_all_day.value %}checked{% endif %}>
             <label for="id_is_all_day" class="form-check-label">終日</label>
           </div>
@@ -152,7 +156,7 @@
             {% for value, label in form.repeat_type.field.choices %}
               <label class="me-3"> <!-- ラジオボタン登録したもの反映　-->
                 <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}"
-                      class="repeat-option"
+                      class="repeat-option" style="cursor: pointer;"
                       {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" %}
                           checked
                       {% elif form.repeat_type.value|stringformat:"s" == "" and value == "0"%}  
