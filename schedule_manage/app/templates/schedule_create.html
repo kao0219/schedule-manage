@@ -20,6 +20,10 @@
     border-radius: 4px;          /* 角を少し丸く */
     padding: 8px;                 /* 内側の余白調整 */
     }
+
+    select#id_color {
+      cursor: pointer;
+    }
 </style>
 
 
@@ -53,7 +57,7 @@
 
         <div class="col-md-6">
           <div class="form-check mb-3">
-            <input type="checkbox" id="id_is_all_day" name="is_all_day" onchange="toggleDateTimeFields()">
+            <input type="checkbox" id="id_is_all_day" style="cursor: pointer;" name="is_all_day" onchange="toggleDateTimeFields()">
             <label for="id_is_all_day">終日</label>
           </div>
 
@@ -74,7 +78,7 @@
             {% for value, label in form.repeat_type.field.choices %}
               <label class="me-3">
                 <input type="radio" name="{{ form.repeat_type.name }}" value="{{ value }}" 
-                      class="repeat-option"                                                                                     
+                      class="repeat-option" style="cursor: pointer;"                                                                                 
                       {% if form.repeat_type.value|stringformat:"s" == value|stringformat:"s" or not form.repeat_type.value and value == "0" %}checked{% endif %}>
                 {{ label }}                                                                                    <!--　↑「なし」デフォルト　-->
               </label>
