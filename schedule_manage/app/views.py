@@ -58,7 +58,7 @@ def login_view(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('/schedule_manage/home/') #ホーム画面へ
+                return redirect('/home/') #ホーム画面へ
             else:
                 messages.error(request, 'メールアドレスまたはパスワードが間違っています。') 
         except User.DoesNotExist:
