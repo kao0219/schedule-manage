@@ -74,6 +74,14 @@
         .logout-btn {
             padding: 8px 12px;
             border-radius: 5px;
+            background-color: #FFA07A;  
+            color: #fff;
+            border: none;
+        }
+
+        .logout-btn:hover {
+            background-color: #e57373;  
+            color: #fff;
         }
 
         .gradient-title {
@@ -125,7 +133,7 @@
                
               <li><a class="nav-link" href="{% url 'app:memos' %}">メモ</a></li>
               <li><a class="nav-link" href="{% url 'app:settings' %}">設定</a></li>
-              <li><a class="btn btn-primary logout-btn" href="{% url 'app:logout' %}">ログアウト</a></li>
+              <li><a class="btn logout-btn" href="{% url 'app:logout' %}">ログアウト</a></li>
             </ul>
         </nav>
     </header>
