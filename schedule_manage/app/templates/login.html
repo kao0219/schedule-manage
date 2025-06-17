@@ -43,13 +43,28 @@
             margin: 10px auto;
         }
         button.login-btn:hover {
+            background-color: #005fcc; 
+            color: #fff; 
             cursor: pointer;
         }
-        
-        .link {
+
+        .login-link a {
             text-align: center;
-            margin-top: 10px;
+            margin-top: 20px;
+            color: #007bff;
+            text-decoration: underline;
         }
+
+        .login-link a:hover {
+            color: #0056b3;
+            text-decoration: underline;
+        }
+
+        .login-link {
+            margin-top: 20px;  /* ← ログインボタンとの間隔 */
+            text-align: center;
+        }
+
         .error-messages {
             color: red;
             text-align: center;
@@ -122,7 +137,7 @@
             <button type="submit" class="login-btn">ログイン</button>
         </form>
 
-        <div class="link">
+        <div class="login-link">
             <a href="{% url 'app:signup' %}">新規アカウント登録</a>
         </div>
     </div>
