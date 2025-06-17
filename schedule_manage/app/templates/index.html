@@ -21,6 +21,38 @@
     margin: 0 5px;
     }
 
+    .portfolio-link-item {
+    display: inline-block;        /* インライン＋余白の安定表示 */
+    margin: 8px 12px;             /* リンク同士余白 */
+    padding: 4px 8px;             /* クリック範囲を少し広げる */
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.2s ease;
+    }
+
+    .portfolio-link-item:hover {
+    color: #007BFF;               
+    text-decoration: none;  
+    cursor: pointer;
+    }
+
+    .app-button {
+    padding: 10px 30px;
+    border-radius: 10px;
+    background-color: #e6fff2;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    }
+
+    .app-button:hover {
+        background-color: #cceee0; 
+    }
+    .portfolio-link-container {
+    text-align: center;
+    margin-top: 30px;
+    }
     </style>    
 </head>
 <body style="margin: 0; padding: 0;">
@@ -59,16 +91,14 @@
     </div>
 
 
-        <div style="text-align: center; margin-top: 30px;">
-            <a href="/static/pdf/plan.pdf" target="_blank" style="margin: 0 15px;">企画書</a>
-            <a href="/static/pdf/design.pdf" target="_blank" style="margin: 0 15px;">画面設計図</a>
-            <a href="/static/pdf/flow.pdf" target="_blank" style="margin: 0 15px;">画面遷移図</a>
-            <a href="/static/pdf/er.pdf" target="_blank" style="margin: 0 15px;">ER図</a>
+        <div "portfolio-link-container">
+            <a href="/static/pdf/plan.pdf" target="_blank" class="portfolio-link-item">企画書</a>
+            <a href="/static/pdf/design.pdf" target="_blank" class="portfolio-link-item">画面設計図</a>
+            <a href="/static/pdf/flow.pdf" target="_blank" class="portfolio-link-item">画面遷移図</a>
+            <a href="/static/pdf/er.pdf" target="_blank" class="portfolio-link-item">ER図</a>
             <br><br>
             <a href="/login/">
-                <button style="padding: 10px 30px; border-radius: 10px; background-color: #e6fff2; border: 1px solid #ccc; cursor: pointer;">
-                  アプリへ
-                </button>
+                <button class="app-button">アプリへ</button>
             </a>
         </div>
         
