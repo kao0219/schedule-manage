@@ -10,12 +10,34 @@
     background-color: white;
     padding: 10px 0;
     z-index: 999;
-    border-top: 1px solid #ccc;
   }
 
   .create-memo-link:hover {
     color: #2e2e2e !important; 
     
+  }
+
+  .memo-card {
+    background-color: #fff0f5;
+  }
+
+  .memo-card:hover {
+    background-color: #ffe0f0 !important;
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+
+  .pagination-wrapper .page-link {
+    background-color: #e6d5f7;
+    color: #333;
+    transition: background-color 0.25s;
+    border: none;
+  }
+
+  .pagination-wrapper .page-link:hover {
+    background-color: #d3bdf0;
+    color: #fff;
+    transition: background-color 0.2s;
   }
   .memo-list-clamp {
     display: -webkit-box;    /* 複数行表示のため設定 */
@@ -64,7 +86,7 @@
   <div class="row row-cols-2 row-cols-lg-4 g-4">
     {% for memo in page_obj %}
       <div class="col">
-        <div class="card h-100" style="background-color: #fff0f5; text-align: center;">
+        <div class="card h-100 memo-card" style="text-align: center;">
           <div class="card-body">
             <h5 class="card-title">{{ memo.memo_title }}</h5>
             <p class="memo-list-clamp">{{ memo.content|linebreaksbr }}</p>
