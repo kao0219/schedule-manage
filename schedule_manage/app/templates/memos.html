@@ -19,6 +19,17 @@
 
   .memo-card {
     background-color: #fff0f5;
+    padding: 15px;
+    height: 220px; /* カードの高さを統一 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .memo-card img {
+    height: 100px;
+    object-fit: contain;  /* 画像が枠に収まるよう調整 */
+    margin: 0 auto;
   }
 
   .memo-card:hover {
@@ -92,7 +103,7 @@
             <p class="memo-list-clamp">{{ memo.content|linebreaksbr }}</p>
 
             {% if memo.image %}
-              <img src="{{ memo.image.url }}" alt="サムネイル" class="mx-auto d-block" style="max-width: 180px; height: auto;">
+              <img src="{{ memo.image.url }}" alt="サムネイル">
             {% endif %}
 
             <!-- モーダルを開くボタン-->
