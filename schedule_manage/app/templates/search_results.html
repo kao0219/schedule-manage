@@ -29,12 +29,12 @@
     background-color: #FFF8DC;
     border: 2px solid #C8E6C9; /* カードの枠線色 */
     border-radius: 8px;    
-    height: 140px;  /* カード高さ */
+    height: 150px;  /* カード高さ */
     overflow: hidden;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 10px;  
+    padding: 15px;  
   }
 
   .custom-border:hover {
@@ -44,21 +44,26 @@
   }
 
   .card-img-top {
-    max-width: 70%;
-    max-height: 80px;
-    height: auto;
-    margin: 10px auto 0 auto;  /* 上に余白、左右中央、下にも余白 */
+    height: 50;
+    width: auto;
+    object-fit: contain;  /* 画像が枠に収まるよう調整 */
     display: block;
+    margin: 0 auto;
   }
 
-  .memo-clamp {
+  .custom-border .card-title {
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  .custom-border .memo-clamp {
     display: -webkit-box;    /* 複数行表示のため設定 */
     -webkit-line-clamp: 2;  /* 2行まで */
     -webkit-box-orient: vertical;
     overflow: hidden;      /* 複数行表示のため設定 */
     text-overflow: ellipsis;   /* 2行以上は...表示 */
     white-space: normal;  /* 改行を反映 *//
-    font-size: 14px;
+    font-size: 10px;
     line-height: 1.4;
   }
 
