@@ -28,7 +28,27 @@
   .custom-border {
     background-color: #FFF8DC;
     border: 2px solid #C8E6C9; /* カードの枠線色 */
-    border-radius: 8px;        
+    border-radius: 8px;    
+    height: 140px;  /* カード高さ */
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;  
+  }
+
+  .custom-border:hover {
+    background-color: #fff0f5;  
+    transition: background-color 0.3s;
+    cursor: pointer;
+  }
+
+  .card-img-top {
+    max-width: 70%;
+    max-height: 80px;
+    height: auto;
+    margin: 10px auto 0 auto;  /* 上に余白、左右中央、下にも余白 */
+    display: block;
   }
 
   .memo-clamp {
