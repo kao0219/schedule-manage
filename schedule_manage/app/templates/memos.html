@@ -20,15 +20,22 @@
   .memo-card {
     background-color: #fff0f5;
     padding: 15px;
-    height: 220px; /* カードの高さを統一 */
+    height: 190px; /* カードの高さを統一 */
+    padding: 15px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+     align-items: center;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+    overflow: hidden;
   }
   
   .memo-card img {
-    height: 100px;
+    height: 70px;
+    width: auto;
     object-fit: contain;  /* 画像が枠に収まるよう調整 */
+    display: block;
     margin: 0 auto;
   }
 
