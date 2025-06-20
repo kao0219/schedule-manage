@@ -34,7 +34,11 @@
             {% endif %}
           </div>
           <div class="modal-footer">
-            <a href="{% url 'app:memo_delete' memo.id %}" class="btn btn-danger">削除</a>
+            <a href="{% url 'app:memo_delete' memo.id %}"
+              class="btn btn-danger"
+              onclick="return confirm('本当にこのメモを削除してもよろしいですか？')">
+              削除
+            </a>
             <button type="submit" class="btn btn-primary">完了</button> 
           </div>
         </form>
