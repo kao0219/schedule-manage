@@ -1,3 +1,4 @@
+import re
 from django import forms
 from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.forms import UserCreationForm
@@ -18,6 +19,14 @@ class CustomPasswordChangeForm(PasswordChangeForm):
 
         for field in self.fields.values():
             field.help_text =''
+
+    def clean_new_password1(self):
+        password = self.cleaned_data.get('new_password1')
+        if len(password) < 8:
+            raise forms.ValidationError('パスワードは8文字以上で入力してください。')
+        if not re.search(r'[A-Za-z]', password) or not re.search(r'\d', password):
+            raise forms.ValidationError('パスワードには英字と数字の両方を含めてください。')
+        return password        
 
 
 class CustomEmailChangeForm(forms.Form):
