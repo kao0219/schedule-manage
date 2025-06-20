@@ -420,12 +420,15 @@ def schedule_detail_view(request, schedule_id):
                 comment = comment_form.save(commit=False)
                 comment.schedule = schedule
                 comment.user = request.user
-                display_date_str = request.POST.get('display_date') #←                
+                display_date_str = request.POST.get('display_date')                
                 try:
                     comment.display_date = datetime.strptime(display_date_str, '%Y-%m-%d').date()
                 except ValueError:
                     comment.display_date = timezone.now().date()                
-                comment.save()              
+                comment.save()            
+                
+                comment_form = CommentForm()
+                  
     else:
         form = ScheduleForm(instance=schedule)
         comment_form = CommentForm()
@@ -705,7 +708,7 @@ def invite_register_view(request, token):
 
         elif not re.search(r'[A-Za-z]', password1) or not re.search(r'\d', password1):
             messages.error(request, 'パスワードには英字と数字の両方を含めてください。')
-            
+
         elif CustomUser.objects.filter(email=email).exists():
             messages.error(request, 'このメールアドレスはすでに使われています。')
         else:
