@@ -117,7 +117,7 @@ class CommentForm(forms.ModelForm):
     #コメント投稿必須入力を無効化
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['content'].required = False 
+        self.fields['content'].required = True 
 
 def __init__(self, *args, **kwargs):
         super(ScheduleForm, self).__init__(*args, **kwargs)
