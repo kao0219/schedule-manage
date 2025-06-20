@@ -3,6 +3,11 @@
 
 
 <style>
+    .comment-table thead th {
+        background-color: #d9f2d9 !important;
+        color: #333 !important;               
+    }
+
     .comment-list-container {
         text-align: center;
         margin-top: 40px;
@@ -82,6 +87,10 @@
 
 <div class="comment-list-container">
     <h2 class="page-title">コメント一覧</h2>
+    <p class="text-muted mb-4">
+        ※この一覧は未読コメントのお知らせページです<br>
+        確認を押すと予定ページが表示されます。削除を押すと一覧からなくなります（コメント自体は削除されません）
+    </p>
     <table class="comment-table">
        <thead>
           <tr>
