@@ -179,7 +179,11 @@
 
           <!-- 完了・削除　-->
           <div class="text-end">
-              <a href="{% url 'app:schedule_delete' schedule.id %}" class="btn btn-danger me-2">削除</a>
+              <a href="{% url 'app:schedule_delete' schedule.id %}"
+                class="btn btn-danger me-2"
+                onclick="return confirm('本当にこの予定を削除してもよろしいですか？')">
+                削除
+              </a>
               <button type="submit" name="action" value="edit" class="btn btn-primary">完了</button>
           </div>
         </div>
