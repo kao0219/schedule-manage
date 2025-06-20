@@ -113,7 +113,10 @@
                     {% if comment.id in read_comment_ids %} 
                       <form action="{% url 'app:comment_list_delete' comment.id %}" method="post" style="display:inline;">
                         {% csrf_token %}
-                        <button type="submit" class="delete-button">削除</button>
+                        <button type="submit" class="delete-button"
+                            onclick="return confirm('本当にコメント一覧から削除してもよろしいですか？\n※削除すると一覧からは消えますが、コメント自体は削除されません')">
+                            削除
+                        </button>
                       </form>
                     {% else %}
                       <span>&nbsp;</span> 
