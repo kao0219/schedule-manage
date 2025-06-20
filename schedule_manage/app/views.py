@@ -702,6 +702,10 @@ def invite_register_view(request, token):
             messages.error(request, 'パスワードが一致しません。')
         elif len(password1) < 8:
             messages.error(request, 'パスワードは8文字以上にしてください。')
+
+        elif not re.search(r'[A-Za-z]', password1) or not re.search(r'\d', password1):
+            messages.error(request, 'パスワードには英字と数字の両方を含めてください。')
+            
         elif CustomUser.objects.filter(email=email).exists():
             messages.error(request, 'このメールアドレスはすでに使われています。')
         else:
