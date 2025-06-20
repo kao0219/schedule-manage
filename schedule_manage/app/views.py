@@ -1,3 +1,4 @@
+import re
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, get_user_model
@@ -33,6 +34,7 @@ from django.urls import reverse
 from .models import ScheduleComment, ScheduleCommentRead
 from datetime import datetime, timedelta
 from django.http import HttpResponseForbidden
+
 
 
 
@@ -78,11 +80,15 @@ def signup_view(request):
             messages.error(request, 'このメールアドレスは既に登録されています。')
             return render(request, 'signup.html')
         
-        if len(password1) < 8:
+        elif len(password1) < 8:
             messages.error(request, 'パスワードは8文字以上で入力してください。')
             return render(request, 'signup.html')
+        
+        elif not re.search(r'[A-Za-z]', password1) or not re.search(r'\d', password1):
+            messages.error(request, 'パスワードには英字と数字の両方を含めてください。')
+            return render(request, 'signup.html')
 
-        if password1 != password2:
+        elif password1 != password2:
             messages.error(request, 'パスワードが一致しません。')
             return render(request, 'signup.html')
 
