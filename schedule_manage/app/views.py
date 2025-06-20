@@ -428,7 +428,6 @@ def schedule_detail_view(request, schedule_id):
                 comment.save()            
                 
                 comment_form = CommentForm()
-                  
     else:
         form = ScheduleForm(instance=schedule)
         comment_form = CommentForm()
