@@ -388,22 +388,34 @@ def schedule_detail_view(request, schedule_id):
             # 画像削除チェック
                 if request.POST.get('delete_image'):
                     if schedule.image_url:
-                        image_path = schedule.image_url.path
-                        if os.path.isfile(image_path):
-                            os.remove(image_path) # 物理ファイルを削除
+                        # image_path = schedule.image_url.path
+                        # if os.path.isfile(image_path):
+                        #     os.remove(image_path) # 物理ファイルを削除
+                        schedule.image_url.delete(save=False)
                         schedule.image_url = None # DB上もクリア
-                
-                uploaded_file = request.FILES.get('image_url')
-                if uploaded_file:
-                    # アップロードされたファイルのパスを推測
-                        temp_path = os.path.join(settings.MEDIA_ROOT, 'YOUR_UPLOAD_DIR', uploaded_file.name)
-                        if os.path.isfile(temp_path):
-                            os.remove(temp_path)
 
-                    
-                # 削除チェック+新しいファイル選択している場合は選択ファイルは無視
-                form.cleaned_data['image_url'] = None
-                request.FILES.pop('image_url', None)
+                    # フォームデータ側もクリア
+                    form.cleaned_data['image_url'] = None
+                    request.FILES.pop('image_url', None)
+
+                else:
+                    # 削除チェックがない場合 → 新しい画像があるなら置き換える
+                    uploaded_file = request.FILES.get('image_url')
+                    if uploaded_file:
+                        # 古い画像ファイルがあれば削除
+                        if schedule.image_url:
+                            old_path = schedule.image_url.path
+                            if os.path.isfile(old_path):
+                                os.remove(old_path)
+
+                        # 同名の一時ファイルがすでに存在していたら削除
+                        upload_path = os.path.join('schedule_images', uploaded_file.name)
+                        full_path = os.path.join(settings.MEDIA_ROOT, upload_path)
+                        if os.path.isfile(full_path):
+                            os.remove(full_path)
+
+                        # 画像を保存
+                        schedule.image_url.save(uploaded_file.name, uploaded_file)
 
                 schedule.is_all_day = 'is_all_day' in request.POST
 
