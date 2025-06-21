@@ -35,6 +35,7 @@ from django.urls import reverse
 from .models import ScheduleComment, ScheduleCommentRead
 from datetime import datetime, timedelta
 from django.http import HttpResponseForbidden
+from django.conf import settings
 
 
 
@@ -391,6 +392,18 @@ def schedule_detail_view(request, schedule_id):
                         if os.path.isfile(image_path):
                             os.remove(image_path) # 物理ファイルを削除
                         schedule.image_url = None # DB上もクリア
+                
+                uploaded_file = request.FILES.get('image_url')
+                if uploaded_file:
+                    # アップロードされたファイルのパスを推測
+                        temp_path = os.path.join(settings.MEDIA_ROOT, 'YOUR_UPLOAD_DIR', uploaded_file.name)
+                        if os.path.isfile(temp_path):
+                            os.remove(temp_path)
+
+                    
+                # 削除チェック+新しいファイル選択している場合は選択ファイルは無視
+                form.cleaned_data['image_url'] = None
+                request.FILES.pop('image_url', None)
 
                 schedule.is_all_day = 'is_all_day' in request.POST
 
