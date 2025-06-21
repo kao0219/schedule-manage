@@ -44,7 +44,27 @@
     }
 
     select#id_color {
-      cursor: pointer;
+        cursor: pointer;
+    }
+
+    .image-upload-btn {
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: #f0f0f0;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .image-upload-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+    .file-name-text {
+        margin-left: 10px;
+        color: #555;
+        font-size: 0.9em;
     }
 </style>
 
@@ -105,11 +125,19 @@
           {% if schedule.image_url %}
             <div class="mt-3">
               <!-- サムネイル画像（クリックでモーダルを開く） -->
-              <img src="{{ schedule.image_url.url }}" 
+              <img id="thumbnail-preview"
+                  src="{{ schedule.image_url.url }}" 
                   alt="添付画像" 
                   class="thumbnail-image" 
                   data-bs-toggle="modal" 
                   data-bs-target="#imageModal">
+            </div>
+            <!-- 画像削除　-->
+            <div class="form-check mb-3">
+              <input class="form-check-input" type="checkbox" value="1" id="delete_image" name="delete_image">
+              <label class="form-check-label" for="delete_image">
+                現在の画像を削除する
+              </label>
             </div>
 
             <!-- モーダル（画像拡大表示） -->
@@ -173,8 +201,9 @@
           </div>
 
           <div class="mb-3">
-              <label for="edit_image" style="cursor: pointer; color: #666;">画像選択</label>
-              <input type="file" id="edit_image" name="image_url" accept="image/*" style="display: none;">  
+              <label for="edit_image" class="image-upload-btn">ファイルを選択</label>
+              <input type="file" id="edit_image" name="image_url" accept="image/*" style="display: none;" onchange="updateEditFileName(this)">
+              <span id="edit-file-name" class="file-name-text">ファイル未選択</span>
           </div>
 
           <!-- 完了・削除　-->
@@ -191,7 +220,24 @@
     </div>
   </form>
 </div>  
-
+<script>
+  function updateEditFileName(input) {
+    const fileName = input.files[0] ? input.files[0].name : "ファイル未選択";
+    document.getElementById("edit-file-name").textContent = fileName;
+  }
+  // 画像を変更したときのサムネイル
+  function previewImage(input) {
+    const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        const preview = document.getElementById("thumbnail-preview");
+        preview.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+</script>
 <script src="{% static 'js/schedule_controls.js' %}"></script>
 
 {% endblock %}
