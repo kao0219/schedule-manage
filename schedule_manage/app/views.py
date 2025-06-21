@@ -1,4 +1,5 @@
 import re
+import os
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth import authenticate, login, get_user_model
@@ -380,8 +381,17 @@ def schedule_detail_view(request, schedule_id):
         if action == 'edit':
             form = ScheduleForm(request.POST, request.FILES, instance=schedule)
             comment_form = CommentForm()  
+            
             if form.is_valid():               
                 schedule = form.save(commit=False)
+            # 画像削除チェック
+                if request.POST.get('delete_image'):
+                    if schedule.image_url:
+                        image_path = schedule.image_url.path
+                        if os.path.isfile(image_path):
+                            os.remove(image_path) # 物理ファイルを削除
+                        schedule.image_url = None # DB上もクリア
+
                 schedule.is_all_day = 'is_all_day' in request.POST
 
                 

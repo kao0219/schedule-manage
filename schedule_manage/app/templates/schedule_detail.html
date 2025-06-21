@@ -122,7 +122,7 @@
               </div>
           </form>
           
-          {% if schedule.image_url %}
+          {% if schedule.image_url and schedule.image_url.url %}
             <div class="mt-3">
               <!-- サムネイル画像（クリックでモーダルを開く） -->
               <img id="thumbnail-preview"
