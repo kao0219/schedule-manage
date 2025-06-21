@@ -126,9 +126,10 @@
             <div class="mt-3">
               <!-- サムネイル画像（クリックでモーダルを開く） -->
               <img id="thumbnail-preview"
-                  src="{{ schedule.image_url.url }}" 
+                  src="{% if schedule.image_url and schedule.image_url.url %}{{ schedule.image_url.url }}{% endif %}"
                   alt="添付画像" 
                   class="thumbnail-image" 
+                  {% if not schedule.image_url or not schedule.image_url.url %}style="display: none;"{% endif %}
                   data-bs-toggle="modal" 
                   data-bs-target="#imageModal">
             </div>
@@ -207,7 +208,12 @@
 
           <div class="mb-3">
               <label for="edit_image" class="image-upload-btn">ファイルを選択</label>
-              <input type="file" id="edit_image" name="image_url" accept="image/*" style="display: none;" onchange="updateEditFileName(this)">
+              <input type="file" 
+                     id="edit_image" 
+                     name="image_url" 
+                     accept="image/*" 
+                     style="display: none;" 
+                     onchange="updateEditFileName(this); previewImage(this)">
               <span id="edit-file-name" class="file-name-text">
                 {% if schedule.image_url %}
                   {{ schedule.image_url.name|cut:"media/" }}
@@ -244,6 +250,7 @@
       reader.onload = function(e) {
         const preview = document.getElementById("thumbnail-preview");
         preview.src = e.target.result;
+        preview.style.display = "block"; 
       };
       reader.readAsDataURL(file);
     }
