@@ -208,7 +208,13 @@
           <div class="mb-3">
               <label for="edit_image" class="image-upload-btn">ファイルを選択</label>
               <input type="file" id="edit_image" name="image_url" accept="image/*" style="display: none;" onchange="updateEditFileName(this)">
-              <span id="edit-file-name" class="file-name-text">ファイル未選択</span>
+              <span id="edit-file-name" class="file-name-text">
+                {% if schedule.image_url %}
+                  {{ schedule.image_url.name|cut:"media/" }}
+                {% else %}
+                  ファイル未選択
+                {% endif %}
+              </span>
           </div>
 
           <!-- 完了・削除　-->
