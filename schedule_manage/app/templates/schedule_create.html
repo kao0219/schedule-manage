@@ -16,13 +16,33 @@
     }
     /* 枠のデザイン */
     input[type="text"], textarea {
-    border: 1px solid #cccccc;  /* 薄めのグレー */
-    border-radius: 4px;          /* 角を少し丸く */
-    padding: 8px;                 /* 内側の余白調整 */
+        border: 1px solid #cccccc;  /* 薄めのグレー */
+        border-radius: 4px;          /* 角を少し丸く */
+        padding: 8px;                 /* 内側の余白調整 */
     }
 
     select#id_color {
-      cursor: pointer;
+        cursor: pointer;
+    }
+
+    .image-upload-btn {
+        display: inline-block;
+        padding: 6px 12px;
+        background-color: #f0f0f0;
+        color: #333;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .image-upload-btn:hover {
+        background-color: #e0e0e0;
+    }
+
+    .file-name-text {
+        margin-left: 10px;
+        color: #555;
+        font-size: 0.9em;
     }
 </style>
 
@@ -92,8 +112,9 @@
           
 
           <div class="mb-3">
-              <label for="create_image" style="cursor: pointer; color: #666;">画像選択</label>
-              <input type="file" id="create_image" name="image_url" accept="image/*" style="display: none;">
+              <label for="create_image" class="image-upload-btn">ファイルを選択</label>
+              <input type="file" id="create_image" name="image_url" accept="image/*" style="display: none;" onchange="updateFileName(this)">
+              <span id="file-name" class="file-name-text">ファイル未選択</span>
           </div>
           <div class="text-end">
               <button type="submit" class="btn btn-primary me-2">登録</button>
@@ -103,7 +124,12 @@
     </div>
   </form>
 </div>
-
+<script>
+  function updateFileName(input) {
+    const fileName = input.files[0] ? input.files[0].name : "ファイル未選択";
+    document.getElementById("file-name").textContent = fileName;
+  }
+</script>
 
 <script src="{% static 'js/schedule_controls.js' %}"></script>
 
