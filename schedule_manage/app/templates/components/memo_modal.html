@@ -88,7 +88,7 @@
               onclick="return confirm('本当にこのメモを削除してもよろしいですか？')">
               削除
             </a>
-            <button type="submit" class="btn btn-primary">完了</button> 
+            <button type="submit" class="btn btn-primary memo-edit-submit-btn">完了</button> 
           </div>
         </form>
       </div>
@@ -137,5 +137,18 @@ function handleFileSelect(input, memoId) {
   const filename = input.files.length > 0 ? input.files[0].name : 'ファイル未選択';
   document.getElementById(`filename-display-${memoId}`).textContent = filename;
 }
+
+// 多重クリック一時的な無効化
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.edit-memo-form').forEach(function(form) {
+    form.addEventListener('submit', function (e) {
+      // 送信ボタンをformの中から探す（同じフォーム内のものだけ対象に）
+      const submitBtn = form.querySelector('.memo-edit-submit-btn');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+      }
+    });
+  });
+});
 </script>
       
