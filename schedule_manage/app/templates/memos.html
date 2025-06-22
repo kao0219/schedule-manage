@@ -73,6 +73,23 @@
     font-size: 12px;
     line-height: 1.4;
   }
+
+  .custom-file-label {
+    white-space: nowrap;
+    padding: 6px 12px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .custom-file-label:hover {
+    background-color: #e0e0e0;
+  }
+  .file-name-text {
+    margin-top: 5px;
+    color: #666;
+  }
+
   @media screen and (max-width: 768px) {
     .memo-card-container {
         margin-top: 30px;
@@ -171,9 +188,10 @@
           <label>本文</label>
           <textarea name="content" class="form-control" rows="3"></textarea>
         </div>
-        <div class="mb-3">
-          <label for="create_image" style="cursor: pointer; color: #666;">画像選択</label>
-          <input type="file" id="create_image" name="image" accept="image/*" style="display: none;">
+        <div class="mb-3 d-flex align-items-center gap-2">
+          <label for="create_image" class="custom-file-label mb-0">ファイルを選択</label>
+          <input type="file" id="create_image" name="image" accept="image/*" style="display: none;" onchange="updateCreateFileName(this)">
+          <span id="create-file-name" class="file-name-text mb-0">ファイル未選択</span>
         </div>
         <div class="modal-footer">
           <button type="submit" class="btn btn-primary">登録</button>
@@ -183,4 +201,10 @@
   </div>
 </div>
 
+<script>
+function updateCreateFileName(input) {
+  const fileName = input.files[0] ? input.files[0].name : 'ファイル未選択';
+  document.getElementById('create-file-name').textContent = fileName;
+}
+</script>
 {% endblock %}
