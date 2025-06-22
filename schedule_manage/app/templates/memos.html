@@ -172,7 +172,7 @@
 <div class="modal fade" id="createMemoModal" tabindex="-1" aria-labelledby="creatememoModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      <form method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
+      <form id="memo-form" method="POST" enctype="multipart/form-data" action="{% url 'app:create_memo' %}">
         {% csrf_token %}
         <div class="modal-header">
         <h5 class="modal-title" id="memoModalLabel{{ memo.id }}"></h5>
@@ -194,7 +194,7 @@
           <span id="create-file-name" class="file-name-text mb-0">ファイル未選択</span>
         </div>
         <div class="modal-footer">
-          <button type="submit" class="btn btn-primary">登録</button>
+          <button type="submit" id="memo-submit-btn" class="btn btn-primary">登録</button>
         </div>
       </form>
     </div>
@@ -206,5 +206,16 @@ function updateCreateFileName(input) {
   const fileName = input.files[0] ? input.files[0].name : 'ファイル未選択';
   document.getElementById('create-file-name').textContent = fileName;
 }
+
+document.addEventListener("DOMContentLoaded", function () {
+    const submitBtn = document.getElementById("memo-submit-btn");
+    const form = document.getElementById("memo-form");
+
+    if (submitBtn && form) {
+      form.addEventListener("submit", function () {
+        submitBtn.disabled = true;
+      });
+    }
+  });
 </script>
 {% endblock %}
