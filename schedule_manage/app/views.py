@@ -673,6 +673,18 @@ def memo_detail_view(request, memo_id):
     if request.method == 'POST':
         form = MemoForm(request.POST, request.FILES, instance=memo)
         if form.is_valid():
+            # 削除チェックの確認(削除を優先)
+            if request.POST.get('delete_image') == 'on':
+                if memo.image:
+                    memo.image.delete(save=False)
+                memo.image = None  # DB上も削除
+                
+            # 画像が新しくアップロードされていたら、古い画像を削除して更新
+            elif 'image' in request.FILES:
+                if memo.image and os.path.isfile(memo.image.path):
+                    os.remove(memo.image.path)
+                memo.image = request.FILES['image']
+
             form.save()
             return HttpResponse(status=200) # JSで処理しリダイレクト不要          
     else:
