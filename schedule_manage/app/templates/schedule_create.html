@@ -60,7 +60,7 @@
 
 
 <div id="main" data-is-edit="false">
-  <form method="post" enctype="multipart/form-data">
+  <form method="post" enctype="multipart/form-data" id="schedule-form">
     {% csrf_token %}
     <div class="container">
       <div class="row">
@@ -117,7 +117,7 @@
               <span id="file-name" class="file-name-text">ファイル未選択</span>
           </div>
           <div class="text-end">
-              <button type="submit" class="btn btn-primary me-2">登録</button>
+              <button type="submit" class="btn btn-primary me-2" id="schedule-submit-btn">登録</button>
           </div>
         </div>
       </div>
@@ -129,6 +129,17 @@
     const fileName = input.files[0] ? input.files[0].name : "ファイル未選択";
     document.getElementById("file-name").textContent = fileName;
   }
+
+  document.addEventListener("DOMContentLoaded", function () {
+  const submitBtn = document.getElementById("schedule-submit-btn");
+  const form = document.getElementById("schedule-form");
+
+  if (submitBtn && form) {
+    form.addEventListener("submit", function () {
+      submitBtn.disabled = true;
+    });
+  }
+});
 </script>
 
 <script src="{% static 'js/schedule_controls.js' %}"></script>
