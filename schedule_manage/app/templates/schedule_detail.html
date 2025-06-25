@@ -112,10 +112,10 @@
             {% endfor %}
           </div>
           <!-- コメント投稿　-->
-          <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}">
+          <form method="post" action="{% url 'app:comment_add' schedule_id=schedule.id %}" onkeydown="return event.key !== 'Enter';">
               {% csrf_token %}
               
-              <input type="hidden" name="display_date" value="{{ display_date|date:'Y-m-d' }}"> <!--92-->
+              <input type="hidden" name="display_date" value="{{ display_date|date:'Y-m-d' }}"> 
               <div class="d-flex">
                   {{ comment_form.content }}
                   <button type="submit" name="action" value="comment" class="btn btn-secondary ms-2">送信</button>
@@ -266,7 +266,6 @@
       thumbnail.style.display = "block";
     }
   }
-</script>
 <script src="{% static 'js/schedule_controls.js' %}"></script>
 
 {% endblock %}
