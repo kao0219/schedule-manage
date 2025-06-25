@@ -19,11 +19,16 @@ document.addEventListener('DOMContentLoaded', function () {
         startDate.style.display     = allDay ? 'block' : 'none';
         endDate.style.display       = allDay ? 'block' : 'none';
 
-        /* 終日 ON のときは 00:00 / 23:59 を自動付与
-           - 既に値が入っている場合 slice(0,10) で YYYY-MM-DD へ */
+        /* 終日 ON のときは 00:00 / 23:59 を自動付与 */
         if (allDay) {
-            if (startDateTime.value) startDateTime.value = startDateTime.value.slice(0, 10) + 'T00:00';
-            if (endDateTime.value)   endDateTime.value   = endDateTime.value.slice(0, 10) + 'T23:59';
+            if (startDateTime.value) {
+                const startDate = startDateTime.value.slice(0, 10);
+                startDateTime.value = `${startDate}T00:00`;
+            }
+            if (endDateTime.value) {
+                const endDate = endDateTime.value.slice(0, 10);
+                endDateTime.value = `${endDate}T23:59`;
+            }
         }
 
         // 日跨ぎ判定も併せて再評価
