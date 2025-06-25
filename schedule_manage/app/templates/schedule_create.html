@@ -77,11 +77,49 @@
 
         <div class="col-md-6">
           <div class="form-check mb-3">
-            <input type="checkbox" id="id_is_all_day" style="cursor: pointer;" name="is_all_day" onchange="toggleDateTimeFields()">
-            <label for="id_is_all_day">終日</label>
+            <input type="checkbox"
+                   id="id_is_all_day"
+                   style="cursor: pointer;"
+                   name="is_all_day"
+                   class="form-check-input"
+                   onchange="toggleAllDayUI()"
+                   {% if form.is_all_day.value %}checked{% endif %}>
+            <label for="id_is_all_day" class="form-check-label">終日</label>
+          </div>
+          
+          <div class="mb-3">
+            <label for="start_time_dt" class="form-label">開始</label>
+            <!-- 通常　-->
+            <input type="datetime-local"
+                  name="start_time"
+                  id="start_time_dt"
+                  class="form-control"
+                  value="{{ schedule.start_time|default:start_time|date:'Y-m-d\\TH:i' }}"
+                  style="width:200px;">
+
+            <!--終日用（日付のみ）--> 
+            <input type="date"
+                  id="start_time_date"
+                  class="form-control"
+                  style="width:200px; display:none;">
           </div>
 
           <div class="mb-3">
+            <label for="end_time_dt" class="form-label">終了</label>
+            <!-- 通常　-->
+            <input type="datetime-local"
+                  name="end_time"
+                  id="end_time_dt"
+                  class="form-control"
+                  value="{{ schedule.end_time|default:end_time|date:'Y-m-d\\TH:i' }}"
+                  style="width:200px;">
+            <!-- 終日用（日付のみ）-->
+            <input type="date"
+                  id="end_time_date"
+                  class="form-control"
+                  style="width:200px; display:none;">
+          </div>
+          {% comment %} <div class="mb-3">
             <label for="start_date" class="form-label">開始</label>
             <input type="datetime-local" name="start_time" id="id_start_time" class="form-control" 
             value="{{ start_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
@@ -91,7 +129,7 @@
             <label for="end_date" class="form-label">終了</label>
             <input type="datetime-local" name="end_time" id="id_end_time" class="form-control" 
             value="{{ end_time|date:'Y-m-d\\TH:i' }}" style="width: 200px;">
-          </div>
+          </div> {% endcomment %}
 
           <div class="mb-3">
             <label class="form-label">繰り返し設定</label><br>
