@@ -185,7 +185,7 @@
                   name="start_time"
                   id="start_time_dt"
                   class="form-control"
-                  value="{{ schedule.start_time|default:start_time|date:'Y-m-d\\TH:i' }}"
+                  value="{{ form.start_time.value|date:'Y-m-d\\TH:i' }}"
                   style="width:200px;">
 
             <!--終日用（日付のみ）--> 
@@ -202,7 +202,7 @@
                   name="end_time"
                   id="end_time_dt"
                   class="form-control"
-                  value="{{ schedule.end_time|default:end_time|date:'Y-m-d\\TH:i' }}"
+                  value="{{ form.end_time.value|date:'Y-m-d\\TH:i' }}"
                   style="width:200px;">
             <!-- 終日用（日付のみ）-->
             <input type="date"
