@@ -108,7 +108,6 @@ class ScheduleForm(forms.ModelForm):
         self.fields['color'].choices = [('', '好きな色を選択')] + list(self.fields['color'].choices) 
 
 
-
 class CommentForm(forms.ModelForm):
     class Meta:
         model = ScheduleComment
