@@ -126,7 +126,7 @@
             },
 
             eventClick: function(info) {
-                const scheduleId = info.event.extendedProps.id;
+                const scheduleId = info.event.extendedProps.original_id;
                 const cellEl = info.jsEvent.target.closest('.fc-daygrid-day');
                 let clickedDate = null;
                 if (cellEl) {
