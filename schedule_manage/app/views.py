@@ -454,20 +454,22 @@ def schedule_detail_view(request, schedule_id):
         elif action == 'comment':
             
             form = ScheduleForm(instance=schedule)  
+            # コメント投稿
             comment_form = CommentForm(request.POST)
             if comment_form.is_valid():
-                
-                comment = comment_form.save(commit=False)
-                comment.schedule = schedule
-                comment.user = request.user
-                display_date_str = request.POST.get('display_date')                
-                try:
-                    comment.display_date = datetime.strptime(display_date_str, '%Y-%m-%d').date()
-                except ValueError:
-                    comment.display_date = timezone.now().date()                
-                comment.save()            
-                
-                comment_form = CommentForm()
+                content = comment_form.cleaned_data.get('content')
+                if content:  # ← 空でないときだけ保存処理
+                    comment = comment_form.save(commit=False)
+                    comment.schedule = schedule
+                    comment.user = request.user
+                    display_date_str = request.POST.get('display_date')                
+                    try:
+                        comment.display_date = datetime.strptime(display_date_str, '%Y-%m-%d').date()
+                    except ValueError:
+                        comment.display_date = timezone.now().date()                
+                    comment.save()            
+                    
+                    comment_form = CommentForm()
     else:
         form = ScheduleForm(instance=schedule)
         comment_form = CommentForm()
