@@ -117,8 +117,16 @@
                 window.location.href = `/schedule/create?date=${clickedDate}`;
             },
 
+
+            eventDataTransform: function(eventData) {
+                if (eventData._id) {
+                    eventData.id = eventData._id;  // 表示には _id を使う（ユニークにする）複数の繰り返し予定のため
+                }
+                return eventData;
+            },
+
             eventClick: function(info) {
-                const scheduleId = info.event.id;
+                const scheduleId = info.event.extendedProps.id;
                 const cellEl = info.jsEvent.target.closest('.fc-daygrid-day');
                 let clickedDate = null;
                 if (cellEl) {
