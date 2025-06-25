@@ -8,9 +8,11 @@
     
 <style>
     #calendar {
-        max-width: 700px;
+        max-width: 740px;
         margin: 0px auto;
         padding: 20px;
+        padding-right: 40px; /* スクロールバー重なり対策 */
+        padding-left: 24px;  /* 左右バランス調整 */
         background-color: white;
         border-radius: 12px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
@@ -89,6 +91,8 @@
         .fc-daygrid-day:hover {
         background-color: #f9f9f9;
     }
+
+
 </style> 
     
 <script>
