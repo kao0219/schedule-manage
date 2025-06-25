@@ -160,6 +160,7 @@ def schedule_json_view(request):
         event = {
             'id': schedule.id, 
             '_id': f"{schedule.id}-{schedule.start_time.strftime('%Y%m%d%H%M')}",
+            'original_id': schedule.id,
             'title': schedule.schedule_title,
             'start': schedule.start_time.date().isoformat(), # ←これは消すとうまくカレンダー反映されない
             'end': schedule.end_time.isoformat(), #121end~と123all~がないとカレンダーに日跨ぎの予定がうまく表示されない。
