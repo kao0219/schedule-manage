@@ -13,24 +13,29 @@ document.addEventListener('DOMContentLoaded', function () {
         // チェック状態を取得
         const allDay = isAllDayCheckbox.checked;
 
-        // display を切り替え（disabled にはしない）
+        // 開始・終了のdatetime-local（時刻付き）を非表示
         startDateTime.style.display = allDay ? 'none'  : 'block';
         endDateTime.style.display   = allDay ? 'none'  : 'block';
+         // 開始・終了のdate（終日用・日付のみ）を表示
         startDate.style.display     = allDay ? 'block' : 'none';
         endDate.style.display       = allDay ? 'block' : 'none';
 
-        /* 終日 ON のときは 00:00 / 23:59 を自動付与 */
+        // datetime-local の値があれば date にコピー
         if (allDay) {
             if (startDateTime.value) {
-                const startDate = startDateTime.value.slice(0, 10);
-                startDateTime.value = `${startDate}T00:00`;
+                startDate.value = startDateTime.value.slice(0, 10);  // yyyy-mm-dd
             }
             if (endDateTime.value) {
-                const endDate = endDateTime.value.slice(0, 10);
-                endDateTime.value = `${endDate}T23:59`;
+                endDate.value = endDateTime.value.slice(0, 10);  // yyyy-mm-dd
+            }
+        } else {
+            if (startDate.value) {
+                startDateTime.value = `${startDate.value}T00:00`;
+            }
+            if (endDate.value) {
+                endDateTime.value = `${endDate.value}T23:59`;
             }
         }
-
         // 日跨ぎ判定も併せて再評価
         evaluateRepeatOptions();
     }
