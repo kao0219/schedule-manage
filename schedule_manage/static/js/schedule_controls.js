@@ -22,14 +22,15 @@ document.addEventListener('DOMContentLoaded', function () {
         endDate.style.display       = allDay ? 'block' : 'none';
         // 終日ON時は時間を削除
         if (allDay) {
-            const now = new Date();
-            const yyyy = now.getFullYear();
-            const mm = String(now.getMonth() + 1).padStart(2, '0');
-            const dd = String(now.getDate()).padStart(2, '0');
-            const today = `${yyyy}-${mm}-${dd}`;
+        // すでにdatetime-localに入力されてる値（例："2025-06-23T10:00"）を使って日付だけ抽出
+            const startDateTimeValue = document.getElementById('start_time_dt').value;
+            const endDateTimeValue = document.getElementById('end_time_dt').value;
 
-            startDate.value = today;
-            endDate.value = today;
+            const startDateOnly = startDateTimeValue ? startDateTimeValue.slice(0, 10) : '';
+            const endDateOnly = endDateTimeValue ? endDateTimeValue.slice(0, 10) : '';
+
+            startDate.value = startDateOnly;
+            endDate.value = endDateOnly;
         }
         evaluateRepeatOptions();
     }
