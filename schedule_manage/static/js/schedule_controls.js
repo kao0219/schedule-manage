@@ -11,7 +11,8 @@ document.addEventListener('DOMContentLoaded', function () {
     /* ----------- 1. 終日チェックで入力欄をトグル ---------- */
     function toggleAllDayUI() {
         // チェック状態を取得
-        const allDay = isAllDayCheckbox.checked;
+        console.log('toggleAllDayUI が呼ばれた');
+        const allDay = document.getElementById("id_is_all_day").checked;
 
         // 開始・終了のdatetime-local（時刻付き）を非表示
         startDateTime.style.display = allDay ? 'none'  : 'block';
@@ -19,24 +20,17 @@ document.addEventListener('DOMContentLoaded', function () {
          // 開始・終了のdate（終日用・日付のみ）を表示
         startDate.style.display     = allDay ? 'block' : 'none';
         endDate.style.display       = allDay ? 'block' : 'none';
-
-        // datetime-local の値があれば date にコピー
+        // 終日ON時は時間を削除
         if (allDay) {
-            if (startDateTime.value) {
-                startDate.value = startDateTime.value.slice(0, 10);  // yyyy-mm-dd
-            }
-            if (endDateTime.value) {
-                endDate.value = endDateTime.value.slice(0, 10);  // yyyy-mm-dd
-            }
-        } else {
-            if (startDate.value) {
-                startDateTime.value = `${startDate.value}T00:00`;
-            }
-            if (endDate.value) {
-                endDateTime.value = `${endDate.value}T23:59`;
-            }
+            const now = new Date();
+            const yyyy = now.getFullYear();
+            const mm = String(now.getMonth() + 1).padStart(2, '0');
+            const dd = String(now.getDate()).padStart(2, '0');
+            const today = `${yyyy}-${mm}-${dd}`;
+
+            startDate.value = today;
+            endDate.value = today;
         }
-        // 日跨ぎ判定も併せて再評価
         evaluateRepeatOptions();
     }
 
@@ -93,4 +87,5 @@ document.addEventListener('DOMContentLoaded', function () {
 
     /* ----------- 6. 初期表示のUI反映 ---------------------- */
     toggleAllDayUI(); // 画面ロード直後に一度実行
+
 });
