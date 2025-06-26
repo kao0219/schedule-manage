@@ -1,22 +1,31 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<div id="calendar"></div>
+<div id="calendar-wrapper">
+  <div id="calendar"></div>
+</div>
      
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     
 <style>
+    /* スクロール対策 */
+    #calendar-wrapper {
+        max-height: 600px;           /* ← カレンダーの高さに応じて調整可 */
+        overflow-y: auto;            /* ← スクロールバーをここに表示 */
+        padding-right: 8px;          /* ← カレンダーとの間に余白 */
+        box-sizing: border-box;
+    }
+
     #calendar {
         max-width: 740px;
         margin: 0px auto;
         padding: 20px;
-        padding-right: 40px; /* スクロールバー重なり対策 */
-        padding-left: 24px;  /* 左右バランス調整 */
         background-color: white;
         border-radius: 12px;
         box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
     }
+
     .fc-daygrid-day-number {
         text-align: left;
         padding-left: 4px;
@@ -92,7 +101,6 @@
         background-color: #f9f9f9;
     }
     
-
 </style> 
     
 <script>
