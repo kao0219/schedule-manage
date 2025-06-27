@@ -435,14 +435,17 @@ def schedule_detail_view(request, schedule_id):
                         schedule.is_relay_created = True
 
                 if schedule.is_all_day: 
-                    #  開始時刻があればそれを日付を取得し登録
-                    if schedule.start_time and schedule.end_time:
-                        schedule.schedule_date = schedule.start_time.date()
-                    else:
-                        schedule.schedule_date = schedule.schedule_date or timezone.now().date()
-            
-                    schedule.start_time = datetime.combine(schedule.schedule_date, time.min)
-                    schedule.end_time = datetime.combine(schedule.schedule_date, time(23,59))
+                    # フォームで送られてきた start_time / end_time の「日付部分」を使う
+                    start_date = schedule.start_time.date()
+                    end_date   = schedule.end_time.date()
+
+                    # 代表日（schedule_date）を開始日に設定（使っていれば）
+                    schedule.schedule_date = start_date
+
+                    # 終日のため、開始は00:00、終了は23:59に丸めて登録
+                    tz = timezone.get_current_timezone()
+                    schedule.start_time = datetime.combine(start_date, time.min)  # 00:00:00
+                    schedule.end_time   = datetime.combine(end_date,   time(23, 59))  # 23:59:59
                 else:
                     # 通常の時間指定
                     if schedule.start_time and schedule.end_time:
