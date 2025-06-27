@@ -157,16 +157,28 @@ def schedule_json_view(request):
         if schedule.start_time is None:
             continue
 
+        # FullCalendar で allDay の end を1日進めて exclusive対応
+        if schedule.is_all_day:
+
+            start_str = schedule.start_time.date().isoformat()        # YYYY-MM-DD
+            end_str   = (schedule.end_time.date() + timedelta(days=1)).isoformat()  # +1日 終日+日跨ぎの場合にカレンダーに日跨ぎで表示させるため
+        else:
+            # ------ 時刻付きイベント ------
+            start_str = schedule.start_time.isoformat(sep='T', timespec='seconds')    # YYYY-MM-DDTHH:MM:SS これは消すとうまくカレンダー反映されない
+            end_str   = schedule.end_time.isoformat(sep='T', timespec='seconds')      #←ないとカレンダーに日跨ぎの予定がうまく表示されない。
+    
+
         event = {
             'id': schedule.id, 
             '_id': f"{schedule.id}-{schedule.start_time.strftime('%Y%m%d%H%M')}",
             'original_id': schedule.id,
             'title': schedule.schedule_title,
-            'start': schedule.start_time.date().isoformat(), # ←これは消すとうまくカレンダー反映されない
-            'end': schedule.end_time.isoformat(), #121end~と123all~がないとカレンダーに日跨ぎの予定がうまく表示されない。
+            'start': start_str,
+            'end': end_str,
             'color': schedule.get_color_code(),
             'allDay': schedule.is_all_day, 
         }
+        
         
         
         # 未読なら🔔マークを見出しに表示
