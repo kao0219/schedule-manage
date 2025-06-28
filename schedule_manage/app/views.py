@@ -456,7 +456,7 @@ def schedule_detail_view(request, schedule_id):
                     schedule.schedule_date = start_date  # 代表日
 
                     # 00:00:00 ～ 23:59:59.999999 に丸め直す
-                    schedule.start_time = datetime.combine(start_date, time(0,0))
+                    schedule.start_time = datetime.combine(start_date, time.min)
                     schedule.end_time = datetime.combine(end_date, time(23, 59))
                 # 通常イベントはそのまま（else: pass）
 
