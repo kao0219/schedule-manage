@@ -209,6 +209,12 @@
                   id="end_time_date"
                   class="form-control"
                   style="width:200px; display:none;">
+
+            {% if form.end_time.errors %}
+              <div class="text-danger small mt-1">
+                {{ form.end_time.errors.0 }}
+              </div>
+            {% endif %}
           </div>
           
           <div class="mb-3">

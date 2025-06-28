@@ -401,6 +401,7 @@ def schedule_detail_view(request, schedule_id):
             
             if form.is_valid():               
                 schedule = form.save(commit=False)
+                schedule.is_all_day = 'is_all_day' in request.POST
                 
                 delete_image = request.POST.get('delete_image')
                 uploaded_file = request.FILES.get('image_url')
@@ -438,7 +439,7 @@ def schedule_detail_view(request, schedule_id):
                         # 画像を保存
                     schedule.image_url.save(uploaded_file.name, uploaded_file)
 
-                schedule.is_all_day = 'is_all_day' in request.POST
+                # schedule.is_all_day = 'is_all_day' in request.POST
 
                 
                 #繰り返し設定の変更チェック　「なし」に変更ならリレー停止
@@ -449,24 +450,34 @@ def schedule_detail_view(request, schedule_id):
                         schedule.is_relay_created = True
 
                 if schedule.is_all_day: 
-                    # フォームで送られてきた start_time / end_time の「日付部分」を使う
+                    #↓ここから
                     start_date = schedule.start_time.date()
                     end_date   = schedule.end_time.date()
+                    schedule.schedule_date = start_date  # 代表日
 
-                    # 代表日（schedule_date）を開始日に設定（使っていれば）
-                    schedule.schedule_date = start_date
+                    # 00:00:00 ～ 23:59:59.999999 に丸め直す
+                    schedule.start_time = datetime.combine(start_date, time(0,0))
+                    schedule.end_time = datetime.combine(end_date, time(23, 59))
+                # 通常イベントはそのまま（else: pass）
 
-                    # 終日のため、開始は00:00、終了は23:59に丸めて登録
-                    tz = timezone.get_current_timezone()
-                    schedule.start_time = datetime.combine(start_date, time.min)  # 00:00:00
-                    schedule.end_time   = datetime.combine(end_date,   time(23, 59))  # 23:59:59
-                else:
-                    # 通常の時間指定
-                    if schedule.start_time and schedule.end_time:
-                        schedule.schedule_date = schedule.start_time.date()
-                    else:
-                        schedule.schedule_date = schedule.schedule_date or timezone.now().date()
-        
+               
+                #  ★ 開始 > 終了 ならエラーを付けて画面に戻す
+                if schedule.end_time < schedule.start_time:
+                    form.add_error('end_time', '終了日時は開始日時以降に設定してください。')
+                    context = {
+                        'form'            : form,
+                        'comment_form'    : comment_form,
+                        'schedule'        : schedule,
+                        'selected_date'   : display_date,
+                        'username_initial': request.user.username[0].upper(),
+                        'now'             : timezone.now().strftime('%Y-%m-%dT%H:%M'),
+                        'is_edit'         : True,
+                    }
+                    return render(request, 'schedule_detail.html', context)
+
+                #  代表日(schedule_date) を開始日に更新して保存
+                schedule.schedule_date = schedule.start_time.date()
+                
                 schedule.save()
                 return redirect('app:home')  
 
