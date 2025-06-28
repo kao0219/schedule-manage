@@ -315,9 +315,12 @@ def schedule_create_view(request):
             schedule.is_all_day = 'is_all_day' in request.POST
         
             if schedule.is_all_day :
-                schedule.schedule_date = selected_date
-                schedule.start_time = datetime.combine(selected_date, time.min)
-                schedule.end_time = datetime.combine(selected_date, time(23,59))
+                schedule.schedule_date = schedule.start_time.date()  # 開始日だけ記録（DB用）
+    
+                # 開始日・終了日＋終日時間帯に変換
+                schedule.start_time = datetime.combine(schedule.start_time.date(), time.min)
+                schedule.end_time = datetime.combine(schedule.end_time.date(), time(23, 59))
+
             else:
                 if schedule.start_time and schedule.end_time:
                     schedule.schedule_date = schedule.start_time.date()
