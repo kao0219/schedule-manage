@@ -320,36 +320,57 @@ def schedule_create_view(request):
                 # 開始日・終了日＋終日時間帯に変換
                 schedule.start_time = datetime.combine(schedule.start_time.date(), time.min)
                 schedule.end_time = datetime.combine(schedule.end_time.date(), time(23, 59))
-
+            
+            #ここから
             else:
+                # バリデーション：終了が開始より前の場合はエラー
                 if schedule.start_time and schedule.end_time:
-                    schedule.schedule_date = schedule.start_time.date()
-                    if schedule.start_time.date() != schedule.end_time.date():
-                        schedule.repeat_type = '0'  # 「なし」に強制
-                    if schedule.start_time > schedule.end_time: # ここで日跨ぎもOK
-                        form.add_error('end_time', '終了日時は開始日時と同じか、それ以降に設定してください。')
+                    if schedule.end_time < schedule.start_time:
+                        form.add_error('end_time', '終了日時は開始日時以降にしてください。')
                         context = {
                             'form': form,
                             'selected_date': selected_date,
                             'username_initial': username_initial,
                             'now': now.strftime("%Y-%m-%dT%H:%M"),
-                            '_is_edit': False,
                             'start_time': schedule.start_time,
                             'end_time': schedule.end_time,
+                            'is_edit': False,
                         }
                         return render(request, 'schedule_create.html', context)
-                else:
-                    form.add_error(None, '開始日時と終了日時は必須です。')
-                    context = {
-                        'form': form,
-                        'selected_date': selected_date,
-                        'username_initial': username_initial,
-                        'now': now.strftime("%Y-%m-%dT%H:%M"),
-                        '_is_edit': False,
-                        'start_time': start_dt,
-                        'end_time': start_dt,
-                    }
-                    return render(request, 'schedule_create.html', context)
+
+                # 日付をまたぐ場合は繰り返し設定を強制的に「なし」に
+                if schedule.start_time.date() != schedule.end_time.date():
+                    schedule.repeat_type = '0'
+
+            # else:
+            #     if schedule.start_time and schedule.end_time:
+            #         schedule.schedule_date = schedule.start_time.date()
+            #         if schedule.start_time.date() != schedule.end_time.date():
+            #             schedule.repeat_type = '0'  # 「なし」に強制
+            #         if schedule.start_time > schedule.end_time: # ここで日跨ぎもOK
+            #             form.add_error('end_time', '終了日時は開始日時と同じか、それ以降に設定してください。')
+            #             context = {
+            #                 'form': form,
+            #                 'selected_date': selected_date,
+            #                 'username_initial': username_initial,
+            #                 'now': now.strftime("%Y-%m-%dT%H:%M"),
+            #                 '_is_edit': False,
+            #                 'start_time': schedule.start_time,
+            #                 'end_time': schedule.end_time,
+            #             }
+            #             return render(request, 'schedule_create.html', context)
+            #     else:
+            #         form.add_error(None, '開始日時と終了日時は必須です。')
+            #         context = {
+            #             'form': form,
+            #             'selected_date': selected_date,
+            #             'username_initial': username_initial,
+            #             'now': now.strftime("%Y-%m-%dT%H:%M"),
+            #             '_is_edit': False,
+            #             'start_time': start_dt,
+            #             'end_time': start_dt,
+            #         }
+            #         return render(request, 'schedule_create.html', context)
             schedule.save()
             return redirect('app:home') 
     else:
