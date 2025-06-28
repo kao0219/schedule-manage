@@ -307,9 +307,11 @@ def schedule_create_view(request):
     start_dt = datetime.combine(selected_date, time(start_hour, start_minute))
 
     if request.method == 'POST' :
+        print("★ POST リクエスト受信")
         form = ScheduleForm(request.POST, request.FILES)
+        print("★ フォーム作成完了")
         if form.is_valid():
-            
+            print("★ フォームバリデーション成功")
             schedule = form.save(commit=False)
             schedule.user = request.user
             schedule.is_all_day = 'is_all_day' in request.POST
@@ -322,11 +324,14 @@ def schedule_create_view(request):
                 schedule.end_time = datetime.combine(schedule.end_time.date(), time(23, 59))
             
             else:
+                print("★ フォームバリデーション失敗")
+                print(form.errors) 
                 #　通常の日時そのまま使う
                 pass
                 
             # バリデーション：終了が開始より前の場合はエラー（終日・通常どちらでも）
             if schedule.end_time < schedule.start_time:
+                print("バリデーションエラー：終了が開始より前です")
                 form.add_error('end_time', '終了日時は開始日時以降にしてください。')
                 context = {
                     'form': form,
