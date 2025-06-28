@@ -83,15 +83,15 @@ class ScheduleForm(forms.ModelForm):
         is_all_day = bool(cleaned_data.get('is_all_day'))
         start_time = cleaned_data.get('start_time')
         end_time = cleaned_data.get('end_time')
+        
+        # 開始・終了が未入力のとき
+        if not start_time or not end_time:
+            self.add_error('end_time', '開始・終了時間を入力してください。')
+            return cleaned_data
 
-        if not is_all_day:
-            if not start_time or not end_time:
-               
-                raise forms.ValidationError('開始・終了時間を入力してください。')
-            
-            if start_time > end_time:
-                
-                raise forms.ValidationError("開始時間は終了時間より前に設定してください。")
+        # 終日 or 通常どちらでも、開始 > 終了 はバリデーションエラー
+        if start_time > end_time:
+            self.add_error('end_time', '開始時間より終了時間を後に設定してください。')
         return cleaned_data
 
     repeat_type = forms.TypedChoiceField(
