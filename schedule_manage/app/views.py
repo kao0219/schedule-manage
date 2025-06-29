@@ -122,7 +122,10 @@ def home_view(request):
 
     return render(request, 'home.html', {'schedules': schedules})
 
-    
+# 使い方ガイド
+@login_required
+def calendar_info_view(request):
+    return render(request, 'calendar_info.html')    
 
 # カレンダー表示について管理
 @login_required
