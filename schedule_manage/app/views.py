@@ -115,6 +115,7 @@ def home_view(request):
     schedules = Schedule.objects.filter(user__family=request.user.family)
 
     for schedule in schedules:
+        print('DEBUG:', schedule.id, schedule.schedule_title, schedule.repeat_type, schedule.is_relay_created)
         create_next_schedule_if_needed(schedule) # 繰り返し部分
 
     schedules = Schedule.objects.filter(user=request.user).order_by('start_time')
@@ -398,10 +399,25 @@ def schedule_detail_view(request, schedule_id):
         if action == 'edit':
             form = ScheduleForm(request.POST, request.FILES, instance=schedule)
             comment_form = CommentForm()  
+
+            # ① 変更前の値をキープしておく　繰り返し無し→ありにする場合
+            old_repeat = form.instance.repeat_type
             
             if form.is_valid():               
                 schedule = form.save(commit=False)
                 schedule.is_all_day = 'is_all_day' in request.POST
+
+                # ② 繰り返しの変更を検知してフラグを更新
+                new_repeat = schedule.repeat_type
+
+                # なし → あり　になったらリレーを走らせる準備（False）
+                if old_repeat == 'none' and new_repeat != 'none':
+                    schedule.is_relay_created = False
+
+                # あり → なし　になったらリレーを止める（True）
+                elif old_repeat != 'none' and new_repeat == 'none':
+                    schedule.is_relay_created = True
+
                 
                 delete_image = request.POST.get('delete_image')
                 uploaded_file = request.FILES.get('image_url')
@@ -443,11 +459,11 @@ def schedule_detail_view(request, schedule_id):
 
                 
                 #繰り返し設定の変更チェック　「なし」に変更ならリレー停止
-                if schedule.repeat_type == 0:
-                    schedule.is_relay_created = False
-                else:
-                    if not schedule.is_relay_created:
-                        schedule.is_relay_created = True
+                # if schedule.repeat_type == 0:
+                #     schedule.is_relay_created = False
+                # else:
+                #     if not schedule.is_relay_created:
+                #         schedule.is_relay_created = True
 
                 if schedule.is_all_day: 
                     #↓ここから
@@ -553,7 +569,7 @@ def schedule_detail_view(request, schedule_id):
     end_weekday_ja = WEEKDAYS_JA.get(end_weekday_en, end_weekday_en)
     end_date_label = schedule.end_time.strftime(f'%m月%d日（{end_weekday_ja}）')
 
-    # 日跨ぎなら開始〜終了、それ以外は開始のみ
+    # 日跨ぎなら開始〜終了、それ以外は開始のみ （予定ページの日付の表示）
     if schedule.start_time.date() == schedule.end_time.date():
         schedule_range_label = start_date_label
     else:
