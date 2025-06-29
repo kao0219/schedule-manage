@@ -192,6 +192,7 @@ def schedule_json_view(request):
 
 # 繰り返し部分
 def create_next_schedule_if_needed(schedule):
+
     # ① 予定がすでに削除されていないか確認（DBに存在するか）
     if not Schedule.objects.filter(id=schedule.id).exists():
         return  # 削除されているなら終了　ここのチェックで作成止まる
@@ -200,15 +201,16 @@ def create_next_schedule_if_needed(schedule):
     if schedule.repeat_type == 0:  # 0 →「なし」　ここのチェックで作成止まる
         return
     # ③ 今の予定完了しないと次は作らない
-    if schedule.start_time > datetime.now():
+    if schedule.end_time > timezone.now():
         return
-    
+        
     # ④ 次の予定がすでに存在していれば作らない（未来の1件あればOK、無限に作られないため）
     future_exists = Schedule.objects.filter(
         user=schedule.user,
         schedule_title=schedule.schedule_title,
         start_time__gt=schedule.start_time
     ).exists()
+
     
     if future_exists:
         return  # すでに次の予定が存在する
@@ -216,6 +218,7 @@ def create_next_schedule_if_needed(schedule):
     #リレー済みなら新規作成しない
     if schedule.is_relay_created:
         return
+
 
     # ⑤ 次の予定を作成する
     next_start = schedule.start_time
@@ -245,6 +248,8 @@ def create_next_schedule_if_needed(schedule):
         is_all_day=schedule.is_all_day,
         color=schedule.color,
         image_url=schedule.image_url,
+        schedule_date=next_start.date(),
+        is_relay_created=False     # ← 新規はまだ未リレー
     )
     #リレー済みにする
     schedule.is_relay_created = True
@@ -351,6 +356,13 @@ def schedule_create_view(request):
 
         
             schedule.save()
+
+            # 保存した schedule をもう一度 refresh して最新のDB状態に
+            schedule.refresh_from_db()
+            
+            if schedule.repeat_type != 0:
+               create_next_schedule_if_needed(schedule)
+
             return redirect('app:home') 
     else:
         form = ScheduleForm(initial={
@@ -411,11 +423,11 @@ def schedule_detail_view(request, schedule_id):
                 new_repeat = schedule.repeat_type
 
                 # なし → あり　になったらリレーを走らせる準備（False）
-                if old_repeat == 'none' and new_repeat != 'none':
+                if old_repeat == 0 and new_repeat != 0:
                     schedule.is_relay_created = False
 
                 # あり → なし　になったらリレーを止める（True）
-                elif old_repeat != 'none' and new_repeat == 'none':
+                elif old_repeat != 0 and new_repeat == 0:
                     schedule.is_relay_created = True
 
                 
@@ -455,16 +467,6 @@ def schedule_detail_view(request, schedule_id):
                         # 画像を保存
                     schedule.image_url.save(uploaded_file.name, uploaded_file)
 
-                # schedule.is_all_day = 'is_all_day' in request.POST
-
-                
-                #繰り返し設定の変更チェック　「なし」に変更ならリレー停止
-                # if schedule.repeat_type == 0:
-                #     schedule.is_relay_created = False
-                # else:
-                #     if not schedule.is_relay_created:
-                #         schedule.is_relay_created = True
-
                 if schedule.is_all_day: 
                     #↓ここから
                     start_date = schedule.start_time.date()
@@ -495,6 +497,13 @@ def schedule_detail_view(request, schedule_id):
                 schedule.schedule_date = schedule.start_time.date()
                 
                 schedule.save()
+
+                # 保存した schedule をもう一度 refresh して最新のDB状態に
+                schedule.refresh_from_db()
+
+                #編集直後に1件だけ次を作成
+                if schedule.repeat_type != 0 and not schedule.is_relay_created:
+                    create_next_schedule_if_needed(schedule)
                 return redirect('app:home')  
 
         elif action == 'comment':
