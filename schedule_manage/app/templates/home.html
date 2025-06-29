@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div id="help-link">
+  <a href="{% url 'calendar_info' %}">📘 カレンダーの使い方</a>
+</div>
+
 <div id="calendar-wrapper">
   <div id="calendar"></div>
 </div>
