@@ -2,7 +2,7 @@
 {% block content %}
 
 <div id="help-link">
-  <a href="{% url 'app:calendar_info' %}">📘 カレンダー機能について</a>
+  <a href="{% url 'app:calendar_info' %}" class="calendar-info-link">📘 カレンダー機能について</a>
 </div>
 
 <div id="calendar-wrapper">
@@ -15,10 +15,17 @@
 <style>
     /* スクロール対策 */
     #calendar-wrapper {
-        max-height: 600px;           /* ← カレンダーの高さに応じて調整可 */
+        max-height: 600px;           /* ← カレンダーの高さに応じて調整 */
         overflow-y: auto;            /* ← スクロールバーをここに表示 */
         padding-right: 8px;          /* ← カレンダーとの間に余白 */
         box-sizing: border-box;
+    }
+    
+    .calendar-info-link {
+        display: inline-block;
+        margin-left: 20px;  /* ← 左に余白 */
+        margin-top: 10px;
+        font-size: 14px;
     }
 
     #calendar {
