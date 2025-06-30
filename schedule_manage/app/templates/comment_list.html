@@ -17,6 +17,19 @@
         font-weight: bold;
         margin-bottom: 10px;
     }
+    /* 説明ボックス */
+    .comment-guide {
+        border: 1px solid #999;   /* 枠線 */
+        background-color: #fafafa;/* 背景色*/
+        padding: 12px 16px;       /* 内側余白 */
+        width: 80%;               /* テーブルと同じ幅感に */
+        max-width: 800px;
+        margin: 0 auto 20px;      /* 中央寄せ + 下余白 */
+        font-size: 14px;
+        line-height: 1.6;
+        box-shadow: 0 2px 6px rgba(0,0,0,.08);
+    }
+    
     .comment-table {
         margin: 0 auto;
         border-collapse: collapse;
@@ -87,10 +100,11 @@
 
 <div class="comment-list-container">
     <h2 class="page-title">コメント一覧</h2>
-    <p class="text-muted mb-4">
+    <div class="comment-guide">
         ※予定についた未読コメントのお知らせページです<br>
         確認を押すと予定ページが表示されます。削除を押すと一覧からなくなります（コメント自体は削除されません）
-    </p>
+    </div>
+
     <table class="comment-table">
        <thead>
           <tr>
