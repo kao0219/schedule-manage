@@ -220,7 +220,6 @@ def create_next_schedule_if_needed(schedule):
     ).exists()
     print('DEBUG: future_exists    =', future_exists)
 
-    
     if future_exists:
         return  # すでに次の予定が存在する
     
