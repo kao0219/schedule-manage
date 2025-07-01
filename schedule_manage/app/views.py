@@ -190,6 +190,7 @@ def schedule_json_view(request):
             event['title'] = '🔔'+ event['title']
 
         events.append(event)
+        create_next_schedule_if_needed(schedule)
 
     return JsonResponse(events, safe=False)
 
@@ -204,15 +205,20 @@ def create_next_schedule_if_needed(schedule):
     if schedule.repeat_type == 0:  # 0 →「なし」　ここのチェックで作成止まる
         return
     # ③ 今の予定完了しないと次は作らない
+    print("DEBUG: schedule.end_time =", schedule.end_time)
+    print("DEBUG: timezone.now()    =", timezone.now())
     if schedule.end_time > timezone.now():
         return
         
     # ④ 次の予定がすでに存在していれば作らない（未来の1件あればOK、無限に作られないため）
+    print('DEBUG: schedule.id      =', schedule.id)
+    print('DEBUG: is_relay_created =', schedule.is_relay_created)
     future_exists = Schedule.objects.filter(
         user=schedule.user,
         schedule_title=schedule.schedule_title,
-        start_time__gt=schedule.start_time
+        start_time__gt=timezone.now()
     ).exists()
+    print('DEBUG: future_exists    =', future_exists)
 
     
     if future_exists:
