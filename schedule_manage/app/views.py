@@ -167,9 +167,21 @@ def schedule_json_view(request):
             start_str = schedule.start_time.date().isoformat()        # YYYY-MM-DD
             end_str   = (schedule.end_time.date() + timedelta(days=1)).isoformat()  # +1日 終日+日跨ぎの場合にカレンダーに日跨ぎで表示させるため
         else:
+            #ここから追加171～181まで。もともとは182～184の部分があった。
+            start_dt = schedule.start_time
+            end_dt = schedule.end_time
+
+            # 開始時刻と終了時刻が同じ、または終了が開始より前なら（念のため）
+            # → FullCalendarが日をまたいでしまう問題を避けるため、1秒加算して幅を持たせる
+            if end_dt <= start_dt:
+                end_dt = start_dt + timedelta(seconds=1)
+
+            # フォーマット： 'YYYY-MM-DDTHH:MM:SS' に変換
+            start_str = start_dt.isoformat(sep='T', timespec='seconds')
+            end_str = end_dt.isoformat(sep='T', timespec='seconds')
             # ------ 時刻付きイベント ------
-            start_str = schedule.start_time.isoformat(sep='T', timespec='seconds')    # YYYY-MM-DDTHH:MM:SS これは消すとうまくカレンダー反映されない
-            end_str   = schedule.end_time.isoformat(sep='T', timespec='seconds')      #←ないとカレンダーに日跨ぎの予定がうまく表示されない。
+            # start_str = schedule.start_time.isoformat(sep='T', timespec='seconds')    # YYYY-MM-DDTHH:MM:SS これは消すとうまくカレンダー反映されない
+            # end_str   = schedule.end_time.isoformat(sep='T', timespec='seconds')      #←ないとカレンダーに日跨ぎの予定がうまく表示されない。
     
 
         event = {
