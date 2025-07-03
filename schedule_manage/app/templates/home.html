@@ -5,20 +5,21 @@
   <a href="{% url 'app:calendar_info' %}" class="calendar-info-link">📘 カレンダー機能について</a>
 </div>
 
-<div id="calendar-wrapper">
-  <div id="calendar"></div>
-</div>
+
+<div id="calendar"></div>
+
      
 <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     
 <style>
     /* スクロール対策 */
-    #calendar-wrapper {
-        max-height: 600px;           /* ← カレンダーの高さに応じて調整 */
-        overflow-y: auto;            /* ← スクロールバーをここに表示 */
-        padding-right: 8px;          /* ← カレンダーとの間に余白 */
-        box-sizing: border-box;
+    .fc-scroller,
+    .fc-scroller-harness {
+        overflow: visible !important;
+        max-height: none !important;
+        padding-right: 0 !important;
+        scrollbar-gutter: auto !important;
     }
     
     .calendar-info-link {
@@ -121,6 +122,7 @@
         
         const calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'dayGridMonth',
+            height: 'auto',
             locale: 'ja',
             headerToolbar: {
                 left: 'prev', //43~45の並びは崩さない年月の隣に左右矢印
