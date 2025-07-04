@@ -431,6 +431,7 @@ def schedule_detail_view(request, schedule_id):
         if action == 'edit':
             form = ScheduleForm(request.POST, request.FILES, instance=schedule)
             comment_form = CommentForm()  
+            print("DEBUG: form.data =", form.data)
 
             # ① 変更前の値をキープしておく　繰り返し無し→ありにする場合
             old_repeat = form.instance.repeat_type
@@ -449,6 +450,10 @@ def schedule_detail_view(request, schedule_id):
                         'repeat_type',
                         '繰り返しの種類は変更できません。'
                     )
+
+                    selected_date = schedule.start_time.date()        # ここで値を作る　あとでけす
+                    print("DEBUG: selected_date ->", selected_date) 
+
                     context = {
                         'form': form,
                         'comment_form': comment_form,
