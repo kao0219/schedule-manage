@@ -441,6 +441,27 @@ def schedule_detail_view(request, schedule_id):
 
                 # ② 繰り返しの変更を検知してフラグを更新
                 new_repeat = schedule.repeat_type
+                
+                #   旧も新も「あり」かつ種類が変わる場合 → エラー
+                # --------------------------------------------------
+                if old_repeat != 0 and new_repeat != 0 and old_repeat != new_repeat:
+                    form.add_error(
+                        'repeat_type',
+                        '繰り返しの種類を別の種類に変更することはできません。'
+                        '一度「なし」を選択して保存をし、繰り返しを停止してから'
+                        '新しく繰り返したい予定を作成してください。'
+                    )
+                    context = {
+                        'form': form,
+                        'comment_form': comment_form,
+                        'schedule': schedule,
+                        'selected_date': schedule.start_time.date(),
+                        'username_initial': request.user.username[0].upper(),
+                        'now': timezone.now().strftime('%Y-%m-%dT%H:%M'),
+                        'is_edit': True,
+                    }
+                    return render(request, 'schedule_detail.html', context)
+                #-----------------------------------------------------
 
                 # なし → あり　になったらリレーを走らせる準備（False）
                 if old_repeat == 0 and new_repeat != 0:
