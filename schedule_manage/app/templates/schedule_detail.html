@@ -232,13 +232,6 @@
               </label>
             {% endfor %}
           </div>
-          <!-- 繰り返しあり→ありのバリデーションエラー-->
-          {% if form.repeat_type.errors %}
-            <div class="text-danger small mt-1">
-              {{ form.repeat_type.errors.0 }}
-            </div>
-          {% endif %}
-
 
           <div class="mb-3">
             <label class="form-label">見出しの色設定</label><br>
