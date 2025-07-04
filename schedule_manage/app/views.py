@@ -447,9 +447,7 @@ def schedule_detail_view(request, schedule_id):
                 if old_repeat != 0 and new_repeat != 0 and old_repeat != new_repeat:
                     form.add_error(
                         'repeat_type',
-                        '繰り返しの種類を別の種類に変更することはできません。'
-                        '一度「なし」を選択して保存をし、繰り返しを停止してから'
-                        '新しく繰り返したい予定を作成してください。'
+                        '繰り返しの種類は変更できません。'
                     )
                     context = {
                         'form': form,
