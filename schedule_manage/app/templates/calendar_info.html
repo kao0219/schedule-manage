@@ -5,20 +5,52 @@
 
 <style>
   .guide-container {
-    width: 100%;
-    padding: 20px 40px;
+    max-width: 1000px;
+    margin: 20px auto;
+    padding: 10px 20px;
     box-sizing: border-box;
   }
-  .guide-block {
+
+  .guide-title {
+    font-size: 20px;
+    font-weight: bold;
+    text-align: left;
+    margin-top: 10px;
     margin-bottom: 30px;
   }
-  .guide-block h3 {
+
+  .guide-block {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 40px;
+  }
+
+  .guide-text {
+    width: 60%;
+  }
+
+  .guide-text h3 {
     color: #333;
-    font-size: 1.2em;
+    font-size: 1.1em;
     margin-bottom: 10px;
   }
-  .guide-block p {
+
+  .guide-text p,
+  .guide-text li {
+    font-size: 0.95em;
     line-height: 1.6;
+  }
+
+  .guide-image {
+    width: 40%;
+    text-align: center;
+  }
+
+  .guide-image img {
+    max-width: 90%;
+    height: auto;
+    border: 1px solid #ccc;
+    border-radius: 4px;
   }
 </style>
 
