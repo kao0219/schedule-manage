@@ -766,7 +766,7 @@ def memo_detail_view(request, memo_id):
                     os.remove(memo.image.path)
                 memo.image = request.FILES['image']
 
-            form.save()
+            memo.save()
             return HttpResponse(status=200) # JSで処理しリダイレクト不要          
     else:
         form = MemoForm(instance=memo)
