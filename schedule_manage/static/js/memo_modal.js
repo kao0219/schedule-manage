@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     form.addEventListener('submit', e => {
       e.preventDefault();                         // 既定送信を止める
+      
 
       /* --- 多重クリック防止 --- */
       const submitBtn = form.querySelector('.memo-edit-submit-btn');
