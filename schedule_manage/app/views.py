@@ -43,8 +43,8 @@ from django.conf import settings
 
 User = get_user_model()
 
-def index(request):
-    return HttpResponse('<h1>Schedule Manage</h1>')
+# def index(request):
+#     return HttpResponse('<h1>Schedule Manage</h1>')
 
 # ポートフォリオページ
 def home(request):
