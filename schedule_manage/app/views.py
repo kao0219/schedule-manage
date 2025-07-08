@@ -46,6 +46,11 @@ User = get_user_model()
 def index(request):
     return HttpResponse('<h1>Schedule Manage</h1>')
 
+# ポートフォリオページ
+def home(request):
+    return render(request, 'index.html')
+
+# ↓使ってない
 def portfolio_view(request):
     return render(request, 'portfolio.html')
 
