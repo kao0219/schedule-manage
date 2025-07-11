@@ -558,7 +558,7 @@ def schedule_detail_view(request, schedule_id):
     comments = ScheduleComment.objects.filter(
         schedule=schedule,
         # display_date=filter_date   #←これを入れるとコメント保存されても予定ページに表示されない
-    ).order_by('-created_at')
+    ).order_by('created_at')
    
 
     for comment in comments:
