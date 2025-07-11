@@ -94,4 +94,14 @@
 
   <a href="{% url 'app:settings' %}" class="invite-member-link">キャンセル</a>   
 </div> 
+
+<script>
+function copyToClipboard() {
+  const input = document.getElementById("invite-url");
+  input.select();
+  document.execCommand("copy");
+  alert("URLをコピーしました！");
+}
+</script>
+
 {% endblock %}
