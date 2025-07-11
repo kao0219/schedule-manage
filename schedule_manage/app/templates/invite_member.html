@@ -88,7 +88,8 @@
   </form>
 
   {% if invite_url %}
-    <input type="text" value="{{ invite_url }}" readonly class="invite-member-url">
+    <input type="text" value="{{ invite_url }}" readonly class="invite-member-url" id="invite-url">
+    <button class="invite-member-button" onclick="copyToClipboard()">コピーする</button>
   {% endif %}
 
   <a href="{% url 'app:settings' %}" class="invite-member-link">キャンセル</a>   
