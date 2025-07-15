@@ -276,17 +276,7 @@
       reader.readAsDataURL(file);
     }
   }
-  // 削除チェックでサムネイル非表示
-  function toggleThumbnailVisibility() {
-    const checkbox = document.getElementById("delete_image");
-    const thumbnail = document.getElementById("thumbnail-preview");
-
-    if (checkbox.checked) {
-      thumbnail.style.display = "none";
-    } else {
-      thumbnail.style.display = "block";
-    }
-  }
+  
 </script>
 
 <script src="{% static 'js/schedule_controls.js' %}"></script>
