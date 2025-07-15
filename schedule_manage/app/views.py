@@ -454,22 +454,13 @@ def schedule_detail_view(request, schedule_id):
                     schedule.is_relay_created = True
 
                 
-                delete_image = request.POST.get('delete_image')
+                #新しい画像がアップロードされたかチェック
                 uploaded_file = request.FILES.get('image_url')
 
-                # 画像削除チェックがある場合 → 削除を優先
-                if delete_image and schedule.image_url:
-                    image_path = schedule.image_url.path
-                    if os.path.isfile(image_path):
-                        os.remove(image_path)  # ファイルを物理的に削除
-                    schedule.image_url.delete(save=False)  # ImageField の紐付け解除
-                    schedule.image_url = None  # DB 上もクリア
-
-                    # フォーム側の image_url もクリア
-                    if 'image_url' in form.cleaned_data:
-                        form.cleaned_data['image_url'] = None
-                    if 'image_url' in request.FILES:    
-                        request.FILES.pop('image_url', None)
+                # フォーム側の image_url もクリア
+                if 'image_url' not in form.cleaned_data:
+                    form.cleaned_data['image_url'] = None 
+                    request.FILES.pop('image_url', None)
 
 
                 # 削除チェックがなく、画像が新しくアップロードされた場合
