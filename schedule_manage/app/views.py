@@ -471,7 +471,6 @@ def schedule_detail_view(request, schedule_id):
                         if os.path.isfile(old_path):
                             os.remove(old_path)
                             
-
                     # 同名の一時ファイルがすでに存在していたら削除
                     upload_path = os.path.join('schedule_images', uploaded_file.name)
                     full_path = os.path.join(settings.MEDIA_ROOT, upload_path)
