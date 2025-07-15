@@ -118,7 +118,7 @@
                   id="end_time_date"
                   class="form-control"
                   style="width:200px; display:none;">
-                  
+
             <!-- エラー：開始＞終了表示 -->
             {% if form.end_time.errors %}
               <div class="text-danger small mt-1">
@@ -168,6 +168,7 @@
   const submitBtn = document.getElementById("schedule-submit-btn");
   const form = document.getElementById("schedule-form");
 
+  //多重クリック防止
   if (submitBtn && form) {
     form.addEventListener("submit", function () {
       submitBtn.disabled = true;
