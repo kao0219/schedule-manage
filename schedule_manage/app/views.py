@@ -477,7 +477,7 @@ def schedule_detail_view(request, schedule_id):
                     if os.path.isfile(full_path):
                         os.remove(full_path)
 
-                        # 画像を保存
+                    # 画像を保存
                     schedule.image_url.save(uploaded_file.name, uploaded_file)
 
                 if schedule.is_all_day: 
