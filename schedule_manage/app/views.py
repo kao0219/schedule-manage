@@ -463,7 +463,7 @@ def schedule_detail_view(request, schedule_id):
                     request.FILES.pop('image_url', None)
 
 
-                # 削除チェックがなく、画像が新しくアップロードされた場合
+                # 画像が新しくアップロードされた場合
                 elif uploaded_file:
                     # 古い画像ファイルがあれば削除
                     if schedule.image_url:
