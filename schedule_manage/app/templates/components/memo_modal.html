@@ -70,17 +70,13 @@
                   {% endif %}
                 </span>
               </div>
+
               {% if memo.image %}
-
-              <div class="form-check mt-2">
-                <input type="checkbox" name="delete_image" class="form-check-input" id="deleteImageCheckbox">
-                <label class="form-check-label" for="deleteImageCheckbox">現在の画像を削除する</label>
-              </div>  
-
               <div class="mb-3"> <!--現在の画像-->
                 <img src="{{ memo.image.url }}" alt="画像" style="max-width: 380px; height: auto; display: block; margin: 10px auto;">
               </div>
-            {% endif %}
+              {% endif %}
+              
           </div>
           <div class="modal-footer">
             <a href="{% url 'app:memo_delete' memo.id %}"
