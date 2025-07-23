@@ -25,6 +25,22 @@
     text-overflow: ellipsis;
     max-width: 200px;
   }
+
+  .modal-content {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+  .modal-header,
+  .modal-footer {
+    flex-shrink: 0;
+}
+
+  .modal-body {
+    flex: 1;
+    overflow-y: auto;
+}
 </style>
 
 
@@ -32,61 +48,63 @@
 <div class="modal fade" id="memoModal{{ memo.id }}" tabindex="-1" aria-labelledby="memoModalLabel{{ memo.id }}" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
-        <form method="POST" class="edit-memo-form" enctype="multipart/form-data" action="{% url 'app:memo_detail' memo.id %}">
-          {% csrf_token %}
-          <div class="modal-header">
-            <h5 class="modal-title" id="memoModalLabel{{ memo.id }}"></h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
-          </div>
+        
+        <div class="modal-header">
+          <h5 class="modal-title" id="memoModalLabel{{ memo.id }}"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="閉じる"></button>
+        </div>
 
-          <div class="modal-body">
+        <div class="modal-body">
+          <form method="POST" class="edit-memo-form" enctype="multipart/form-data" action="{% url 'app:memo_detail' memo.id %}">
+            {% csrf_token %}
 
             <!-- タイトル -->
             <div class="mb-3">
                 <label for="memo_title">タイトル</label>
                 <input type="text" name="memo_title" class="form-control" value="{{ memo.memo_title }}">
-              </div>
-  
-              <!-- 本文 -->
-              <div class="mb-3">
-                <label for="content">本文</label>
-                <textarea name="content" class="form-control" rows="8">{{ memo.content }}</textarea>
-              </div>
-  
-              <!-- 画像 -->
-              <div class="mb-3 d-flex align-items-center">
-                <label for="edit_image_{{ memo.id }}" class="memo-file-label me-2">ファイルを選択</label>
-                <input type="file" 
-                       id="edit_image_{{ memo.id }}" 
-                       name="image" 
-                       accept="image/*" 
-                       class="memo-file-input"
-                       onchange="handleFileSelect(this, '{{ memo.id }}')">
-                <span id="filename-display-{{ memo.id }}" class="memo-file-name">
-                  {% if memo.image %}
-                    {{ memo.image.name|cut:"memo_images/" }}
-                  {% else %}
-                    ファイル未選択
-                  {% endif %}
-                </span>
-              </div>
+            </div>
 
-              {% if memo.image %}
-              <div class="mb-3"> <!--現在の画像-->
-                <img src="{{ memo.image.url }}" alt="画像" style="max-width: 380px; height: auto; display: block; margin: 10px auto;">
-              </div>
-              {% endif %}
+            <!-- 本文 -->
+            <div class="mb-3">
+              <label for="content">本文</label>
+              <textarea name="content" class="form-control" rows="8">{{ memo.content }}</textarea>
+            </div>
+
+            <!-- 画像 -->
+            <div class="mb-3 d-flex align-items-center">
+              <label for="edit_image_{{ memo.id }}" class="memo-file-label me-2">ファイルを選択</label>
+              <input type="file" 
+                      id="edit_image_{{ memo.id }}" 
+                      name="image" 
+                      accept="image/*" 
+                      class="memo-file-input"
+                      onchange="handleFileSelect(this, '{{ memo.id }}')">
+              <span id="filename-display-{{ memo.id }}" class="memo-file-name">
+                {% if memo.image %}
+                  {{ memo.image.name|cut:"memo_images/" }}
+                {% else %}
+                  ファイル未選択
+                {% endif %}
+              </span>
+            </div>
+
+            {% if memo.image %}
+            <div class="mb-3"> <!--現在の画像-->
+              <img src="{{ memo.image.url }}" alt="画像" style="max-width: 380px; height: auto; display: block; margin: 10px auto;">
+            </div>
+            {% endif %}
               
-          </div>
-          <div class="modal-footer">
-            <a href="{% url 'app:memo_delete' memo.id %}"
-              class="btn btn-danger"
-              onclick="return confirm('本当にこのメモを削除してもよろしいですか？')">
-              削除
-            </a>
-            <button type="submit" class="btn btn-primary memo-edit-submit-btn">完了</button> 
-          </div>
-        </form>
+        </div>
+
+        <div class="modal-footer">
+          <a href="{% url 'app:memo_delete' memo.id %}"
+            class="btn btn-danger"
+            onclick="return confirm('本当にこのメモを削除してもよろしいですか？')">
+            削除
+          </a>
+          <button type="submit" class="btn btn-primary memo-edit-submit-btn">完了</button> 
+          </form>
+        </div>
       </div>
     </div>
 </div>  
