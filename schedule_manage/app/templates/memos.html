@@ -19,10 +19,10 @@
 
   .memo-card {
     background-color: #fff0f5;
-    padding: 10x; /* ←いじらない */
+    padding: 6px 10x; /* ←いじらない */
     width: 100%;
-    max-width: 280px;
-    height: 200px; /* カードの高さを統一 */
+    max-width: 290px;
+    height: 180px; /* カードの高さを統一 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -71,8 +71,12 @@
     font-size: 14px; /* タイトルの文字を小さく */
     font-weight: bold;
     margin-bottom: 5px;
-
   }
+
+  .memo-card-container {
+    padding-bottom: 80px; /* ← ページネーションに被り防止 */
+  }
+
   .memo-list-clamp {
     display: -webkit-box;    /* 複数行表示のため設定 */
     -webkit-line-clamp: 2;  /* 2行まで */
@@ -107,7 +111,6 @@
    メモ新規作成＋
 </a>
     
-
 
 <!--メモ一覧の表示カード-->
 <div class="container memo-card-container">
