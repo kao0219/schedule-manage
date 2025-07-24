@@ -19,9 +19,10 @@
 
   .memo-card {
     background-color: #fff0f5;
-    padding: 15px;
-    height: 150px; /* カードの高さを統一 */
-    padding: 15px;
+    padding: 10x; /* ←いじらない */
+    width: 100%;
+    max-width: 250px;
+    height: 200px; /* カードの高さを統一 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -32,11 +33,11 @@
   }
   
   .memo-card img {
-    height: 50px;
+    max-height: 100px;
     width: auto;
     object-fit: contain;  /* 画像が枠に収まるよう調整 */
     display: block;
-    margin: 0 auto;
+    margin: auto;
   }
 
   .memo-card:hover {
@@ -70,6 +71,7 @@
     font-size: 14px; /* タイトルの文字を小さく */
     font-weight: bold;
     margin-bottom: 5px;
+
   }
   .memo-list-clamp {
     display: -webkit-box;    /* 複数行表示のため設定 */
