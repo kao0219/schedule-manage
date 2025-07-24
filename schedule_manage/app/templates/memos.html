@@ -19,10 +19,9 @@
 
   .memo-card {
     background-color: #fff0f5;
-    padding: 6px 10x; /* ←いじらない */
-    width: 100%;
-    max-width: 290px;
-    height: 150px; /* カードの高さを統一 */
+    padding: 1px; /* ←いじらない */
+    max-width: 100%;
+    height: 220px; /* カードの高さを統一 */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -110,10 +109,10 @@
 
 <!--メモ一覧の表示カード-->
 <div class="container memo-card-container">
-  <div class="row row-cols-2 row-cols-lg-4 g-4">
+  <div class="row g-3">
     {% for memo in page_obj %}
-      <div class="col">
-        <div class="card h-100 memo-card" style="text-align: center;">
+      <div class="col-6 col-lg-3">
+        <div class="card memo-card text-center">
           <div class="card-body">
             <h5 class="card-title">{{ memo.memo_title }}</h5>
             <p class="memo-list-clamp">{{ memo.content|linebreaksbr }}</p>
