@@ -33,14 +33,14 @@
     border-radius: 8px;
     transition: background-color 0.3s;
     overflow: hidden;
+    box-sizing: border-box;  /* ← paddingを高さに含める */
   }
 
   .memo-card img {
-    max-height: 100px;
-    width: auto;
+    max-height: 80px;
+    margin-bottom: 10px;
     object-fit: contain;  /* 画像が枠に収まるよう調整 */
     display: block;
-    margin: 5px auto 8px auto;
   }
 
   .memo-card:hover {
