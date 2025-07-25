@@ -21,7 +21,7 @@
     background-color: #fff0f5;
     padding: 1px; /* ←いじらない */
     max-width: 100%;
-    height: 200px; /* カードの高さを統一 */
+    height: 210px; /* カードの高さを統一 210ないと画像がギリギリ*/
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -37,6 +37,7 @@
     object-fit: contain;  /* 画像が枠に収まるよう調整 */
     display: block;
     margin: auto;
+    margin-bottom: 8px !important;
   }
 
   .memo-card:hover {
