@@ -105,7 +105,13 @@ class ScheduleForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['color'].choices = [('', '好きな色を選択')] + list(self.fields['color'].choices) 
+
+        color_choices = list(Schedule.COLOR_CHOICES)
+        self.fields['color'].choices = [('', '好きな色を選択')] + color_choices
+
+        # 未選択OK
+        self.fields['color'].required = False
+
 
 
 class CommentForm(forms.ModelForm):
