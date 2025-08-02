@@ -2,7 +2,7 @@
 {% block content %}
 
 <div id="help-link">
-  <a href="{% url 'app:calendar_info' %}" class="calendar-info-link">📘 カレンダー機能について</a>
+  <a href="{% url 'app:calendar_info' %}" class="calendar-info-link">⚠️ カレンダー機能について</a>
 </div>
 
 
@@ -27,6 +27,21 @@
         margin-left: 20px;  /* ← 左に余白 */
         margin-top: 10px;
         font-size: 14px;
+        color: red; 
+        font-weight: bold;
+        text-decoration: none;
+        padding: 6px 10px;
+        border: 1px solid rgba(255, 0, 0, 0.4);
+        border-radius: 6px;
+        background-color: yellow; 
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        transition: background-color 0.2s ease;
+    }
+
+    .calendar-info-link:hover {
+        background-color: #fffbdf; 
+        color: red; /* ホバー時も赤文字のまま */
+        text-decoration: none;
     }
 
     #calendar {
